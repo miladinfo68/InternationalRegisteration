@@ -1,0 +1,46 @@
+﻿@using ISR.Resources
+<div class="col-md-12 headerBox">
+    <div class="row">
+        <div class="col-md-3 headerRight">
+            <div class="logoBox">
+                <img src="~/Content/images/iauec-logo-tr.png" alt="@Resources.OrganizationTitle" />
+            </div>
+        </div>
+        <div class="col-md-6 headerCenter">
+            <div class="siteTitle">
+                <span>@Resources.OrganizationTitle</span>
+            </div>
+            <div class="siteSubTitle">@Resources.ApplicationTitle</div>
+        </div>
+        <div class="col-md-3 headerLeft">
+            @if (Session["UserCmsInfo"] != null)
+            {
+                <div>                   
+                    <a href="/" id="btnSignoutUserCms" class="btnSignoutUserCms" data-lang="fa-IR">
+                        <i class="fa fa-sign-out"></i> <span>خروج</span>
+                    </a>
+                </div>
+            }          
+            <input type="hidden" id="hdnCulture" value="fa-IR" />           
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#btnSignoutUserCms").on("click", function (e) {
+        //alert();
+        //return false;
+        e.preventDefault();
+        $.ajax({
+            url: "/fa/Account/LogOutCMS",
+            type: 'POST',
+            success: function (result) {
+                if (result.LogOutResult) {
+                    window.location.href = "/fa/Account/LoginCMS"
+                }
+            },
+            error: function (jqXHR, exception) {
+                alert("WOW Error Occured !!!!", "Error Message")
+            }
+        });
+    });
+</script>

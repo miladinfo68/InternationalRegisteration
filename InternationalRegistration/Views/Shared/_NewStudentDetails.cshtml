@@ -1,0 +1,68 @@
+﻿@using ISR.Resources
+@model ISR.web.Models.NewStudentViewModel
+<div class="w-100 ">
+    @if (Model != null)
+    {
+        <div id="alert_register_reqNo" class="row">
+            @*<div class="alert alert-danger">درخواستی با شماره وارد شده وجود ندارد؟</div>*@
+        </div>
+        <div class="row myrow">
+            <div class="col-md-2  lbl">@Resources.StudentCode</div>
+            <div class="col-md-2  ">
+                <span id="spStudentCode">@Model.StudentCode</span>
+            </div>
+            <div class="col-md-2  lbl">@Resources.RequestId</div>
+            <div class="col-md-2 ">
+                <input id="spRequestId" type="text" class="form-control" value="@Model.RequestId" maxlength="10" />
+                @*<span id="spRequestId">@Model.RequestId </span>*@
+            </div>
+            <div class="col-md-2  lbl">@Resources.Gender</div>
+            <div class="col-md-2 ">
+                <span id="spGender">@Model.Gender</span>
+            </div>
+        </div>
+
+        <div class="row myrow">
+            <div class="col-md-2  lbl">@Resources.Firstname</div>
+            <div class="col-md-2 ">
+                <span id="spFirstName">@Model.FirstName</span>
+            </div>
+            <div class="col-md-2  lbl">@Resources.Lastname</div>
+            <div class="col-md-2 ">
+                <span id="spLastName">@Model.LastName </span>
+            </div>
+            <div class="col-md-2 lbl">@Resources.FathersName</div>
+            <div class="col-md-2 ">
+                <span id="spFatherName">@Model.FatherName</span>
+            </div>
+        </div>
+
+        <div class="row myrow">
+            <div class="col-md-2  lbl">@Resources.Field_Id</div>
+            <div class="col-md-2 ">
+                <span id="spFeildIdSazman">@Model.FeildIdSazman</span>
+            </div>
+            <div class="col-md-2  lbl">@Resources.Field_Title</div>
+            <div class="col-md-2 ">
+                <span id="spFeildTitle">@Model.FeildTitle </span>
+            </div>
+            <div class="col-md-2  lbl">@Resources.Level</div>
+            <div class="col-md-2 ">
+                <span id="spGraduateLevelTitle">@Model.GraduateLevelTitle</span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row myrow">
+            <div class="col-md-12 ">
+                <div class="title-center"><span>در خواست نامعتبر می باشد!!!</span></div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+

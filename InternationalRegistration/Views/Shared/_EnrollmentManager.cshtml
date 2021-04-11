@@ -1,0 +1,260 @@
+﻿@using ISR.Resources
+@using ISR.Commons.enums
+@model  ISR.web.Models.NewStudentInfoViewModel
+@if (Model != null)
+{
+    <div class="w-100">
+        <div id="contentHeight" class="col-md-12 contentBox">
+            <div class="row fullHeight">
+                <div class="col-md-12 p-4">
+                    <div class="row">
+                        <div class="col-md-12 title-center">
+                            <span>@Resources.RequestDetails</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group form-inline">
+                                <div class="col-10">
+                                    <div class="row">
+                                        <input type="hidden" id="hdn_RequestId" value="@Model.RequestId" />
+                                        <input type="hidden" id="hdn_StudentId" value="@Model.StudentId" />
+                                        <input type="hidden" id="hdn_Term" value="@Model.term" />
+                                        <input type="hidden" id="hdn_CurrentTerm" value="@Model.CurrentTerm" />
+                                        <input type="hidden" id="hdn_Voroodi" value="@Model.vorodi" />
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group form-inline">
+                                                <label class="col-5 lbl-f-w">@Resources.Firstname :</label>
+                                                <input type="text" id="txtFirstName" value="@Model.name" class="form-control col-7" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group form-inline">
+                                                <label class="col-5 lbl-f-w">@Resources.Lastname :</label>
+                                                <input type="text" id="txtLastName" value="@Model.family" class="form-control col-7" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group form-inline">
+                                                <label class="col-5 lbl-f-w">@Resources.Gender :</label>
+                                                @Html.DropDownList("drpGender", (SelectList)TempData["drpGender"], new { @class = "form-control col-7" })
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group form-inline">
+                                                <label class="col-5 lbl-f-w">@Resources.FathersName :</label>
+                                                <input type="text" id="txtFathersName" value="@Model.namep" class="form-control col-7" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group form-inline">
+                                                <label class="col-5 lbl-f-w">کد ملی(شماره پاسپورت) :</label>
+                                                <input type="text" id="txtNationalCode" value="@Model.idd_meli" class="form-control col-7" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group form-inline">
+                                                <label class="col-5 lbl-f-w">کد دانشجویی :</label>
+                                                <input type="text" id="txtStudentCode" value="@Model.stcode" class="form-control col-7" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    @*<div class="form-group form-inline">
+                    <a data-fancybox="gallery" href="@TempData["imageUrl"].ToString())">
+                        <img src="@TempData["imageUrl"].ToString()" alt="image not found" class="img-thumbnail" />
+                    </a>
+                </div>*@
+                                    @foreach (var item in Model.StudentDocs.Where(c => c.Category == (byte)DocType.PersonalPicture))
+                                    {
+                                        <a data-fancybox="gallery" href="@(item.Path + "/" + item.FileName +"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())">
+                                            <img class="pics" src="@(item.Path + "/" + item.FileName +"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())" id="@item.Id.ToString()" />
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">کد رشته ازمون :</label>
+                                        <input type="text" id="txtIdReshsazman" maxlength="10" value="@Model.idreshSazman.ToString()" class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">نام رشته در سیدا :</label>
+                                        <input type="text" id="txtSidaTitleReshsazman" value="@Model.SidaFieldTitle" disabled class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">مقطع قبولی :</label>
+                                        @Html.DropDownList("drpSazmanLevel", (SelectList)TempData["drpSazmanLevel"], new { @class = "form-control col-7" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">دین :</label>
+                                        @Html.DropDownList("drpReligion", (SelectList)TempData["drpReligion"], new { @class = "form-control col-7" })
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">کد رشته انخابی در سامانه بین الملل :</label>
+                                        <input type="text" id="txtFieldId" maxlength="10" value="@Model.InteFieldId" disabled class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">نام رشته انخابی در سامانه بین الملل :</label>
+                                        <input type="text" id="txtFieldTitle" value="@Model.InteFielTitle" disabled class="form-control col-7" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">ملیت :</label>
+                                        @Html.DropDownList("drpNationality", (SelectList)TempData["drpNationality"], new { @class = "form-control col-7" })
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">کد محل تولد :</label>
+                                        <input type="text" id="txtBirthPlace" maxlength="10" value="@Model.mahal_tav.ToString()" class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w"> کد محل صدور :</label>
+                                        <input type="text" id="txtIssuePlace" maxlength="10" value="@Model.mahal_sodor.ToString()" class="form-control col-7" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">وضعیت جسمانی :</label>
+                                        @Html.DropDownList("drpSidaHealthStatus", (SelectList)TempData["drpSidaHealthStatus"], new { @class = "form-control col-7" })
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">سهمیه :</label>
+                                        <input type="text" id="txtSahmiyeh" value="0" disabled class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">وضعیت تاهل :</label>
+                                        @Html.DropDownList("drpSidaMarritalStatus", (SelectList)TempData["drpSidaMarritalStatus"], new { @class = "form-control col-7" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">ردیف قبولی :</label>
+                                        <input type="text" id="txtRadifGhabooli" maxlength="10" value="@Model.radif_gh" class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">رتبه قبولی :</label>
+                                        <input type="text" id="txtRotbehGhabooli" maxlength="10" value="@Model.rotbeh_gh" class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">نمره قبولی :</label>
+                                        <input type="text" id="txtNomrehGhabooli" maxlength="10" value="@Model.nomreh_gh" class="form-control col-7" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">تلفن :</label>
+                                        <input type="text" id="txtTelephone" maxlength="20" value="@Model.tel" class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">ایمیل :</label>
+                                        <input type="text" id="txtEmail" value="@Model.email" class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">کد رایانه :</label>
+                                        <input type="text" id="txtCodeRayaneh"  maxlength="20" value="" class="form-control col-7" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group form-inline">
+                                        <label class="col-2 lbl-f-w">آدرس :</label>
+                                        <input type="text" id="txtAddress" value="@Model.addressd" class="form-control col-10" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">تلفن :</label>
+                                        <input type="text" id="txtPhoneNo"  maxlength="20" value="@Model.tel" class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">موبایل :</label>
+                                        <input type="text" id="txtMobile"  maxlength="20" value="@Model.mobile" class="form-control col-7" />
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group form-inline">
+                                        <label class="col-5 lbl-f-w">کد پستی :</label>
+                                        <input type="text" id="txtPostalCode"  maxlength="20" value="@Model.code_posti" class="form-control col-7" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                @foreach (var item in Model.StudentDocs.Where(c => c.Category != (byte)DocType.PersonalPicture))
+                                {
+                                    <div class="col-md-4 requestDetailsDoc">
+                                        <div class="requestDetailsDocTitle">
+                                            <span>@item.CategoryTitle</span>
+                                        </div>
+                                        <div class="requestDetailsDocImage">
+                                            <a data-fancybox="gallery" href="@(item.Path + "/" + item.FileName +"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())">
+                                                <img class="pics" src="@(item.Path + "/" + item.FileName +"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())" id="@item.Id.ToString()" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

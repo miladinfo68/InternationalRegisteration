@@ -1,0 +1,176 @@
+﻿@using ISR.Resources
+@model List<ISR.web.Models.RequestViewModel>
+@{
+    ViewBag.Title = "ReviewRequests";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<style>
+    .reqTopBox {
+        border-bottom: 1px solid #ccc;
+        border-right: 2px solid #ccc;
+        padding: 5px 15px;
+        margin: 10px 0 50px 0;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .cntr {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lbl-f-w {
+        font-weight: bold;
+    }
+
+    #rejModal .modal-title {
+        text-align: center;
+    }
+
+    #rejModal .close {
+        margin: 10px;
+    }
+
+    #rejModal .m-ftr, #rejModal .m-bdy {
+        margin: auto;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+        #rejModal .m-bdy > label {
+            font-weight: bold;
+        }
+</style>
+
+<div class="manager_allreq w-100">
+    <div id="contentHeight" class="col-md-12 contentBox">
+        <div class="row fullHeight">
+            <div class="col-md-12">
+                <div class="col-md-12 reqTopBox">
+                    <span>@Resources.InternationalOfficeManagerPanel</span>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="form-group form-inline">
+                            <label class="lbl-f-w">@Resources.RequestStatus :</label>
+                            @Html.DropDownList("ddlStatus", (SelectList)ViewBag.StatusList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="form-group form-inline">
+                            <label class="lbl-f-w">@Resources.TermsLable :</label>
+                            @Html.DropDownList("ddlTerms", (SelectList)ViewBag.Terms, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="cntr">
+                            @*@Html.ActionLink(@Resources.btnShow, "AllRequests", "Expert", new { id = "1", title = "mmm" }, new { @class = "btn btn-info"  })*@
+                            <input type="button" name="btnShowRequests" id="btnShowRequests" value="@Resources.btnShow" class="btn btn-info" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <table id="tblAllRequests" class="table table-bordered bg-ddd">
+                    <thead>
+                        <tr>
+                            <td>@Resources.RequestId</td>
+                            <td>@Resources.Firstname</td>
+                            <td>@Resources.Lastname</td>
+                            <td>@Resources.FathersName</td>                     
+                            <td>@Resources.StudentNationality</td>
+                            <td>@Resources.Action</td>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="rejModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div>
+                    <h5 class="modal-title alert alert-danger" id="exampleModalLabel">@Resources.RejectTitle</h5>
+                </div>
+                <div class="row m-bdy">
+                    <label>@Resources.RequestNo : <span id="rej_req_no"></span></label>
+                </div>
+                <div class="m-ftr">
+                    <button type="button" id="btnConfirmRejectRequest" class="btn btn-success">@Resources.btnSave</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script type="text/javascript">           
+
+     //====================================
+
+        $(document).on('click', '#rejModal .b_reject', function (e) {
+            var reqId=$(this).attr("data-reqId");
+            e.preventDefault();
+            $("#rej_req_no").text(reqId);
+            $("#rejModal").modal('show');
+             return false;
+        });
+        //====================================
+        $(".manager_allreq #btnConfirmRejectRequest").on("click", function (e) {
+                debugger;
+                var s = $(".manager_allreq #ddlStatus").val();
+                var t = $(".manager_allreq #ddlTerms").val();
+                var reqId=$("#rej_req_no").text();
+                $.ajax({
+                    url: '/fa/Management/RejectRequest',
+                    type: 'POST',
+                    data: { "ReqStatus": s, "Term": t, "RequestID": reqId },
+                    success: function (rows) {
+                        debugger;
+                        var $tbody = $("#tblAllRequests tbody");
+                        $tbody.html('');
+                        var trs = "";
+                        var bgcolor = "class=\"table-success\"";
+                        for (var i = 0; i < rows.Result.length; i++) {
+                             bgcolor = (i % 2) == 0 ? "class=\"table-success\"" : "class=\"table-danger\"";
+                            //trs += '<tr><td>' + rows.Result[i]["RequestID"] + '</td><td>' + rows.Result[i]["FirstName"] + '</td><td>' + rows.Result[i]["LastName"] + '</td><td>' + rows.Result[i]["FatherName"] + '</td><td>' + rows.Result[i]["FieldID"] + '</td><td>' + rows.Result[i]["FieldTitle"] + '</td><td>' + rows.Result[i]["CountryId"] + '</td><td>' + rows.Result[i]["CountryTitle"] + '</td>'
+                             trs += '<tr '+ bgcolor+'><td>' + rows.Result[i]["RequestID"] + '</td><td>' + rows.Result[i]["FirstName"] + '</td><td>' + rows.Result[i]["LastName"] + '</td><td>' + rows.Result[i]["FatherName"] + '</td><td>' + rows.Result[i]["CountryTitle"] + '</td>'
+                             trs += '<td><a href="/fa/Management/RequestDetails/' + rows.Result[i]["RequestID"] + '" class="btn btn-info b_show">@Resources.RequestDetails</a></td></tr>'
+                            @*switch (s) {
+                                case "1"://inprogress
+                                    trs += '<td><a href="/fa/Management/RequestDetails/' + rows.Result[i]["RequestID"] + '" class="btn btn-info b_show">@Resources.RequestDetails</a> <a href="#" data-reqId="' + rows.Result[i]["RequestID"] + '" class="btn btn-danger b_reject">@Resources.btnRejectRequest</a> <a href="#" data-reqId="' + rows.Result[i]["RequestID"] + '"  class="btn btn-success b_accept">@Resources.btnAcceptRequest</a></td></tr>'
+                                    break;
+                                case "3"://first-accept
+                                case "4"://reject
+                                       trs += '<td><a href="/fa/Management/RequestDetails/' + rows.Result[i]["RequestID"] + '" class="btn btn-info b_show">@Resources.RequestDetails</a></td></tr>'
+                                    break;
+                                default:
+                                    trs = "";
+                            }*@
+                        }
+                        $tbody.html(trs);
+                        $("#rejModal").modal('hide');
+                    },
+                    error: function (jqXHR, exception) {
+                        alert("WOW Error Occured !!!!", "Error Message")
+                    }
+                });
+            });
+
+    </script>
+}
+
+
+
+
+

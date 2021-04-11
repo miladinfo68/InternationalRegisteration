@@ -1,0 +1,127 @@
+﻿@using ISR.Resources
+@model ISR.web.Models.PrintViewModel
+
+@{
+    ViewBag.Title = "ShowDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="printWrapper">
+    <div id="printableArea">
+
+        <table>
+            <tbody>
+                <tr>
+                    <td class="printpage-td-logo">
+                        <a data-fancybox="gallery" href="@ViewBag.Logo ">
+                            <img src="@ViewBag.Logo " width="67" height="100" alt="@Resources.OrganizationTitle" />
+                        </a>
+                    </td>
+                    <td colspan="2" class="printpage-td-center">
+                        <span class="siteTitle" >@Resources.OrganizationTitle </span>
+                        <br />
+                        <span class="siteSubTitle">@Resources.ApplicationTitle </span>                      
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <table id="tblReqDetails" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th colspan="7"><strong>@Resources.RequestDetails</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong> @Resources.RequestId:</strong></td>
+                <td><span>@Model.RequestId</span></td>
+
+                <td><strong>@Resources.RequestStatus:</strong></td>
+                <td><span>@Model.RequestStutus</span></td>
+
+                <td><strong>@Resources.RequestDate:</strong></td>
+                <td><span>@Model.CreateDate.ToString("yyyy/MM/dd")</span></td>
+
+                <td>
+                    <a data-fancybox="gallery" href="@Model.PeronalImagePath">
+                        <img src="@Model.PeronalImagePath" width="110" height="150" />
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table id="tblPerson_Info" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th colspan="6"><strong>@Resources.PersonalInfo</strong></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong> @Resources.Firstname:</strong></td>
+                <td><span>@Model.FirstName</span></td>
+
+                <td><strong>@Resources.Lastname:</strong></td>
+                <td><span>@Model.LastName</span></td>
+
+                <td><strong>@Resources.FathersName:</strong></td>
+                <td><span>@Model.FathersName)</span></td>
+            </tr>
+
+            <tr>
+                <td><strong> @Resources.Citizenship:</strong></td>
+                <td><span>@Model.FirstCitizenShip</span></td>
+
+                <td><strong>@Resources.DocNumber:</strong></td>
+                <td colspan="3"><span>@Model.IdNo</span></td>
+
+            </tr>
+
+            <tr>
+                <td><strong> @Resources.Last_Level:</strong></td>
+                <td colspan="3"><span>@Model.CurrentLavel</span></td>
+
+                <td><strong>@Resources.Current_Level:</strong></td>
+                <td><span>@Model.LastLavel</span></td>
+            </tr>
+        </tbody>
+    </table>
+  
+    <table id="tblCandidateFields" class="table table-bordered table-striped">
+        <thead class="thead-light">
+            <tr >
+                <th class="candid" colspan="4"><strong>@Resources.CandidateFields</strong></th>
+            </tr>
+            <tr class="hd">
+                <td><strong>@Resources.RowNumber</strong></td>
+                <td><strong>@Resources.Field_Id</strong></td>
+                <td><strong>@Resources.Field</strong></td>
+                <td><strong>@Resources.College</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                for (int i = 0; i < Model.CandidateFields.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@Model.CandidateFields[i].FiledId</td>
+                        <td>@Model.CandidateFields[i].FiledTitle</td>
+                        <td>@Model.CandidateFields[i].CollageTitle</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+</div>
+
+<div class="row centerlization">
+    <div class="col-md-12 ">
+        <input type="button" id="btnPrintInfo" class="btn btn-success" value="@Resources.Print" data-lang="@Session["lang"].ToString()" />
+        <input type="button" id="btnComeBack" class="btn btn-info" value="@Resources.Return" data-lang="@Session["lang"].ToString()" />
+    </div>
+</div>
+<br />
+<br />
+

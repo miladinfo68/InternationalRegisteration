@@ -1,0 +1,822 @@
+@font-face {
+    font-family: 'AIranianSans';
+    src: url('fonts/AIranianSans.eot');
+    src: url('fonts/AIranianSans.eot?#iefix') format('embedded-opentype'), url('fonts/AIranianSans.woff2') format('woff2'), url('fonts/AIranianSans.woff') format('woff'), url('fonts/AIranianSans.svg#AIranianSans') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'IranNastaliq';
+    src: url('fonts/IranNastaliq.eot');
+    src: url('fonts/IranNastaliq.eot?#iefix') format('embedded-opentype'), url('fonts/IranNastaliq.woff2') format('woff2'), url('fonts/IranNastaliq.woff') format('woff'), url('fonts/IranNastaliq.svg#IranNastaliq') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html, body {
+    font-family: 'AIranianSans';
+}
+
+.headerBox {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    box-shadow: 0 4px 2px -2px #ccc;
+    z-index: 2;
+}
+
+.headerLeft {
+    padding-top: 15px;
+}
+
+.logoBox {
+    text-align: center;
+}
+
+    .logoBox img {
+        height: 100px;
+    }
+
+.siteTitle {
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    font-family: 'IranNastaliq';
+    color: #303099;
+    line-height: 64px;
+    padding-top: 10px;
+}
+
+.siteSubTitle {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #303099;
+    line-height: 16px;
+}
+
+.contentBox {
+    background: #eee;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    box-shadow: 0 4px 2px -2px #bbb;
+    z-index: 1;
+}
+
+.contentCenter {
+    position: relative;
+    height: 50px;
+}
+
+.centerLine {
+    position: absolute;
+    height: 1px;
+    margin: auto;
+    left: 75px;
+    right: 75px;
+    top: 0;
+    bottom: 0;
+    background: #ccc;
+}
+
+.centerOr {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    font-size: 26px;
+    background: #eee;
+    z-index: 1;
+    width: 50px;
+    height: 40px;
+}
+
+.loginBox {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px 2px #ddd;
+    margin-top: 15px;
+    position: relative;
+}
+
+.loginTitle {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #303099;
+}
+
+.loginError {
+    display: none;
+    margin-top: 15px;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.siteSubTitle {
+    margin-bottom: 15px;
+}
+
+.signupBox {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px 2px #ddd;
+    margin-bottom: 15px;
+}
+
+    .signupBox .form-group {
+        text-align: right;
+    }
+
+.signupTitle {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #303099;
+}
+
+.signupError, .signupSuccess {
+    display: none;
+    text-align: justify;
+}
+
+.btnSignout {
+    margin: 5px 0;
+    display: inline-block;
+    font-size: 14px;
+    text-decoration: none;
+    color: #666;
+    transition: all 0.5s;
+}
+
+    .btnSignout:hover, .btnSignout:active, .btnSignout:focus {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+
+.footerBox {
+    background: #ddd;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    text-align: center;
+    padding: 15px;
+    font-size: 11px;
+}
+
+.footerLinks a {
+    display: block;
+    color: #666;
+    margin: 5px 0;
+    transition: all 0.2s;
+}
+
+    .footerLinks a:hover {
+        color: #333;
+    }
+
+    .footerLinks a:hover, .footerLinks a:active, .footerLinks a:focus {
+        text-decoration: none;
+    }
+
+.footerCenter {
+    font-weight: bold;
+    padding: 28px 15px;
+    line-height: 12px;
+    color: #666;
+}
+
+.searchField label {
+    margin-bottom: 0;
+}
+
+#tblFields > tbody > tr > td:first-child, #tblFields > tbody > tr > td:last-child {
+    /*text-align: center;*/
+}
+
+.btnRemoveField {
+    font-family: tahoma;
+    line-height: 20px;
+}
+
+.ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+    font-family: 'AIranianSans';
+}
+
+#tabs {
+    min-height: 95%;
+    width: 100%;
+}
+
+
+.buttonsWrapper {
+    text-align: center;
+}
+
+#txtCitizen, #txtSecondCitizen {
+    display: none;
+}
+
+.requestsTopBox {
+    border-bottom: 1px solid #ccc;
+    border-right: 2px solid #ccc;
+    padding: 5px 15px;
+    margin: 15px 0;
+}
+
+    .requestsTopBox span {
+        font-weight: bold;
+    }
+
+.requestDetailsInfo {
+    margin: 15px 0;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+.requestDetailsDoc {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    text-align: center;
+    padding: 15px;
+}
+
+.requestDetailsDocTitle {
+    font-weight: bold
+}
+
+.requestDetailsDocStatus {
+    font-size: 14px;
+    padding: 0 0 15px 0;
+}
+
+.requestDetailsDocImage {
+    padding: 10px;
+    height: 150px;
+}
+
+.requestDetailsDoc img {
+    max-width: 80%;
+    max-height: 100%;
+}
+
+.requestDetailsDocAction .btn {
+    font-size: 12px;
+}
+
+.managementButton {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+    .managementButton i {
+        font-size: 28px;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+
+    .managementButton:hover, .managementButton:active, .managementButton:focus {
+        text-decoration: none;
+    }
+
+.bg-ddd {
+    background: #ddd;
+}
+
+    .bg-ddd > thead > tr {
+        background: #bbb;
+    }
+
+.table.bg-ddd > tbody > tr:nth-child(2n) {
+    background: #e3e3e3;
+}
+
+.mobileTextBox {
+    width: 80%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    display: inline-block;
+    border-left: none;
+    direction: ltr;
+    text-align: left;
+}
+
+.phoneCodeDropDown {
+    width: 20%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    display: inline-block;
+}
+
+    .phoneCodeDropDown option {
+        direction: ltr;
+    }
+
+.previewInfoRow {
+    border: 1px solid #ccc;
+    background: #efefef;
+    margin-bottom: 15px;
+}
+
+.previewInfoTitle, .previewInfoEdit {
+    font-weight: bold;
+    display: block;
+    height: calc(100% - 30px);
+    margin: 15px 0;
+}
+
+    .previewInfoEdit .btn {
+        width: 100%;
+        height: 100%;
+        margin-left: 15px;
+        background: #b6d6e6;
+        border-color: #90b9ce;
+        position: relative;
+        padding: 50px 0;
+    }
+
+        .previewInfoEdit .btn span {
+            display: block;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            height: 20px;
+            left: 0;
+            right: 0;
+        }
+
+.forcedLtr {
+    direction: ltr;
+    text-align: left;
+}
+
+.inlineBlock {
+    display: inline-block;
+}
+
+.previewInfoRow .col-md-9 .row {
+    padding: 5px 0;
+}
+
+    .previewInfoRow .col-md-9 .row:nth-child(2n) {
+        background: #e6e6ff;
+    }
+
+.previewInfoRow .col-md-9 {
+    margin: 15px 0;
+}
+
+    .previewInfoRow .col-md-9 fieldset {
+        position: relative;
+        border: 1px solid #b7d2ff;
+        margin-bottom: 10px;
+        min-height: 220px;
+    }
+
+        .previewInfoRow .col-md-9 fieldset legend {
+            position: absolute;
+            top: 0px;
+            background: #b7d2ff;
+            width: 85px;
+            padding: 10px 8px;
+            height: 100%;
+            font-size: 15px;
+            transform: rotate(180deg);
+            line-height: 36px;
+            font-weight: bold;
+            text-align: justify;
+        }
+
+.familyPersons td, .familyPersons th {
+    padding: 3px;
+    text-align: center;
+}
+
+.coloredFieldsets fieldset {
+    background: #e9e9e9;
+}
+
+.coloredFieldsets legend {
+    background: #83c1ff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 8px;
+}
+
+.fieldsTableWrapper {
+    height: 500px;
+    overflow: auto;
+}
+
+    .fieldsTableWrapper .table td, .fieldsTableWrapper .table th {
+        border-top: 1px solid #bbb;
+    }
+
+    .fieldsTableWrapper .table th {
+        position: sticky;
+        top: 0;
+    }
+
+.tabColoredBox {
+    background: #e9e9e9;
+    min-height: 500px;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 15px;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    padding: .5em .75em;
+}
+
+.smallFontLabel {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.passwordRecoveryBox {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    min-height: 50%;
+}
+
+.passwordRecoveryMessage {
+    min-height: 75px;
+    text-align: center;
+}
+
+.Loading {
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+}
+
+    .Loading > div {
+        width: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+        .Loading > div > img {
+            width: 200px;
+            height: 200px;
+        }
+
+            .Loading > div > img.loader-signup {
+                margin: 50% auto;
+            }
+
+            .Loading > div > img.loader-login {
+                margin: 50px auto;
+            }
+
+
+.loadingWrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    direction: rtl;
+    display: none;
+    z-index: 9999;
+}
+
+.loadingInner {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    color: #fff;
+    text-align: center;
+    margin: 150px auto;
+}
+
+    .loadingInner img {
+        width: 200px;
+        height: 200px;
+        text-align: center;
+    }
+
+    .loadingInner div {
+        margin-top: 20px;
+        font-size: 26px;
+    }
+
+
+@media(min-width: 768px) {
+    .loginBox {
+        width: 75%;
+        align-self: center;
+    }
+
+    .signupBox {
+        margin: 25px;
+        width: 75%;
+    }
+
+    .contentRight {
+        display: flex;
+        justify-content: center;
+    }
+
+    .contentLeft {
+        display: flex;
+    }
+
+    .centerOr {
+        width: 100%;
+    }
+
+    .centerLine {
+        position: absolute;
+        width: 1px;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 75px;
+        bottom: 50px;
+        background: #ccc;
+        height: auto;
+    }
+
+    .fullHeight {
+        height: 100%;
+    }
+
+    #contentHeight .row {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        /*align-items: center;*/
+    }
+
+    .helpiii {
+        background: #cfcfd0;
+    }
+
+    .contentCenter {
+        height: 100%;
+    }
+}
+
+
+
+/*-- RTL --*/
+body.direction_rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+.direction_rtl .loginBox .form-group {
+    text-align: right;
+}
+
+.direction_rtl .footerLinks a {
+    text-align: right;
+}
+
+.direction_rtl .ui-tabs .ui-tabs-nav li {
+    float: right;
+}
+
+.direction_rtl .previewInfoTitle {
+    border-left: 1px solid #ccc;
+}
+
+.direction_rtl .previewInfoEdit {
+    border-right: 1px solid #ccc;
+}
+
+.direction_rtl .previewInfoRow {
+    padding-left: 15px;
+}
+
+    .direction_rtl .previewInfoRow .col-md-9 fieldset {
+        padding-right: 99px;
+        margin-right: -15px;
+    }
+
+        .direction_rtl .previewInfoRow .col-md-9 fieldset legend {
+            writing-mode: vertical-rl;
+            right: 15px;
+        }
+
+        .direction_rtl .previewInfoRow .col-md-9 fieldset .row {
+            margin-left: 0;
+        }
+
+    .direction_rtl .previewInfoRow .col-md-9 .row .col-md-3:nth-child(2) {
+        border-left: 1px solid #ccc;
+    }
+
+
+
+@media(min-width: 768px) {
+    .direction_rtl .logoBox {
+        text-align: right;
+    }
+
+    .direction_rtl .headerLeft {
+        text-align: left;
+    }
+}
+/*-- RTL --*/
+
+/*-- LTR --*/
+body.direction_ltr {
+    direction: ltr;
+    text-align: left;
+    font-family: sans-serif;
+}
+
+    body.direction_ltr .siteTitle {
+        font-family: 'Times New Roman';
+        line-height: 42px;
+        font-size: 30px;
+    }
+
+.direction_ltr .loginBox .form-group {
+    text-align: left;
+}
+
+.direction_ltr .footerLinks a {
+    text-align: left;
+}
+
+.direction_ltr .ui-tabs .ui-tabs-nav li {
+    float: left;
+}
+
+.direction_ltr .requestsTopBox {
+    border-right: none;
+    border-left: 2px solid #ccc;
+}
+
+.direction_ltr .previewInfoTitle {
+    border-right: 1px solid #ccc;
+}
+
+.direction_ltr .previewInfoEdit {
+    border-left: 1px solid #ccc;
+}
+
+.direction_ltr .previewInfoRow {
+    padding-right: 15px;
+}
+
+    .direction_ltr .previewInfoRow .col-md-9 fieldset {
+        padding-left: 80px;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+        .direction_ltr .previewInfoRow .col-md-9 fieldset legend {
+            writing-mode: vertical-lr;
+            /*left: 15px;*/
+            text-transform: uppercase;
+            width: 65px;
+            transform: none;
+            line-height: 24px;
+        }
+
+        .direction_ltr .previewInfoRow .col-md-9 fieldset .row {
+            margin-right: 0;
+        }
+
+    .direction_ltr .previewInfoRow .col-md-9 .row .col-md-3:nth-child(2) {
+        border-right: 1px solid #ccc;
+    }
+
+.direction_ltr .familyPersons thead {
+    font-size: 14px;
+}
+
+.direction_ltr #ddlCitizenHomePhoneCode {
+    float: left;
+}
+
+@media(min-width: 768px) {
+    .direction_ltr .logoBox {
+        text-align: left;
+    }
+
+    .direction_ltr .headerLeft {
+        text-align: right;
+    }
+}
+/*-- LTR --*/
+
+#contentHeight .reject_0 {
+    width: 98%;
+    height: 100px;
+    padding: 10px;
+    resize: none;
+}
+
+
+
+#uploadModal .img-wrapper {
+    /*margin: 0 auto;*/
+    width: 100%;
+}
+
+#imgUploader {
+    width: 92%;
+    height: 400px;
+    margin: 4%;
+    display: none;
+}
+
+input#fileUploader {
+    padding: 5px;
+    height: 42px;
+    direction: ltr !important;
+}
+
+button#btnFileUploadr {
+    margin: 10px 0;
+}
+
+.modal-header {
+    display: block;
+}
+
+.direction_rtl button.close {
+    float: left;
+}
+
+.direction_rtl h4.modal-title {
+    float: right;
+}
+
+.direction_ltr button.close {
+    float: right;
+}
+
+.direction_ltr h4.modal-title {
+    float: left;
+}
+
+/***********************/
+#printWrapper {
+    width: 100%;
+    background: #a1a2a440;
+    padding: 20px;
+}
+
+    #printWrapper table {
+        margin-bottom: 50px;
+    }
+
+        #printWrapper table > thead > tr > th {
+            text-align: center;
+        }
+
+#tblReqDetails tbody > tr > td {
+    vertical-align: middle;
+    padding: 5px 8px;
+}
+
+    #tblReqDetails tbody > tr > td:last-child {
+        width: 110px;
+    }
+
+#tblCandidateFields thead > tr > th {
+    background-color: #e7e8e8;
+    color: #212529;
+}
+
+.centerlization {
+    margin: 20px auto;
+}
+
+.printpage-td-center {
+    text-align: center;
+    width: 100%;
+}
+
+
+.confirmCandidateField {
+    width: 83.16px;
+}

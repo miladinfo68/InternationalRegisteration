@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+
+<div class="login-wrapper contentBox">
+    <div class="alert alert-danger hide_alert">
+        <ul>
+            @*<li><h5>نام کاربری یا کلمه عبور صحیح نمی باشد</h5></li>*@
+            <li><h5></h5></li>
+        </ul>
+    </div>
+    <div id="frmLoginCms">
+        <div class="imgcontainer">
+            @*<img src="~/Content/images/cmslogin2.png" alt="Avatar" class="avatar" />*@
+            <img src="~/Content/images/cmslogin.jpg" alt="Avatar" class="avatar" />
+        </div>
+
+        <div class="container">
+            <div class="form-group cmslgn">
+                <input type="text" class="form-control" placeholder="نام کاربری را وارد نمایید" id="txtCmsUserName" name="txtCmsUserName" required>
+                <input type="password" class="form-control" placeholder="کلمه عبور را وراد نمایید" id="txtCmsPassword" name="txtCmsPassword" required>
+            </div>
+            <a href="/" class="btn btn-success form-control " id="btnLoginCms">ورود به سامانه</a>
+            <br /><br />
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $('#frmLoginCms input').on("blur", function () {
+            if ($(this).val().trim() == "") {
+                $(this).css({ "border": "solid 2px red" })
+            } else {
+                $(this).css({ "border": "none" })
+            }
+        })
+
+        //-------------------------------
+
+        function checkInputsValidation() {
+            res = true;
+            if ($("#txtCmsUserName").val().trim() == "") {
+                $("#txtCmsUserName").css({ "border": "solid 2px red" })
+                res = false;
+            } else {
+                $("#txtCmsUserName").css({ "border": "none" })
+            }
+
+            if ($("#txtCmsPassword").val().trim() == "") {
+                $("#txtCmsPassword").css({ "border": "solid 2px red" })
+                res = false;
+            } else {
+                $("#txtCmsUserName").css({ "border": "none" })
+            }
+            return res;
+        }
+
+        $("#txtCmsPassword").on("change", function (e) {
+            if ($("#txtCmsUserName").val().trim() != "") {
+                if ($("#txtCmsPassword").val().trim() != "") {
+                    $("#frmLoginCms #btnLoginCms").focus();
+                }
+            }
+        });
+
+
+        $("#txtCmsPassword").keypress(function (e) {
+            //enter button clicked
+            var code = e.keyCode || e.which;
+            if (code == 13) {
+                $("#frmLoginCms #btnLoginCms").click();
+            }
+        });
+        //-------------------------------
+
+        $("#frmLoginCms #btnLoginCms").on("click", function (e) {
+            e.preventDefault();
+            if (checkInputsValidation()) {
+                var uri = "/fa/Account/LoginCMS";
+                data = { 'username': $("#txtCmsUserName").val(), 'password': $("#txtCmsPassword").val() };
+
+                $.ajax({
+                    url: uri,
+                    type: 'POST',
+                    data: data,
+                    success: function (result) {
+                        if (result.LoginResult) {
+                            window.location = "/fa/Management/Index"
+                        } else {
+                            $(".hide_alert").show();
+                            $(".hide_alert ul>li>h5").text(result.Message);
+                        }
+                    },
+                    error: function (jqXHR, exception) {
+                        alert("WOW Error Occured !!!!", "Error Message")
+                    }
+                });
+            }
+        });
+        //-------------------------------
+    </script>
+}
+

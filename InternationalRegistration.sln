@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISR.web", "InternationalRegistration\ISR.web.csproj", "{2DF30596-52B8-435F-B8AC-2D9ED2F2CA4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISR.Commons", "Commons\ISR.Commons.csproj", "{343770F4-0A91-430F-9531-2E484CF932A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISR.Repository", "Repository\ISR.Repository.csproj", "{C2E8261B-7D41-4DAA-B8A0-9E1EAD450EF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISR.Services", "Services\ISR.Services.csproj", "{20BCB037-08C9-4ACB-B251-2520E95D2259}"
+	ProjectSection(ProjectDependencies) = postProject
+		{072C49A3-00D3-4482-A3F2-FCE7821D1DE7} = {072C49A3-00D3-4482-A3F2-FCE7821D1DE7}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISR.Resources", "Resources\ISR.Resources.csproj", "{36516323-1FC1-46E9-B1FA-ECB9D5935D62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISR.Models", "Models\ISR.Models.csproj", "{072C49A3-00D3-4482-A3F2-FCE7821D1DE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DF30596-52B8-435F-B8AC-2D9ED2F2CA4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DF30596-52B8-435F-B8AC-2D9ED2F2CA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DF30596-52B8-435F-B8AC-2D9ED2F2CA4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DF30596-52B8-435F-B8AC-2D9ED2F2CA4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{343770F4-0A91-430F-9531-2E484CF932A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{343770F4-0A91-430F-9531-2E484CF932A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{343770F4-0A91-430F-9531-2E484CF932A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{343770F4-0A91-430F-9531-2E484CF932A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2E8261B-7D41-4DAA-B8A0-9E1EAD450EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2E8261B-7D41-4DAA-B8A0-9E1EAD450EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2E8261B-7D41-4DAA-B8A0-9E1EAD450EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2E8261B-7D41-4DAA-B8A0-9E1EAD450EF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20BCB037-08C9-4ACB-B251-2520E95D2259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20BCB037-08C9-4ACB-B251-2520E95D2259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20BCB037-08C9-4ACB-B251-2520E95D2259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20BCB037-08C9-4ACB-B251-2520E95D2259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36516323-1FC1-46E9-B1FA-ECB9D5935D62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36516323-1FC1-46E9-B1FA-ECB9D5935D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36516323-1FC1-46E9-B1FA-ECB9D5935D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36516323-1FC1-46E9-B1FA-ECB9D5935D62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{072C49A3-00D3-4482-A3F2-FCE7821D1DE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{072C49A3-00D3-4482-A3F2-FCE7821D1DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{072C49A3-00D3-4482-A3F2-FCE7821D1DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{072C49A3-00D3-4482-A3F2-FCE7821D1DE7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F9ED0F7-E1C3-4623-B747-29CB662209A7}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://192.168.4.21:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = InternationalRegistration\\ISR.web.csproj
+		SccProjectName1 = InternationalRegistration
+		SccLocalPath1 = InternationalRegistration
+		SccProjectUniqueName2 = Repository\\ISR.Repository.csproj
+		SccProjectName2 = Repository
+		SccLocalPath2 = Repository
+		SccProjectUniqueName3 = Services\\ISR.Services.csproj
+		SccProjectName3 = Services
+		SccLocalPath3 = Services
+		SccProjectUniqueName4 = Commons\\ISR.Commons.csproj
+		SccProjectName4 = Commons
+		SccLocalPath4 = Commons
+		SccProjectUniqueName5 = Resources\\ISR.Resources.csproj
+		SccProjectName5 = Resources
+		SccLocalPath5 = Resources
+		SccProjectUniqueName6 = Models\\ISR.Models.csproj
+		SccProjectName6 = Models
+		SccLocalPath6 = Models
+	EndGlobalSection
+EndGlobal

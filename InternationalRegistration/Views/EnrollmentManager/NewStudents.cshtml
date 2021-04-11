@@ -1,0 +1,106 @@
+﻿@model ISR.web.Models.ShowMessageViewModel
+@{
+    ViewBag.Title = "NewStudents";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<style>
+    .ttl {
+        text-align: center;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 2;
+    }
+
+    .wrapper-box {
+        margin: 0 auto;
+        /*padding-top: 100px;*/
+        box-sizing: border-box;
+        width: 75%;
+    }
+
+        .wrapper-box table {
+            font-size: 16px;
+            font-weight: bold;
+            display: inline-table;
+            text-align: right;
+        }
+
+
+        .wrapper-box table {
+            font-size: 24px;
+            font-weight: bold;
+            display: inline-table;
+        }
+
+    .in-file {
+        height: 50px;
+        line-height: 30px;
+        background: #d4dce7;
+    }
+
+    .showMessage {
+        visibility: visible;
+        /*display:block;*/
+    }
+
+    .hideMessage{
+        visibility: hidden;
+         /*display:none;*/       
+    }
+</style>
+
+<div id="contentHeight" class="col-md-12 contentBox new_student_info">
+    <div class="row">
+        <div class="alert alert-info  w-100 ttl">بارگذاری اطلاعات دانشجویان جدید الورد سامانه بین الملل</div>
+    </div>
+    <div class="row @Model.Visibility">
+        <div class="alert @Model.AlertType  w-100 ttl">@Model.Message</div>
+    </div>
+
+    <div class="row ">
+        <div class="wrapper-box">
+            @using (Html.BeginForm("NewStudents", "EnrollmentManager", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <table class="table table-bordered table-responsive">
+                    <tr>
+                        <td>بارگذاری فایل  شامل اطلاعات پایه و رشته ای دانشجو</td>
+                        <td>
+                            <input type="file" name="flNewStudetInfo" id="flNewStudetInfo" class="form-control in-file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>بارگذاری فایل شامل اطلاعات تماس دانشجو</td>
+                        <td>
+                            <input type="file" name="flNewStudetMobile" id="flNewStudetMobile" class="form-control in-file in-file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <input type="submit" name="btnSave" id="btnSave" value="افزودن" class="btn btn-success w-100" />
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+    </div>
+
+    @*<div class="row  @ViewBag.SuccessMessage">
+        <div class="alert alert-success  w-100 ttl">اطلاعات با موفقیت بارگذاری گردید</div>
+    </div>
+    <div class="row  @ViewBag.DangerMessage">
+        <div class="alert alert-danger w-100 ttl">کاربر محترم لطفا فایل حاوی اطلاعات دانشجو و فایل حاوی اطلاعات تماس دانشجو را باهم بارگذاری نمایید</div>
+    </div>
+    <div class="row  @ViewBag.ErrorMessage">
+        <div class="alert alert-danger w-100 ttl">خطا در روند ثبت اطلاعات</div>
+    </div>*@
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+                        //$(".new_student_info").on("click", function (e) {
+                        //    alert();
+                        //});
+    </script>
+}
+

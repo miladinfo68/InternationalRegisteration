@@ -1,0 +1,16 @@
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\bin\Debug\Resources\Resources.resx
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\bin\Debug\Resources\Resources.Designer.cs
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\bin\Debug\Resources.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\bin\Debug\Resources.pdb
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\bin\Debug\ar-IQ\Resources.resources.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\bin\Debug\en-GB\Resources.resources.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\ISR.Resources.csprojAssemblyReference.cache
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\ISR.Resources.Resources.resources
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\ISR.Resources.Resources.ar-IQ.resources
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\ISR.Resources.Resources.en-GB.resources
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\ISR.Resources.csproj.GenerateResource.cache
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\ISR.Resources.csproj.CoreCompileInputs.cache
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\ar-IQ\Resources.resources.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\en-GB\Resources.resources.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\Resources.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Resources\obj\Debug\Resources.pdb

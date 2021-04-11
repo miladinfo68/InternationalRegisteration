@@ -1,0 +1,464 @@
+﻿@using ISR.Resources
+@model List<ISR.web.Models.RequestInfoViewModel>
+@{
+    ViewBag.Title = "ReviewRequests";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<style>
+    .reqTopBox {
+        border-bottom: 1px solid #ccc;
+        border-right: 2px solid #ccc;
+        padding: 5px 15px;
+        margin: 10px 0 50px 0;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .cntr {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+    #tblAllRequests > thead {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .bg-ddd > thead > tr {
+        background: #424242;
+        color: #fff;
+    }
+
+    #tblAllRequests > tbody {
+        text-align: right;
+    }
+
+        #tblAllRequests > tbody > tr > td {
+            text-align: center;
+        }
+
+    .lbl-f-w {
+        font-weight: bold;
+    }
+
+
+
+    #showDetailsRequestModal .close {
+        margin: 10px 10px;
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    #showDetailsRequestModal .div-reqstatus {
+        font-size: 18px;
+        font-weight: bold;
+        margin: auto;
+        margin-top: 10px;
+        padding: 5px;
+        background: #efefef73;
+        color: #000;
+        border-radius: 5px;
+        text-align: center;
+        height: 50px;
+        line-height: 36px;
+    }
+
+    #showDetailsRequestModal .spnReqStstus {
+        color: #941515;
+    }
+
+    #showDetailsRequestModal h1 {
+        text-align: center;
+    }
+
+    #showDetailsRequestModal .modal-dialog {
+        max-width: 70%;
+    }
+
+    #showDetailsRequestModal .modal-header {
+        border-bottom: none;
+    }
+
+    #showDetailsRequestModal .modal-footer {
+        border-top: none;
+    }
+
+    #showDetailsRequestModal .modal-title {
+        text-align: center;
+    }
+
+    #showDetailsRequestModal .modal-content {
+        /*max-height: calc(100% - 400px);
+        overflow-y: scroll;*/
+        margin: 10px;
+    }
+
+
+    .btn-wrapper {
+        float: right;
+    }
+
+    /***** css for modal ****/
+    .m-data .title-center {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        background: #403f3f;
+        color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 7px -1px #403a3a;
+    }
+
+    .m-data .lbl {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .m-data #prvChosenFields table {
+        text-align: center;
+    }
+
+    .m-data #prvChosenFields thead > tr > th {
+        background-color: #828282;
+        color: #000;
+    }
+
+    .enrollment_manager_allreq input[type=text].txt {
+        margin-top: 0px;
+    }
+
+    .ui-dialog {
+        z-index: 9999;
+        text-align: right;
+    }
+
+    .pics {
+        width: 173px;
+        height: 165px;
+        padding: 10px;
+        background: #fff;
+    }
+</style>
+
+<div class="enrollment_manager_allreq w-100">
+    <div id="contentHeight" class="col-md-12 contentBox">
+        <div class="row fullHeight">
+            <div class="col-md-12">
+                <div class="col-md-12 reqTopBox">
+                    <span>@Resources.EnrollmentOfficeManagerPanel</span>
+                </div>
+                <div class="row">
+                    <div class="col-md-5  col-sm-12 col-xs-12">
+                        <div class="form-group form-inline">
+                            <label class="lbl-f-w">@Resources.RequestStatus :</label>
+                            @Html.DropDownList("ddlStatus", (SelectList)ViewBag.StatusList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="form-group form-inline">
+                            <label class="lbl-f-w">ترم ثبت درخواست دانشجو:</label>
+                            @Html.DropDownList("ddlTerms", (SelectList)ViewBag.Terms, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-3  col-sm-12 col-xs-12">
+                        <div class="form-group form-inline">
+                            <label class="lbl-f-w">.</label>
+                            <input type="text" id="txtSearchFilter" placeholder="جستجو بر اساس فیلد های موجود" class="col-md-11 form-control txt" />
+                        </div>
+                    </div>
+                    <div class="col-md-1  col-sm-13 col-xs-12">
+                        <div class="cntr">
+                            <input type="button" name="btnShowRequests" id="btnShowRequests" value="@Resources.btnShow" class="btn btn-info" />
+                        </div>
+                    </div>
+                </div>
+                <div class="enrollment-manager-req-table">
+                    @Html.Partial("_RequestDetailsTable", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="showDetailsRequestModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row justify-content-between">
+                <div class="col-12">
+                    <div class="col-5">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        @*<h1>@Resources.RequestDetails</h1>*@
+                    </div>
+                    <div class="col-5 div-reqstatus">
+                        <span>@Resources.RequestStatus : <span class="spnReqStstus"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row modal-body">
+                <div class="col-12">
+                    @* return partial view and show pop up in below div *@
+                    <div class="m-data"></div>
+                </div>
+            </div>
+            <div class="row modal-footer">
+                <div class="col-12">
+                    <div class="btn-wrapper">
+                        <button type="button" class="btn btn-success a_or_r" data-a_or_r="1">@Resources.btnAcceptRequest</button>
+                        <button type="button" class="btn btn-danger a_or_r" data-a_or_r="2">@Resources.btnRejectRequest</button>
+                        <button type="button" class="btn btn-warning a_or_r" data-a_or_r="3">انصراف</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Dialog Content -->
+<div id="dialogConfirmReject" title="علت رد : "style="display:none;"><textarea id="txtRejectDesc" class="form-control"></textarea></div>
+<div id="dialogConfirmAccept" title="تایید؟" style="display:none;">
+    <p><span class="ui-icon ui-icon-alert" style="float:right; margin:12px 12px 20px 0;"></span>آیا از تایید درخواست اطمینان دارید؟</p>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(".enrollment_manager_allreq #btnShowRequests").on("click", function (e) {
+            debugger;
+            var s = $(".enrollment_manager_allreq #ddlStatus").val();
+            var t = $(".enrollment_manager_allreq #ddlTerms").val();
+            var search = $(".enrollment_manager_allreq #txtSearchFilter").val();
+            $('.loadingWrapper').show();
+            $.ajax({
+                url: '/fa/EnrollmentManager/ShowRequests',
+                type: 'POST',
+                data: { "ReqStatus": s, "Term": t, 'Filter': search },
+                success: function (res) {
+                    debugger;
+                    var $reqsTable = $(".enrollment_manager_allreq .enrollment-manager-req-table");
+
+                    $('.loadingWrapper').hide();
+
+                    $reqsTable.html('');
+                    $reqsTable.html(res);
+                },
+                error: function (jqXHR, exception) {
+                    alert("WOW Error Occured !!!!", "Error Message")
+                }
+            });
+        });
+        $('.enrollment_manager_allreq').on("click", ".b_show", function (e) {
+            e.preventDefault();
+            debugger;
+            var reqId = $(this).attr("requestid");
+            var stcode = $(this).attr("studentcode");
+            var currentTerm = $("#ddlTerms").val();
+            if (reqId && reqId > 0) {
+
+                $('.loadingWrapper').show();
+                $.ajax({
+                    url: '/fa/EnrollmentManager/GetRequestInfo/',
+                    type: 'post',
+                    data: { 'id': reqId, 'studentCode': stcode, 'currentTerm': currentTerm },
+                    success: function (res) {
+                        if (res != "") {
+                            var popup = $("#showDetailsRequestModal");
+                            var modalData = $("#showDetailsRequestModal .m-data");
+                            var modalFooter = $("#showDetailsRequestModal .modal-footer");
+                            modalData.html('');
+                            popup.modal('show');
+                            //debugger;
+                            var reqStatus = $(".enrollment_manager_allreq #ddlStatus").val();
+                            var reqStatusTitle = $(".enrollment_manager_allreq #ddlStatus option:selected").text();
+                            $("#showDetailsRequestModal span.spnReqStstus").text('');
+                            $("#showDetailsRequestModal span.spnReqStstus").text(reqStatusTitle);
+                            if (reqStatus == "7") {//inprogress request
+                                modalFooter.show();
+                            } else {
+                                modalFooter.hide();
+                            }
+
+                            $('.loadingWrapper').hide();
+
+                            modalData.html(res);
+                        }
+                    },
+                    error: function (jqXHR, exception) {
+                        alert("WOW Error Occured !!!!", "Error Message")
+                    }
+                });
+            }
+        });
+        $(document).on("click", "#showDetailsRequestModal .a_or_r", function (e) {
+            //debugger;
+            e.preventDefault();
+            var acctiontype = $(this).attr("data-a_or_r");
+            if (acctiontype == "1") {//تایید
+                $("#dialogConfirmAccept").dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: [
+                        {
+                            text: "تایید",
+                            "class": 'btn btn-success',
+                            click: function () {
+                                debugger;
+                                var picIds = [];
+                                var imgss = $("#showDetailsRequestModal img");
+                                $.each(imgss, function (key, value) {
+                                    //console.log($(this).attr('id'));
+                                    picIds.push($(this).attr('id'));
+                                });
+                                //console.log(picIds);
+                                //return false;
+                                var data = {
+                                    requestId: $("#hdn_RequestId").val(),
+                                    studentCode: $("#txtStudentCode").val(),
+                                    studentId: $("#hdn_StudentId").val(),
+                                    nationalCode: $("#txtNationalCode").val(),
+                                    term: $("#hdn_Term").val(),
+                                    currentTerm: $("#hdn_CurrentTerm").val(),
+                                    voroodi: $("#hdn_Voroodi").val(),
+
+                                    firstName: $("#txtFirstName").val(),
+                                    lastName: $("#txtLastName").val(),
+                                    fathersName: $("#txtFathersName").val(),
+                                    gender: $("#drpGender").val(),
+                                    sazmanLevel: $("#drpSazmanLevel").val(),
+                                    idReshSazman: $("#txtIdReshsazman").val(),
+                                    sidatitleReshsazman: $("#txtSidaTitleReshsazman").val(),
+                                    fieldId: $("#txtFieldId").val(),
+                                    fieldTitle: $("#txtFieldTitle").val(),
+                                    nationality: $("#drpNationality").val(),
+                                    birthPlace: $("#txtBirthPlace").val(),
+                                    issuePlace: $("#txtIssuePlace").val(),
+                                    sidaHealthStatus: $("#drpSidaHealthStatus").val(),
+                                    //sahmiyeh: $("#txtSahmiyeh").val(),
+                                    sidaMarritalStatus: $("#drpSidaMarritalStatus").val(),
+                                    radifGhabooli: $("#txtRadifGhabooli").val(),
+                                    rotbehGhabooli: $("#txtRotbehGhabooli").val(),
+                                    nomrehGhabooli: $("#txtNomrehGhabooli").val(),
+                                    telephone: $("#txtTelephone").val(),
+                                    email: $("#txtEmail").val(),
+                                    codeRayaneh: $("#txtCodeRayaneh").val(),
+                                    address: $("#txtAddress").val(),
+                                    phoneNo: $("#txtPhoneNo").val(),
+                                    mobile: $("#txtMobile").val(),
+                                    postalCode: $("#txtPostalCode").val(),
+                                    picIds: picIds.join(","),
+                                    religion: $("#drpReligion").val(),
+
+                                };
+
+                                debugger;
+                                $('.loadingWrapper').show();
+                                $.ajax({
+                                    url: '/fa/EnrollmentManager/InsertToSida',
+                                    type: 'POST',
+                                    data: { 'data': JSON.stringify(data) },
+                                    success: function (res) {
+                                        //window.location = window.location;
+                                        $("#showDetailsRequestModal m-data").html('');
+                                        $("#showDetailsRequestModal").modal('hide');
+
+                                        $("#dialogConfirmAccept").dialog("close");
+
+                                        $('.loadingWrapper').hide();
+
+                                        //refresh grid
+                                        $("#btnShowRequests").click();
+
+                                    },
+                                    error: function (jqXHR, exception) {
+                                        alert("WOW Error Occured !!!!", "Error Message")
+                                    }
+                                });
+                            }
+                        },
+                        {
+                            text: "انصراف",
+                            "class": 'btn btn-warning',
+                            click: function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                });
+
+
+            }
+            else if (acctiontype == "2") {//رد
+                var confDialog = $("#dialogConfirmReject");
+                confDialog.dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: [
+                        {
+                            text: "رد درخواست",
+                            "class": 'btn btn-danger',
+                            click: function () {
+                                var data = {
+                                    requestId: $("#hdn_RequestId").val(),
+                                    studentCode: $("#txtStudentCode").val(),
+                                    description: $("#txtRejectDesc").val(),
+                                };
+                                $('.loadingWrapper').show();
+                                $.ajax({
+                                    url: '/fa/EnrollmentManager/RejectRequest',
+                                    type: 'POST',
+                                    data: { 'data': JSON.stringify(data) },
+                                    success: function (res) {
+                                        $("#showDetailsRequestModal m-data").html('');
+                                        $("#showDetailsRequestModal").modal('hide');
+
+                                        $("#txtRejectDesc").val('');
+                                        $("#dialogConfirmReject").dialog("close");
+
+                                        $('.loadingWrapper').hide();
+                                        //refresh grid
+                                        $("#btnShowRequests").click();
+                                    },
+                                    error: function (jqXHR, exception) {
+                                        alert("WOW Error Occured !!!!", "Error Message")
+                                    }
+                                });
+                            }
+                        },
+                        {
+                            text: "انصراف",
+                            "class": 'btn btn-warning',
+                            click: function () {
+                                $(this).find('#txtRejectDesc').val('');
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                });
+            }
+            else {//3=انصراف
+                $("#showDetailsRequestModal m-data").html('');
+                $("#showDetailsRequestModal").modal('hide');
+            }
+
+
+        });
+
+    </script>
+}
+
+
+
+
+
+
+

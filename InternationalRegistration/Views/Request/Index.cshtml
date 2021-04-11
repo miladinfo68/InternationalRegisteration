@@ -1,0 +1,47 @@
+﻿@using ISR.Resources
+@model List<ISR.web.Models.RequestViewModel>
+@{Layout = "~/Views/Shared/_Layout.cshtml";}
+@*@{
+    if (Session["Culture"] != null)
+    {
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(Session["Culture"].ToString());
+        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Session["Culture"].ToString());
+    }
+}*@
+
+<div class="col-md-12 contentBox" id="contentHeight">
+    <div class="">
+
+
+        <div class="requestsTopBox col-md-12">
+            <span>@Resources.RequestsHistory</span>
+        </div>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>@Resources.RequestId</th>
+                    <th>@Resources.RequestDate</th>
+                    <th>@Resources.RequestStatus</th>
+                    <th>@Resources.Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.CreateDate</td>
+                        <td>@item.StatusName</td>
+                        <td>
+                            <input type="button" class="btnRequestDetails btn btn-info"  value="@Resources.Details" data-lang="@Session["lang"].ToString()" data-reqId="@item.Id" />
+                            |
+                            <input type="button" class="btnRequestDetailsPrintable btn btn-info " value="@Resources.PrintDetails" data-lang="@Session["lang"].ToString()" data-reqId="@item.Id" />
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

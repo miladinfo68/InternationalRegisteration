@@ -1,0 +1,1241 @@
+﻿@using ISR.Resources
+@using ISR.web.Models
+@{Layout = "~/Views/Shared/_Layout.cshtml";}
+@*@{
+    if (Session["Culture"] != null)
+    {
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(Session["Culture"].ToString());
+        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Session["Culture"].ToString());
+    }
+}*@
+
+<iframe name="remember" style="display:none" src="about:blank"></iframe>
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">@Resources.PersonalInfo</a></li>
+        <li><a href="#tabs-2">@Resources.Citizenship</a></li>
+        <li><a href="#tabs-3">@Resources.ContactInfo</a></li>
+        <li><a href="#tabs-4">@Resources.FamilyInfo</a></li>
+        <li><a href="#tabs-5">@Resources.EducationalInfo</a></li>
+        <li><a href="#tabs-6">@Resources.ChooseField</a></li>
+        <li><a href="#tabs-7">@Resources.PreviewAndConfirm</a></li>
+    </ul>
+    <form target="remember" method="post" action="about:blank">
+        <input type="hidden" id="userId" value="@(((UserViewModel)Session["UserInfo"]).Id)" />
+        <input type="hidden" id="accountMobile" value="@(((UserViewModel)Session["UserInfo"]).AccountMobile)" />
+        <input type="hidden" id="accountMobileCode" value="@(((UserViewModel)Session["UserInfo"]).AccountMobileCode)" />
+        <input type="hidden" id="accountEmail" value="@(((UserViewModel)Session["UserInfo"]).AccountEmail)" />
+
+        <div id="tabs-1">
+            <div class="tabColoredBox">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="txtFirstName">@Resources.Firstname</label>
+                        <input id="txtFirstName" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="txtMiddleName">@Resources.Middlename</label>
+                        <input id="txtMiddleName" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="txtLastName">@Resources.Lastname</label>
+                        <input id="txtLastName" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="">@Resources.FathersName</label>
+                        <input id="txtFatherName" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="">@Resources.MothersName</label>
+                        <input id="txtMotherName" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="">@Resources.GrandFathersName</label>
+                        <input id="txtGrandFatherName" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="">@Resources.BirthDate</label>
+                        <input id="txtBirthDate" type="text" class="form-control dPicker" placeholder="YYYY/MM/DD" maxlength="10" autocomplete="off" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="">@Resources.BirthPlace</label>
+                        <input id="txtBirthPlace" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="">@Resources.Gender</label>
+                        <select id="ddlGender" class="form-control">
+                            <option value="-1">@Resources.Dropdown_Choose</option>
+                            <option value="1">@Resources.Male</option>
+                            <option value="2">@Resources.Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="ddlMarriage">@Resources.MaritalStatus</label>
+                        <select id="ddlMarriage" class="form-control">
+                            <option value="-1">@Resources.Dropdown_Choose</option>
+                            <option value="1">@Resources.Married</option>
+                            <option value="2">@Resources.Married_Away</option>
+                            <option value="3">@Resources.Single</option>
+                            <option value="4">@Resources.Widow</option>
+                            <option value="5">@Resources.Separated</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="txtChildren">@Resources.CountOfChildren</label>
+                        <input id="txtChildren" type="number" class="form-control" placeholder="" maxlength="3" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="">@Resources.PhysicalStatus</label>
+                        <select id="ddlPhysicalStatus" class="form-control">
+                            <option value="-1">@Resources.Dropdown_Choose</option>
+                            <option value="3">@Resources.CompleteHealth</option>
+                            <option value="1">@Resources.Veteran</option>
+                            <option value="4">@Resources.DisabilityOfHearing</option>
+                            <option value="5">@Resources.DisabilityOfMovement</option>
+                            <option value="6">@Resources.DisabilityOfSpeech</option>
+                            <option value="7">@Resources.DisabilityOfVision</option>
+                            <option value="8">@Resources.Blind</option>
+                            <option value="9">@Resources.Deaf</option>
+                            <option value="2">@Resources.OtherDisabilities</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label for="">@Resources.Relegion</label>
+                        <select id="ddlRelegion" class="form-control">
+                            <option value="-1">@Resources.Dropdown_Choose</option>
+                            <option value="1">@Resources.Islam</option>
+                            <option value="2">@Resources.Christian</option>
+                            <option value="3">@Resources.Jewish</option>
+                            <option value="4">@Resources.Zoroastrian</option>
+                            <option value="5">@Resources.Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="buttonsWrapper">
+                        <input type="button" class="btn btn-info next-tab" value="@Resources.ConfirmAndContinue" rel="1" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tabs-2">
+            <div class="tabColoredBox">
+                <div class="row">
+
+                    <div class="col-md-4 form-group">
+                        <label for="ddlCitizen">@Resources.Citizenship</label>
+                        @Html.DropDownList("CountryList", (List<SelectListItem>)ViewBag.CountryList, Resources.Dropdown_Choose, new { @id = "ddlCitizen", @class = "form-control" })
+                        <input type="text" class="form-control" id="txtCitizen" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="ddlSecondCitizen">@Resources.SecondCitizenship</label>
+                        @Html.DropDownList("CountryList", (List<SelectListItem>)ViewBag.CountryList, Resources.Dropdown_Choose, new { @id = "ddlSecondCitizen", @class = "form-control" })
+                        <input type="text" class="form-control" id="txtSecondCitizen" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label for="txtPassNo" class="smallFontLabel">@Resources.DocNumber</label>
+                        <input type="text" class="form-control" id="txtPassNo" maxlength="50" />
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <input type="button" id="btnReturn" class="btn btn-danger prev-tab" value="@Resources.Return" rel="0" />
+                    <input type="button" id="btnSubmitCitizenInfo" class="btn btn-info next-tab" value="@Resources.ConfirmAndContinue" rel="2" />
+                </div>
+            </div>
+        </div>
+
+        <div id="tabs-3" class="coloredFieldsets">
+            <div class="alert alert-danger mt-3">
+                <span>@Resources.ContactInfoForm_Help</span>
+            </div>
+            <fieldset class="border p-4 mt-3">
+                <legend>@Resources.CitizenshipResidenceAddress</legend>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenHomeState">@Resources.State</label>
+                        <input id="txtCitizenHomeState" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenHomeCity">@Resources.City</label>
+                        <input id="txtCitizenHomeCity" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenHomeStreet">@Resources.Street</label>
+                        <input id="txtCitizenHomeStreet" type="text" class="form-control" placeholder="" maxlength="200" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenHomePlaque">@Resources.PlaceNumber</label>
+                        <input id="txtCitizenHomePlaque" type="text" class="form-control" placeholder="" maxlength="20" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenHomePostalCode">@Resources.PostalCode</label>
+                        <input id="txtCitizenHomePostalCode" type="text" class="form-control digitsOnly" placeholder="" maxlength="20" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenEmail">@Resources.Email</label>
+                        <input id="txtCitizenEmail" type="text" class="form-control" placeholder="" maxlength="200" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenHomePhone">@Resources.PhoneNumber</label>
+                        <div>
+                            <input id="txtCitizenHomePhone" type="text" class="form-control mobileTextBox digitsOnly" placeholder="" maxlength="20" />@Html.DropDownList("PhoneCodes", (SelectList)ViewBag.PhoneCodes, "---", new { @id = "ddlCitizenHomePhoneCode", @class = "form-control phoneCodeDropDown" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenMobile">@Resources.Mobile</label>
+                        <div>
+                            <input id="txtCitizenMobile" type="text" class="form-control mobileTextBox digitsOnly" placeholder="" maxlength="10" />@Html.DropDownList("PhoneCodes", (SelectList)ViewBag.PhoneCodes, "---", new { @id = "ddlCitizenMobileCode", @class = "form-control phoneCodeDropDown" })
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border p-4 mt-5">
+                <legend>@Resources.CitizenshipWorkPlaceAddress</legend>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenWorkState">@Resources.State</label>
+                        <input id="txtCitizenWorkState" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenWorkCity">@Resources.City</label>
+                        <input id="txtCitizenWorkCity" type="text" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenWorkStreet">@Resources.Street</label>
+                        <input id="txtCitizenWorkStreet" type="text" class="form-control" placeholder="" maxlength="200" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenWorkPlaque">@Resources.PlaceNumber</label>
+                        <input id="txtCitizenWorkPlaque" type="text" class="form-control" placeholder="" maxlength="20" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenWorkPostalCode">@Resources.PostalCode</label>
+                        <input id="txtCitizenWorkPostalCode" type="text" class="form-control digitsOnly" placeholder="" maxlength="20" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtCitizenWorkPhone">@Resources.PhoneNumber</label>
+                        <div>
+                            <input id="txtCitizenWorkPhone" type="text" class="form-control mobileTextBox digitsOnly" placeholder="" maxlength="20" />@Html.DropDownList("PhoneCodes", (SelectList)ViewBag.PhoneCodes, "---", new { @id = "ddlCitizenWorkPhoneCode", @class = "form-control phoneCodeDropDown" })
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border p-4 mt-5">
+                <legend>@Resources.IranResidenceAddress</legend>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranHomeState">@Resources.State</label>
+                        <input type="text" id="txtIranHomeState" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranHomeCity">@Resources.City</label>
+                        <input type="text" id="txtIranHomeCity" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranHomeStreet">@Resources.Street</label>
+                        <input id="txtIranHomeStreet" type="text" class="form-control" placeholder="" maxlength="200" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranHomePlaque">@Resources.PlaceNumber</label>
+                        <input id="txtIranHomePlaque" type="text" class="form-control" placeholder="" maxlength="20" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranHomePostalCode">@Resources.PostalCode</label>
+                        <input id="txtIranHomePostalCode" type="text" class="form-control digitsOnly" placeholder="" maxlength="20" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtEmail">@Resources.Email</label>
+                        <input id="txtEmail" type="text" class="form-control" placeholder="" maxlength="200" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranHomePhone">@Resources.PhoneNumber</label>
+                        <div>
+                            <input id="txtIranHomePhone" type="text" class="form-control mobileTextBox digitsOnly" placeholder="" maxlength="20" />@Html.DropDownList("PhoneCodes", (SelectList)ViewBag.PhoneCodes, "---", new { @id = "ddlIranHomePhoneCode", @class = "form-control phoneCodeDropDown" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtMobile">@Resources.Mobile</label>
+                        <div>
+                            <input id="txtMobile" type="text" class="form-control mobileTextBox digitsOnly" placeholder="" maxlength="10" />@Html.DropDownList("PhoneCodes", (SelectList)ViewBag.PhoneCodes, "---", new { @id = "ddlIranMobileCode", @class = "form-control phoneCodeDropDown" })
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border p-4 mt-5">
+                <legend>@Resources.IranWorkPlace</legend>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranWorkState">@Resources.State</label>
+                        @*<select id="ddlIranWorkState" class="form-control">
+                                <option value="-1">@Resources.Dropdown_Choose</option>
+                            </select>*@
+                        <input type="text" id="txtIranWorkState" class="form-control" placeholder="" maxlength="50" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranWorkCity">@Resources.City</label>
+                        <input type="text" id="txtIranWorkCity" class="form-control" placeholder="" maxlength="50" />
+                        @*<select id="ddlIranWorkCity" class="form-control">
+                                <option value="-1">@Resources.Dropdown_Choose</option>
+                            </select>*@
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranWorkStreet">@Resources.Street</label>
+                        <input id="txtIranWorkStreet" type="text" class="form-control" placeholder="" maxlength="200" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranWorkPlaque">@Resources.PlaceNumber</label>
+                        <input id="txtIranWorkPlaque" type="text" class="form-control" placeholder="" maxlength="20" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranWorkPostalCode">@Resources.PostalCode</label>
+                        <input id="txtIranWorkPostalCode" type="text" class="form-control digitsOnly" placeholder="" maxlength="20" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="txtIranWorkPhone">@Resources.PhoneNumber</label>
+                        <div>
+                            <input id="txtIranWorkPhone" type="text" class="form-control mobileTextBox digitsOnly" placeholder="" maxlength="20" />@Html.DropDownList("PhoneCodes", (SelectList)ViewBag.PhoneCodes, "---", new { @id = "ddlIranWorkPhone", @class = "form-control phoneCodeDropDown" })
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <input type="button" id="btnReturn" class="btn btn-danger prev-tab" value="@Resources.Return" rel="1" />
+                    <input type="button" id="btnSubmitContactInfo" class="btn btn-info next-tab" value="@Resources.ConfirmAndContinue" rel="3" />
+                </div>
+            </div>
+        </div>
+
+        <div id="tabs-4" class="coloredFieldsets">
+            <fieldset class="border p-4 mt-3">
+                <legend>@Resources.MothersInfo</legend>
+                <div class="alert alert-danger">@Resources.IranianMotherAlert</div>
+                <div class="row">
+                    <div class="col-sm-2 form-group">
+                        <label>@Resources.Firstname</label>
+                        <input id="txtMothersFirstName" type="text" class="form-control" maxlength="50" />
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label>@Resources.Lastname</label>
+                        <input id="txtMothersLastName" type="text" class="form-control" maxlength="50" />
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label>@Resources.FathersName</label>
+                        <input id="txtMothersFathersName" type="text" class="form-control" maxlength="50" />
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label>@Resources.GrandFathersName</label>
+                        <input id="txtMothersGrandFathersName" type="text" class="form-control" maxlength="50" />
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label>@Resources.BirthDate</label>
+                        <input id="txtMothersBirthDate" type="text" class="form-control dPicker" maxlength="10" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 form-group">
+                        <label>@Resources.BirthPlace</label>
+                        <input id="txtMothersBirthPlace" type="text" class="form-control" maxlength="50" />
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label>@Resources.IdNumber</label>
+                        <input id="txtMothersIdNumber" type="text" class="form-control digitsOnly" maxlength="10" />
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label>@Resources.IssuePlace</label>
+                        <input id="txtMothersIssuePlace" type="text" class="form-control" maxlength="30" />
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label>@Resources.NationalCode</label>
+                        <input id="txtMothersNationalCode" type="text" class="form-control digitsOnly" maxlength="10" />
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label>@Resources.TypeOfMarriage</label>
+                        <select id="txtMothersMarriageType" class="form-control">
+                            <option value="-1">@Resources.ResourceManager.GetString("Dropdown_Choose")</option>
+                            <option value="1">@Resources.ResourceManager.GetString("Official")</option>
+                            <option value="2">@Resources.ResourceManager.GetString("Unofficial")</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="border p-4 mt-4">
+                <legend>@Resources.RecommenderInfo</legend>
+                @*<div class="row">              
+                    <div class="col-sm-6 form-group">
+                        <label>@Resources.Firstname</label>
+                        <input id="txtRecommenderFirstname" type="text" class="form-control" maxlength="50" />
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>@Resources.Lastname</label>
+                        <input id="txtRecommenderLastname" type="text" class="form-control" maxlength="50" />
+                    </div>                   
+                </div>*@
+           
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>@Resources.RecommenderCode</label>
+                        <div>
+                            <input id="txtRecommenderCode" type="text" class="form-control "/>
+                        </div>
+                    </div>
+                    @*<div class="col-sm-6 form-group">
+                        <label>@Resources.Mobile</label>
+                        <div>
+                            <input id="txtRecommenderMobile" type="text" class="form-control digitsOnly mobileTextBox" maxlength="10" />@Html.DropDownList("PhoneCodes", (SelectList)ViewBag.PhoneCodes, "---", new { @id = "ddlRecommenderMobileCode", @class = "form-control phoneCodeDropDown" })
+                        </div>
+                    </div>*@
+
+                </div>
+            </fieldset>
+
+            @*<fieldset class="border p-4 mt-4">
+            <legend>@Resources.RecommenderInfo</legend>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.Relationship</label>
+                    <select id="ddlRecommenderRelationship" class="form-control">
+                        <option value="">@Resources.Dropdown_Choose</option>
+                        <option value="2">@Resources.Father</option>
+                        <option value="3">@Resources.Mother</option>
+                        <option value="4">@Resources.GrandFather</option>
+                        <option value="5">@Resources.Brother</option>
+                        <option value="6">@Resources.Sister</option>
+                        <option value="7">@Resources.Spouse</option>
+                        <option value="8">@Resources.Child</option>
+                        <option value="11">@Resources.Friend</option>
+                        <option value="12">@Resources.Other</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.Firstname</label>
+                    <input id="txtRecommenderFirstname" type="text" class="form-control" maxlength="50" />
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.Lastname</label>
+                    <input id="txtRecommenderLastname" type="text" class="form-control" maxlength="50" />
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.FathersName</label>
+                    <input id="txtRecommenderFathersName" type="text" class="form-control" maxlength="50" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.GrandFathersName</label>
+                    <input id="txtRecommenderGrandFathersName" type="text" class="form-control" maxlength="50" />
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.BirthDate</label>
+                    <input id="txtRecommenderBirthDate" type="text" class="form-control dPicker" maxlength="10" />
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.DocumentType</label>
+                    <select id="ddlRecommenderDocumentType" class="form-control">
+                        <option value="-1">@Resources.Dropdown_Choose</option>
+                        <option value="2">@Resources.Passport</option>
+                        <option value="3">@Resources.RefugeeBooklet</option>
+                        <option value="4">@Resources.IdentityCardOfForeignCitizens</option>
+                        <option value="5">@Resources.LimitedTransitCard</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.DocumentNumberOrNationalCode</label>
+                    <input id="txtRecommenderDocumentNumber" type="text" class="form-control digitsOnly" maxlength="30" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.Job</label>
+                    <input id="txtRecommenderJobTitle" type="text" class="form-control" maxlength="50" />
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.Citizenship</label>
+                    @Html.DropDownList("CountryList", (SelectList)ViewBag.CountryList, Resources.Dropdown_Choose, new { @id = "txtRecommenderCitizenship", @class = "form-control" })
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label>@Resources.Mobile</label>
+                    <div>
+                        <input id="txtRecommenderMobile" type="text" class="form-control digitsOnly mobileTextBox" maxlength="10" />@Html.DropDownList("PhoneCodes", (SelectList)ViewBag.PhoneCodes, "---", new { @id = "ddlRecommenderMobileCode", @class = "form-control phoneCodeDropDown" })
+                    </div>
+                </div>
+            </div>
+        </fieldset>*@
+
+            <fieldset class="border p-4 mt-4">
+                <legend>@Resources.FamilyAndChildren</legend>
+                <div class="row">
+                    <table id="familyPersonsTable" class="col-md-12 table border familyPersons">
+                        <thead>
+                            <tr>
+                                <th>@Resources.Relationship</th>
+                                <th>@Resources.Firstname</th>
+                                <th>@Resources.Lastname</th>
+                                <th>@Resources.FathersName</th>
+                                <th>@Resources.GrandFathersName</th>
+                                <th>@Resources.BirthDate</th>
+                                <th>@Resources.DocumentType</th>
+                                <th>@Resources.DocumentNumberOrNationalCode</th>
+                                <th>@Resources.Job</th>
+                                <th>@Resources.Citizenship</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="form-group">
+                                <td>
+                                    <select class="form-control">
+                                        <option value="">@Resources.Dropdown_Choose</option>
+                                        <option value="2">@Resources.Father</option>
+                                        <option value="3">@Resources.Mother</option>
+                                        <option value="4">@Resources.GrandFather</option>
+                                        <option value="5">@Resources.Brother</option>
+                                        <option value="6">@Resources.Sister</option>
+                                        <option value="7">@Resources.Spouse</option>
+                                        <option value="8">@Resources.Child</option>
+                                        <option value="12">@Resources.Other</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control" maxlength="50" /></td>
+                                <td><input type="text" class="form-control" maxlength="50" /></td>
+                                <td><input type="text" class="form-control" maxlength="50" /></td>
+                                <td><input type="text" class="form-control" maxlength="50" /></td>
+                                <td><input type="text" class="form-control dPicker" maxlength="10" /></td>
+                                <td>
+                                    <select class="form-control">
+                                        <option value="-1">@Resources.Dropdown_Choose</option>
+                                        <option value="2">@Resources.Passport</option>
+                                        <option value="3">@Resources.RefugeeBooklet</option>
+                                        <option value="4">@Resources.IdentityCardOfForeignCitizens</option>
+                                        <option value="5">@Resources.LimitedTransitCard</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control" maxlength="30" /></td>
+                                <td><input type="text" class="form-control" maxlength="50" /></td>
+                                <td>@Html.DropDownList("CountryList", (List<SelectListItem>)ViewBag.CountryList, Resources.Dropdown_Choose, new { @class = "form-control" })@*<input type="text" class="form-control" />*@</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-12">
+                        <a href="/" class="btn btn-info text-white" id="btnAddFamilyPerson" data-lang="@Session["lang"].ToString()">@Resources.Add</a>
+                    </div>
+                </div>
+
+            </fieldset>
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <input type="button" class="btn btn-danger prev-tab" id="btnReturn" value="@Resources.Return" rel="2" />
+                    <input type="button" class="btn btn-info next-tab" id="btnSubmitEducationInfo" value="@Resources.ConfirmAndContinue" rel="4" />
+                </div>
+            </div>
+        </div>
+
+        <div id="tabs-5" class="coloredFieldsets beforeEducations">
+            <input type="hidden" name="hdn_LastEduCationDegree"  />
+            <fieldset class="border p-4 mt-3">
+                <legend>@Resources.Diploma</legend>
+                <div class="row">
+                    @*<div class="col-md-6">
+                            <label for="ddlDiplomaDegreeType">@Resources.DocumentType</label>
+                            <select id="ddlDiplomaDegreeType" class="form-control"></select>
+                        </div>*@
+                    <div class="col-md-6">
+                        <label for="txtDiplomaWrittenAverage">@Resources.WrittenAverage</label>
+                        <input type="text" id="txtDiplomaWrittenAverage" class="form-control onlyDecimal averageGrade" maxlength="5" placeholder="17.33" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtDiplomaPlace">@Resources.DegreePlace</label>
+                        <input type="text" id="txtDiplomaPlace" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="ddlDiplomaField">@Resources.FieldOfStudy</label>
+                        <input type="text" id="txtDiplomaField" class="form-control" maxlength="100" />
+                        @*@Html.DropDownList("ddlDiplomaField", (SelectList)ViewBag.FieldsForHighSchool, Resources.Dropdown_Choose, new { @class = "form-control" })*@
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtDiplomaTotalAverage">@Resources.TotalAverage</label>
+                        <input type="text" id="txtDiplomaTotalAverage" class="form-control onlyDecimal averageGrade" maxlength="5" placeholder="17.33" />
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset class="border p-4 mt-5">
+                <legend>@Resources.PreUniversity</legend>
+                <div class="row">
+                    @*<div class="col-md-6">
+                            <label for="txtPreUniversityDegreeType">@Resources.DocumentType</label>
+                            <input type="text" id="txtPreUniversityDegreeType" class="form-control" />
+                        </div>*@
+                    <div class="col-md-6">
+                        <label for="txtPreUniversityAverage">@Resources.Average</label>
+                        <input type="text" id="txtPreUniversityAverage" class="form-control onlyDecimal averageGrade" max="5" placeholder="17.33" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ddlPreuniversityField">@Resources.FieldOfStudy</label>
+                        <input type="text" id="txtPreuniversityField" class="form-control" maxlength="100"  />
+                        @*@Html.DropDownList("ddlPreuniversityField", (SelectList)ViewBag.FieldsForPreUniversity, Resources.Dropdown_Choose, new { @class = "form-control" })*@
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border p-4 mt-5">
+                <legend>@Resources.Bachelor</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="ddlBachelorField">@Resources.FieldOfStudy</label>
+                        <input type="text" id="txtBachelorField" class="form-control" />
+                        @*@Html.DropDownList("ddlBachelorField", (SelectList)ViewBag.FieldsForBachelor, Resources.Dropdown_Choose, new { @class = "form-control" })*@
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtBachelorUniversity">@Resources.UniversityName</label>
+                        <input type="text" id="txtBachelorUniversity" class="form-control" maxlength="100" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="txtBachelorCountry">@Resources.CountryOfStudy</label>
+                        <input type="text" id="txtBachelorCountry" class="form-control" maxlength="100" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtBachelorAverage">@Resources.Average</label>
+                        <input type="text" id="txtBachelorAverage" class="form-control onlyDecimal averageGrade" maxlength="5" placeholder="17.33" />
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border p-4 mt-5">
+                <legend>@Resources.Master</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="ddlMasterField">@Resources.FieldOfStudy</label>
+                        <input type="text" id="txtMasterField" class="form-control" maxlength="100" />
+                        @*@Html.DropDownList("ddlMasterField", (SelectList)ViewBag.FieldsForMaster, Resources.Dropdown_Choose, new { @class = "form-control" })*@
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtMasterUniversity">@Resources.UniversityName</label>
+                        <input type="text" id="txtMasterUniversity" class="form-control" maxlength="100" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="txtMasterCountry">@Resources.CountryOfStudy</label>
+                        <input type="text" id="txtMasterCountry" class="form-control" maxlength="100" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtMasterAverage">@Resources.Average</label>
+                        <input type="text" id="txtMasterAverage" class="form-control onlyDecimal averageGrade" maxlength="5" placeholder="17.33" />
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="border p-4 mt-5">
+                <legend>@Resources.Doctorate</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="ddlDoctorateField">@Resources.FieldOfStudy</label>
+                        <input type="text" id="txtDoctorateField" class="form-control" maxlength="100" />
+                        @*@Html.DropDownList("ddlDoctorateField", (SelectList)ViewBag.FieldsForPHD, Resources.Dropdown_Choose, new { @class = "form-control" })*@
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtDoctorateUniversity">@Resources.UniversityName</label>
+                        <input type="text" id="txtDoctorateUniversity" class="form-control" maxlength="100" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="txtDoctorateCountry">@Resources.CountryOfStudy</label>
+                        <input type="text" id="txtDoctorateCountry" class="form-control" maxlength="100" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtDoctorateَAverage">@Resources.Average</label>
+                        <input type="text" id="txtDoctorateAverage" class="form-control onlyDecimal averageGrade" maxlength="5" placeholder="17.33" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <input type="button" class="btn btn-danger prev-tab" id="btnReturn" value="@Resources.Return" rel="3" />
+                    <input type="button" class="btn btn-info next-tab" id="btnSubmitEducationInfo" value="@Resources.ConfirmAndContinue" rel="5" />
+                </div>
+            </div>
+        </div>
+
+        <div id="tabs-6" class="coloredFieldsets">
+            <fieldset class="border p-4 mt-3">
+                <legend>@Resources.SearchForField</legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row searchField">
+                            <div class="col-md-3 form-group">
+                                <label for="ddlLevel">@Resources.Current_Level</label>
+                                @Html.DropDownList("ddlLevel", (List<SelectListItem>)ViewBag.Levels, Resources.Dropdown_Choose, new { @class = "form-control", @data_lang = Session["lang"].ToString() })
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="ddlCollege">@Resources.College</label>
+                                @Html.DropDownList("ddlCollege", (SelectList)ViewBag.Colleges, Resources.Dropdown_Choose, new { @class = "form-control" })
+                                @*<select id="ddlCollege" class="form-control">
+                                        <option value="-1">@Resources.Dropdown_Choose</option>
+                                    </select>*@
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="txtField">@Resources.Field</label>
+                                <input type="text" id="txtField" class="form-control" />
+                            </div>
+                            <div class="col-md-2">
+                                <input id="btnSearchFields" type="button" class="btn btn-info mt-4" value="@Resources.Search" data-lang="@Session["lang"].ToString()" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row">
+                <div class="col-md-6">
+                    <fieldset class="mt-4">
+                        <legend>@Resources.Choosable_Fields</legend>
+                        <div class="fieldsTableWrapper">
+                            <table id="tblFields" class="table border">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>@Resources.Field_Id</th>
+                                        <th>@Resources.Field_Title</th>
+                                        <th>@Resources.Level</th>
+                                        <th>@Resources.Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-6">
+                    <fieldset class="mt-4">
+                        <legend>@Resources.ChosenFields</legend>
+                        <div class="fieldsTableWrapper">
+                            <table id="tblChosenFields" class="table border">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>@Resources.RowNumber</th>
+                                        <th>@Resources.Field_Id</th>
+                                        <th>@Resources.College</th>
+                                        <th>@Resources.Field_Title</th>
+                                        <th>@Resources.Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <input type="button" class="btn btn-danger mt-4 prev-tab" value="@Resources.Return" rel="4" />
+                    <input type="button" class="btn btn-info mt-4 next-tab" id="btnSubmitFields" value="@Resources.ConfirmAndContinue" rel="6" />
+                    @*<input type="button" id="btnSubmitFields" class="btn btn-info mt-4" value="@Resources.ConfirmAndContinue" data-lang="@Session["lang"].ToString()" />*@
+                </div>
+            </div>
+        </div>
+
+        <div id="tabs-7">
+            <div class="row previewInfoRow">
+                <div class="col-md-2">
+                    <span class="previewInfoTitle">@Resources.PersonalInfo</span>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-3">@Resources.Firstname</div>
+                        <div class="col-md-3">
+                            <span id="prFirstName"></span>
+                        </div>
+                        <div class="col-md-3">@Resources.Middlename</div>
+                        <div class="col-md-3">
+                            <span id="prvMiddlename"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">@Resources.Lastname</div>
+                        <div class="col-md-3">
+                            <span id="prvLastname"></span>
+                        </div>
+                        <div class="col-md-3">@Resources.FathersName</div>
+                        <div class="col-md-3">
+                            <span id="prvFathersName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">@Resources.MothersName</div>
+                        <div class="col-md-3">
+                            <span id="prvMothersName"></span>
+                        </div>
+                        <div class="col-md-3">@Resources.GrandFathersName</div>
+                        <div class="col-md-3">
+                            <span id="prvGrandFathersName"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">@Resources.BirthDate</div>
+                        <div class="col-md-3 forcedLtr">
+                            <span id="prvBirthDate"></span>
+                        </div>
+                        <div class="col-md-3">@Resources.BirthPlace</div>
+                        <div class="col-md-3">
+                            <span id="prvBirthPlace"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">@Resources.Gender</div>
+                        <div class="col-md-3">
+                            <span id="prvGender"></span>
+                        </div>
+                        <div class="col-md-3">@Resources.MaritalStatus</div>
+                        <div class="col-md-3">
+                            <span id="prvMaritalStatus"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">@Resources.CountOfChildren</div>
+                        <div class="col-md-3">
+                            <span id="prvChildren"></span>
+                        </div>
+                        <div class="col-md-3">@Resources.PhysicalStatus</div>
+                        <div class="col-md-3">
+                            <span id="prvPhysicalStatus"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">@Resources.Relegion</div>
+                        <div class="col-md-3">
+                            <span id="prvRelegion"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <span class="previewInfoEdit">
+                        <a href="/" class="btn btn-info btnEditInfo" data-tabid="0">
+                            <span><i class="far fa-edit"></i>@Resources.Edit</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="row previewInfoRow">
+                <div class="col-md-2">
+                    <span class="previewInfoTitle">@Resources.Citizenship</span>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-3">@Resources.Citizenship</div>
+                        <div class="col-md-3">
+                            <span id="prvCitizenship"></span>
+                        </div>
+                        <div class="col-md-3">@Resources.SecondCitizenship</div>
+                        <div class="col-md-3">
+                            <span id="prvSecondCitizenship"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">@Resources.DocNumber</div>
+                        <div class="col-md-3">
+                            <span id="prvDocNumber"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <span class="previewInfoEdit">
+                        <a href="/" class="btn btn-info btnEditInfo" data-tabid="1">
+                            <span><i class="far fa-edit"></i>@Resources.Edit</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="row previewInfoRow">
+                <div class="col-md-2">
+                    <span class="previewInfoTitle">@Resources.ContactInfo</span>
+                </div>
+                <div class="col-md-9">
+                    <fieldset id="prvCitizenshipResidenceAddress">
+                        <legend>@Resources.CitizenshipResidenceAddress</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.State</div>
+                            <div class="col-md-3">
+                                <span id="prvCitizenshipResidencState"></span>
+                            </div>
+                            <div class="col-md-3">@Resources.City</div>
+                            <div class="col-md-3">
+                                <span id="prvCitizenshipResidencCity"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.Street</div>
+                            <div class="col-md-3">
+                                <span id="prvCitizenshipResidencStreet"></span>
+                            </div>
+                            <div class="col-md-3">@Resources.PlaceNumber</div>
+                            <div class="col-md-3">
+                                <span id="prvCitizenshipResidencPlaceNumber"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.PostalCode</div>
+                            <div class="col-md-3"><span id="prvCitizenshipResidencPostalCode"></span></div>
+                            <div class="col-md-3">@Resources.Email</div>
+                            <div class="col-md-3 forcedLtr"><span id="prvCitizenshipResidencEmail"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.PhoneNumber</div>
+                            <div class="col-md-3 forcedLtr"><span id="prvCitizenshipResidencPhoneNumber"></span></div>
+                            <div class="col-md-3">@Resources.Mobile</div>
+                            <div class="col-md-3 forcedLtr"><span id="prvCitizenshipResidencMobile"></span></div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="prvCitizenshipWorkPlaceAddress">
+                        <legend>@Resources.CitizenshipWorkPlaceAddress</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.State</div>
+                            <div class="col-md-3"><span id="prvCitizenshipWorkPlaceState"></span></div>
+                            <div class="col-md-3">@Resources.City</div>
+                            <div class="col-md-3"><span id="prvCitizenshipWorkPlaceCity"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.Street</div>
+                            <div class="col-md-3"><span id="prvCitizenshipWorkPlaceStreet"></span></div>
+                            <div class="col-md-3">@Resources.PlaceNumber</div>
+                            <div class="col-md-3"><span id="prvCitizenshipWorkPlacePlaceNumber"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.PostalCode</div>
+                            <div class="col-md-3"><span id="prvCitizenshipWorkPlacePostalCode"></span></div>
+                            <div class="col-md-3">@Resources.PhoneNumber</div>
+                            <div class="col-md-3 forcedLtr"><span id="prvCitizenshipWorkPlacePhoneNumber"></span></div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="prvIranResidenceAddress">
+                        <legend>@Resources.IranResidenceAddress</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.State</div>
+                            <div class="col-md-3"><span id="prvIranResidenceState"></span></div>
+                            <div class="col-md-3">@Resources.City</div>
+                            <div class="col-md-3"><span id="prvIranResidenceCity"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.Street</div>
+                            <div class="col-md-3"><span id="prvIranResidenceStreet"></span></div>
+                            <div class="col-md-3">@Resources.PlaceNumber</div>
+                            <div class="col-md-3"><span id="prvIranResidencePlaceNumber"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.PostalCode</div>
+                            <div class="col-md-3"><span id="prvIranResidencePostalCode"></span></div>
+                            <div class="col-md-3">@Resources.Email</div>
+                            <div class="col-md-3 forcedLtr"><span id="prvIranResidenceEmail"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.PhoneNumber</div>
+                            <div class="col-md-3 forcedLtr"><span id="prvIranResidencePhoneNumber"></span></div>
+                            <div class="col-md-3">@Resources.Mobile</div>
+                            <div class="col-md-3 forcedLtr"><span id="prvIranResidenceMobile"></span></div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="prvIranWorkPlace">
+                        <legend>@Resources.IranWorkPlace</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.State</div>
+                            <div class="col-md-3"><span id="prvIranWorkPlaceState"></span></div>
+                            <div class="col-md-3">@Resources.City</div>
+                            <div class="col-md-3"><span id="prvIranWorkPlaceCity"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.Street</div>
+                            <div class="col-md-3"><span id="prvIranWorkPlaceStreet"></span></div>
+                            <div class="col-md-3">@Resources.PlaceNumber</div>
+                            <div class="col-md-3"><span id="prvIranWorkPlacePlaceNumber"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.PostalCode</div>
+                            <div class="col-md-3"><span id="prvIranWorkPlacePostalCode"></span></div>
+                            <div class="col-md-3">@Resources.PhoneNumber</div>
+                            <div class="col-md-3 forcedLtr"><span id="prvIranWorkPlacePhoneNumber"></span></div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-1">
+                    <span class="previewInfoEdit">
+                        <a href="/" class="btn btn-info btnEditInfo" data-tabid="2">
+                            <span><i class="far fa-edit"></i>@Resources.Edit</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="row previewInfoRow">
+                <div class="col-md-2">
+                    <span class="previewInfoTitle">@Resources.FamilyInfo</span>
+                </div>
+                <div class="col-md-9">
+                    <fieldset id="prvRecommenderFieldset">
+                        <legend>@Resources.RecommenderInfo</legend>
+                        @*<div class="row">
+                            <div class="col-md-3">@Resources.Relationship</div>
+                            <div class="col-md-3"><span id="prvRecommenderRelationship"></span></div>
+                            <div class="col-md-3">@Resources.Firstname</div>
+                            <div class="col-md-3"><span id="prvRecommenderFirstname"></span></div>
+                            <div class="col-md-3">@Resources.Lastname</div>
+                            <div class="col-md-3"><span id="prvRecommenderLastname"></span></div>
+                        </div>*@
+
+                        @*<div class="row">
+                            <div class="col-md-3">@Resources.Lastname</div>
+                            <div class="col-md-3"><span id="prvRecommenderLastname"></span></div>
+                            <div class="col-md-3">@Resources.FathersName</div>
+                            <div class="col-md-3"><span id="prvRecommenderFathersName"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.GrandFathersName</div>
+                            <div class="col-md-3"><span id="prvRecommenderGrandFathersName"></span></div>
+                            <div class="col-md-3">@Resources.BirthDate</div>
+                            <div class="col-md-3"><span id="prvRecommenderBirthDate"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.DocumentType</div>
+                            <div class="col-md-3"><span id="prvRecommenderDocumentType"></span></div>
+                            <div class="col-md-3">@Resources.DocumentNumberOrNationalCode</div>
+                            <div class="col-md-3"><span id="prvRecommenderDocumentNumber"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.Job</div>
+                            <div class="col-md-3"><span id="prvRecommenderJob"></span></div>
+                            <div class="col-md-3">@Resources.Citizenship</div>
+                            <div class="col-md-3"><span id="prvRecommenderCitizenship"></span></div>
+                        </div>*@
+                    <div class="row">
+                        @*<div class="col-md-3">@Resources.Mobile</div>
+                        <div class="col-md-3"><span id="prvRecommenderMobile"></span></div>*@
+                        <div class="col-md-3">@Resources.RecommenderCode</div>
+                        <div class="col-md-3"><span id="prvRecommenderCode"></span></div>
+
+                    </div>
+                    </fieldset>
+                    <fieldset id="prvMotherFieldset">
+                        <legend>@Resources.MothersInfo</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.Firstname</div>
+                            <div class="col-md-3"><span id="prvMotherFirstName"></span></div>
+                            <div class="col-md-3">@Resources.Lastname</div>
+                            <div class="col-md-3"><span id="prvMotherLastName"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.FathersName</div>
+                            <div class="col-md-3"><span id="prvMotherFathersName"></span></div>
+                            <div class="col-md-3">@Resources.GrandFathersName</div>
+                            <div class="col-md-3"><span id="prvMotherGrandFathersName"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.BirthDate</div>
+                            <div class="col-md-3"><span id="prvMotherBirthDate"></span></div>
+                            <div class="col-md-3">@Resources.BirthPlace</div>
+                            <div class="col-md-3"><span id="prvMotherBirthPlace"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.IdNumber</div>
+                            <div class="col-md-3"><span id="prvMotherIdNumber"></span></div>
+                            <div class="col-md-3">@Resources.IssuePlace</div>
+                            <div class="col-md-3"><span id="prvMotherIssuePlace"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.NationalCode</div>
+                            <div class="col-md-3"><span id="prvMotherNationalCode"></span></div>
+                            <div class="col-md-3">@Resources.TypeOfMarriage</div>
+                            <div class="col-md-3"><span id="prvMotherMarriageType"></span></div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="prvFamilyFieldset">
+                        <legend>@Resources.FamilyAndChildren</legend>
+                        <div class="row">
+                            <table id="familyPersonsPrv" class="col-md-12 table border familyPersons">
+                                <thead>
+                                    <tr>
+                                        <th>@Resources.Relationship</th>
+                                        <th>@Resources.Firstname</th>
+                                        <th>@Resources.Lastname</th>
+                                        <th>@Resources.FathersName</th>
+                                        <th>@Resources.GrandFathersName</th>
+                                        <th>@Resources.BirthDate</th>
+                                        <th>@Resources.DocumentType</th>
+                                        <th>@Resources.DocumentNumberOrNationalCode</th>
+                                        <th>@Resources.Job</th>
+                                        <th>@Resources.Citizenship</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-1">
+                    <span class="previewInfoEdit">
+                        <a href="/" class="btn btn-info btnEditInfo" data-tabid="3">
+                            <span><i class="far fa-edit"></i>@Resources.Edit</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="row previewInfoRow">
+                <div class="col-md-2">
+                    <span class="previewInfoTitle">@Resources.EducationalInfo</span>
+                </div>
+                <div class="col-md-9">
+                    <fieldset id="prvDiplomaFieldset">
+                        <legend>@Resources.Diploma</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.WrittenAverage</div>
+                            <div class="col-md-3"><span id="prvDiplomaWrittenAverage"></span></div>
+                            <div class="col-md-3">@Resources.DegreePlace</div>
+                            <div class="col-md-3"><span id="prvDiplomaDegreePlace"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.FieldOfStudy</div>
+                            <div class="col-md-3"><span id="prvDiplomaFieldOfStudy"></span></div>
+                            <div class="col-md-3">@Resources.TotalAverage</div>
+                            <div class="col-md-3"><span id="prvDiplomaTotalAverage"></span></div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="prvPreUniversityFieldset">
+                        <legend>@Resources.PreUniversity</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.Average</div>
+                            <div class="col-md-3"><span id="prvPreUniversityAverage"></span></div>
+                            <div class="col-md-3">@Resources.FieldOfStudy</div>
+                            <div class="col-md-3"><span id="prvPreUniversityField"></span></div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="prvBachelorFieldset">
+                        <legend>@Resources.Bachelor</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.FieldOfStudy</div>
+                            <div class="col-md-3"><span id="prvBachelorFieldOfStudy"></span></div>
+                            <div class="col-md-3">@Resources.UniversityName</div>
+                            <div class="col-md-3"><span id="prvBachelorUniversityName"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.CountryOfStudy</div>
+                            <div class="col-md-3"><span id="prvBachelorCountryOfStudy"></span></div>
+                            <div class="col-md-3">@Resources.Average</div>
+                            <div class="col-md-3"><span id="prvBachelorAverage"></span></div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="prvMasterFieldset">
+                        <legend>@Resources.Master</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.FieldOfStudy</div>
+                            <div class="col-md-3"><span id="prvMasterFieldOfStudy"></span></div>
+                            <div class="col-md-3">@Resources.UniversityName</div>
+                            <div class="col-md-3"><span id="prvMasterUniversityName"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.CountryOfStudy</div>
+                            <div class="col-md-3"><span id="prvMasterCountryOfStudy"></span></div>
+                            <div class="col-md-3">@Resources.Average</div>
+                            <div class="col-md-3"><span id="prvMasterAverage"></span></div>
+                        </div>
+                    </fieldset>
+                    <fieldset id="prvPhdFieldset">
+                        <legend>@Resources.Phd</legend>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.FieldOfStudy</div>
+                            <div class="col-md-3"><span id="prvPhdFieldOfStudy"></span></div>
+                            <div class="col-md-3">@Resources.UniversityName</div>
+                            <div class="col-md-3"><span id="prvPhdUniversityName"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.CountryOfStudy</div>
+                            <div class="col-md-3"><span id="prvPhdCountryOfStudy"></span></div>
+                            <div class="col-md-3">@Resources.Average</div>
+                            <div class="col-md-3"><span id="prvPhdAverage"></span></div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-1">
+                    <span class="previewInfoEdit">
+                        <a href="/" class="btn btn-info btnEditInfo" data-tabid="4">
+                            <span><i class="far fa-edit"></i>@Resources.Edit</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="row previewInfoRow">
+                <div class="col-md-2">
+                    <span class="previewInfoTitle">@Resources.ChooseField</span>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="prvChosenFields" class="table border">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>@Resources.RowNumber</th>
+                                        <th>@Resources.Field_Id</th>
+                                        <th>@Resources.College</th>
+                                        <th>@Resources.Field</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <span class="previewInfoEdit">
+                        <a href="/" class="btn btn-info btnEditInfo" data-tabid="5">
+                            <span><i class="far fa-edit"></i>@Resources.Edit</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <input type="button" class="btn btn-danger prev-tab" value="@Resources.Return" rel="5" />
+                    <input type="button" id="btnConfirmInfo" class="btn btn-info" value="@Resources.ConfirmAndContinue" data-lang="@Session["lang"].ToString()" />
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="saveFormContent" style="display: none;" />
+    </form>
+</div>

@@ -1,0 +1,32 @@
+﻿
+@model List<ISR.web.Models.UserViewModel>
+<table id="tblAllUsers" class="table table-responsive-sm table-bordered text_align_center_tbls">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ردیف</th>
+            <th scope="col">نام کاربری</th>
+            <th scope="col">کلمه عبور</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() > 0)
+        {
+            var bgcolor = "class=table-success";
+            for (int i = 0; i < Model.Count; i++)
+            {
+                bgcolor = (i % 2) == 0 ? "class=table-success" : "class=table-danger";
+                <tr @bgcolor>
+                    <td>@(i + 1)</td>
+                    <td>@Model[i].DisplayName</td>
+                    <td>@Model[i].Password</td>
+                    <td>
+                        <a href="" class="btn btn-info a_edit_user" data-id="@Model[i].Id" data-actiontype="2">ویرایش</a> |
+                        <a href="" class="btn btn-danger a_delete_user" data-id="@Model[i].Id" data-actiontype="3">حــذف</a> |
+                        <a href="" class="btn btn-secondary a_resetpass_user" data-id="@Model[i].Id" data-actiontype="4">ResetPassword</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

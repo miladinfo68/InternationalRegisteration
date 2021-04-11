@@ -1,0 +1,1595 @@
+﻿@using ISR.Resources
+@using ISR.Commons.enums
+@using ISR.DAL.Amozesh_Initial
+@model  ISR.web.Models.RequestViewModel
+@{
+    ViewBag.Title = "RequestDetails";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<style>
+    .ui-dialog {
+        direction: rtl;
+        text-align: right;
+    }
+
+    fieldset legend {
+        text-align: center;
+    }
+
+    #prvFamilyFieldset select {
+        margin-top: 0px;
+    }
+</style>
+<div class="ex_req_details">
+
+    <div id="contentHeight" class="col-md-12 contentBox helpiii">
+        <div class="row fullHeight">
+            <div class="col-md-12 p-4">
+
+                @if (Model.Status == (byte)ISR.Commons.enums.RequestStatus.M_Rejected || Model.Status == (byte)ISR.Commons.enums.RequestStatus.M_Enrollment_Rejected)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger text-center">@Model.Discription</div>
+                        </div>
+                    </div>
+                }
+
+                <div class="row previewInfoRow2">
+                    <div class="col-md-2">
+                        <span class="previewInfoTitle">اطلاعات درخواست</span>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-3">@Resources.RequestId</div>
+                            <div class="col-md-3" id="requestDetailsReqId"><input type="hidden" id="txtStudentRequestId" value="@Model.Id" /> @Model.Id</div>
+                            <div class="col-md-3"> @Resources.RequestStatus</div>
+                            <div class="col-md-3">@Model.StatusName</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">@Resources.RequestDate</div>
+                            <div class="col-md-3 forcedLtr">@Model.CreateDate.ToString("yyyy/MM/dd hh:mm:ss")</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row previewInfoRow2">
+                    <div class="col-md-1 left_div_middle_center">
+                        <span>@Resources.PersonalInfo</span>
+                    </div>
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-md-2">@Resources.Firstname</div>
+                            <div class="col-md-4">
+                                <input id="txtFirstName" type="text" class="form-control" value="@Model.Student.Person.FirstName " />
+                                @*<span id="prFirstName">@Model.Student.Person.FirstName</span>*@
+                            </div>
+                            <div class="col-md-2">@Resources.Middlename</div>
+                            <div class="col-md-4">
+                                <input id="txtMiddleName" type="text" class="form-control" value="@Model.Student.Person.MiddleName " />
+                                @* <span id="prvMiddlename">@Model.Student.Person.MiddleName</span>*@
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@Resources.Lastname</div>
+                            <div class="col-md-4">
+                                <input id="txtLastName" type="text" class="form-control" value="@Model.Student.Person.LastName " />
+                                @*<span id="prvLastname">@Model.Student.Person.LastName</span>*@
+                            </div>
+                            <div class="col-md-2">@Resources.FathersName</div>
+                            <div class="col-md-4">
+                                <input id="txtFatherName" type="text" class="form-control" value="@Model.Student.Person.FathersName " />
+                                @*<span id="prvFathersName">@Model.Student.Person.FathersName</span>*@
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@Resources.MothersName</div>
+                            <div class="col-md-4">
+                                <input id="txtMotherName" type="text" class="form-control" value="@Model.Student.Person.MothersName " />
+                                @*<span id="prvMothersName">@Model.Student.Person.MothersName</span>*@
+                            </div>
+                            <div class="col-md-2">@Resources.GrandFathersName</div>
+                            <div class="col-md-4">
+                                <input id="txtGrandFatherName" type="text" class="form-control" value="@Model.Student.Person.GrandFathersName " />
+                                @*<span id="prvGrandFathersName">@Model.Student.Person.GrandFathersName</span>*@
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@Resources.BirthDate</div>
+                            <div class="col-md-4">
+                                <input id="txtBirthDate" type="text" class="form-control dPicker" value="@Model.Student.Person.BirthDate " />
+                                @*<span id="prvBirthDate">@Model.Student.Person.BirthDate</span>*@
+                            </div>
+                            <div class="col-md-2">@Resources.BirthPlace</div>
+                            <div class="col-md-4">
+                                <input id="txtBirthPlace" type="text" class="form-control" value="@Model.Student.Person.BirthPlace " />
+                                @*<span id="txtBirthPlace">@Model.Student.Person.BirthPlace</span>*@
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@Resources.Gender</div>
+                            <div class="col-md-4">
+                                <select id="ddlGender" class="form-control">
+                                    <option value="-1">@Resources.Dropdown_Choose</option>
+                                    <option value="1" @(@Resources.Male == @ViewBag.Sexulity ? "selected=selected" : "")>@Resources.Male</option>
+                                    <option value="2" @(@Resources.Female == @ViewBag.Sexulity ? "selected=selected" : "")>@Resources.Female</option>
+                                </select>
+                                @*<span id="prvGender">@Model.Student.Person.GenderTitle</span>*@
+                            </div>
+                            <div class="col-md-2">@Resources.MaritalStatus</div>
+                            <div class="col-md-4">
+                                <select id="ddlMarriage" class="form-control">
+                                    <option value="0">@Resources.Dropdown_Choose</option>
+                                    <option value="1" @(@Resources.Married == ViewBag.MaratalStatus ? "selected=selected" : "")>@Resources.Married</option>
+                                    <option value="2" @(@Resources.Married_Away == ViewBag.MaratalStatus ? "selected=selected" : "")>@Resources.Married_Away</option>
+                                    <option value="3" @(@Resources.Single == ViewBag.MaratalStatus ? "selected=selected" : "")>@Resources.Single</option>
+                                    <option value="4" @(@Resources.Widow == ViewBag.MaratalStatus ? "selected=selected" : "")>@Resources.Widow</option>
+                                    <option value="5" @(@Resources.Separated == ViewBag.MaratalStatus ? "selected=selected" : "")>@Resources.Separated</option>
+                                </select>
+                                @*<span id="prvMaritalStatus">@Model.Student.Person.MarritalTypeTitle</span>*@
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@Resources.CountOfChildren</div>
+                            <div class="col-md-4">
+                                <input id="txtChildren" type="text" class="form-control" value="@Model.Student.ChildrenCount" />
+                                @*<span id="prvChildren">@Model.Student.ChildrenCount</span>*@
+                            </div>
+                            <div class="col-md-2">@Resources.PhysicalStatus</div>
+                            <div class="col-md-4">
+                                <select id="ddlPhysicalStatus" class="form-control">
+                                    <option value="-1">@Resources.Dropdown_Choose</option>
+                                    <option value="3" @(@Resources.CompleteHealth == ViewBag.HealthStatus ? "selected=selected" : "")>@Resources.CompleteHealth</option>
+                                    <option value="1" @(@Resources.Veteran == ViewBag.HealthStatus ? "selected=selected" : "")>@Resources.Veteran</option>
+                                    <option value="4" @(@Resources.DisabilityOfHearing == ViewBag.HealthStatus ? "selected=selected" : "")>@Resources.DisabilityOfHearing</option>
+                                    <option value="5" @(@Resources.DisabilityOfMovement == ViewBag.HealthStatus ? "selected=selected" : "")>@Resources.DisabilityOfMovement</option>
+                                    <option value="6" @(@Resources.DisabilityOfSpeech == ViewBag.HealthStatus ? "selected=selected" : "")>@Resources.DisabilityOfSpeech</option>
+                                    <option value="7" @(@Resources.DisabilityOfVision == ViewBag.HealthStatus ? "selected=selected" : "")>@Resources.DisabilityOfVision</option>
+                                    <option value="8" @(@Resources.Blind == ViewBag.HealthStatus ? "selected=selected" : "")>@Resources.Blind</option>
+                                    <option value="9" @(@Resources.Deaf == ViewBag.HealthStatus ? "selected=selected" : "")>@Resources.Deaf</option>
+                                    <option value="2" @(@Resources.OtherDisabilities == ViewBag.HealthStatus ? "selected=selected" : "")>@Resources.OtherDisabilities</option>
+                                </select>
+                                @*<span id="prvPhysicalStatus">@Model.Student.HealthStatusTitle</span>*@
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@Resources.Relegion</div>
+                            <div class="col-md-4">
+                                <select id="ddlRelegion" class="form-control">
+                                    <option value="-1">@Resources.Dropdown_Choose</option>
+                                    <option value="1" @(@Resources.Islam == ViewBag.Relegion ? "selected=selected" : "")>@Resources.Islam</option>
+                                    <option value="2" @(@Resources.Christian == ViewBag.Relegion ? "selected=selected" : "")>@Resources.Christian</option>
+                                    <option value="3" @(@Resources.Jewish == ViewBag.Relegion ? "selected=selected" : "")>@Resources.Jewish</option>
+                                    <option value="4" @(@Resources.Zoroastrian == ViewBag.Relegion ? "selected=selected" : "")>@Resources.Zoroastrian</option>
+                                    <option value="5" @(@Resources.Other == ViewBag.Relegion ? "selected=selected" : "")>@Resources.Other</option>
+                                </select>
+                                @*<span id="prvRelegion">@Model.Student.ReligienTitle</span>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row previewInfoRow2">
+                    <div class="col-md-1 left_div_middle_center">
+                        <span>@Resources.Citizenship</span>
+                    </div>
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-md-2">@Resources.Citizenship</div>
+                            <div class="drpCitizenShips22 col-md-4">
+                                @*@Html.DropDownList("ddlCitizen", (SelectList)ViewBag.firstCitizenshipDrp, new { @class = "form-control" })*@
+                                @Html.DropDownList("ddlCitizen", (IEnumerable<SelectListItem>)ViewBag.firstCitizenshipDrp, new { @class = "form-control" })
+                                <input type="text" class="form-control" id="txtCitizen" value="@(Model.Student.Person.CitizenShips.Count() > 0 ? Model.Student.Person.CitizenShips.FirstOrDefault()?.Country?.DisplayName??"--" : "--")" />
+                                @*<span id="prvCitizenship">@(Model.Student.Person.CitizenShips.Count() > 0 ? Model.Student.Person.CitizenShips.FirstOrDefault().Country.DisplayName : "---")</span>*@
+                            </div>
+                            <div class="col-md-2">@Resources.SecondCitizenship</div>
+                            <div class="col-md-4">
+                                @Html.DropDownList("ddlSecondCitizen", (IEnumerable<SelectListItem>)ViewBag.secondCitizenshipDrp, new { @class = "form-control" })
+                                @*@Html.DropDownList("ddlSecondCitizen", (SelectList)ViewBag.secondCitizenshipDrp, new { @class = "form-control" })*@
+                                <input type="text" class="form-control" id="txtSecondCitizen" value="@(Model.Student.Person.CitizenShips.Count() > 1 ? Model.Student.Person.CitizenShips.ElementAt(1).Country.DisplayName : "---")" />
+                                @*<span id="prvSecondCitizenship">@(Model.Student.Person.CitizenShips.Count() > 1 ? Model.Student.Person.CitizenShips.ElementAt(1).Country.DisplayName : "---")</span>*@
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">@Resources.DocNumber</div>
+                            <div class="col-md-4">
+                                <input id="txtPassNo" type="text" class="form-control" value="@(Model.Student.Person.CitizenShips.Count() > 0 ? Model.Student.Person.CitizenShips.FirstOrDefault().DocNo : "---")" />
+                                @*<span id="prvDocNumber">@(Model.Student.Person.CitizenShips.Count() > 0 ? Model.Student.Person.CitizenShips.FirstOrDefault().DocNo : "---")</span>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row previewInfoRow2">
+                    <div class="col-md-1 left_div_middle_center">
+                        <span>@Resources.ContactInfo</span>
+                    </div>
+                    <div class="col-md-11">
+                        @if (Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress) != null)
+                        {
+                            <fieldset id="prvCitizenshipResidenceAddress">
+                                <legend>@Resources.CitizenshipResidenceAddress</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.State</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenHomeState" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Province" />
+                                        @*<span id="prvCitizenshipResidencState">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Province</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.City</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenHomeCity" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).City" />
+                                        @*<span id="prvCitizenshipResidencCity">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).City</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.Street</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenHomeStreet" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Street" />
+                                        @*<span id="prvCitizenshipResidencStreet">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Street</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.PlaceNumber</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenHomePlaque" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Plaque" />
+                                        @*<span id="prvCitizenshipResidencPlaceNumber">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Plaque</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.PostalCode</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenHomePostalCode" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PostalCode" />
+                                        @*<span id="prvCitizenshipResidencPostalCode">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PostalCode</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.Email</div>
+                                    <div class="col-md-4 forcedLtr">
+                                        <input id="txtCitizenEmail22" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Email2" />
+                                        @*<span id="prvCitizenshipResidencEmail">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Email2</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.PhoneNumber</div>
+                                    <div class="col-md-4 forcedLtr">
+                                        @Html.DropDownList("ddlCitizenHomePhoneCode", (SelectList)ViewBag.PhoneCodes, new { @class = "form-control phoneCodeDropDown" })<input id="txtCitizenshipResidencPhoneNumber" type="text" class="form-control mobileTextBox2 digitsOnly" placeholder="" maxlength="20" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PhoneNo" />
+                                        @*<span id="prvCitizenshipResidencPhoneNumber">+@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PreCodeForPhoneNo @Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PhoneNo</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.Mobile</div>
+                                    <div class="col-md-4 forcedLtr">
+                                        @Html.DropDownList("ddl_CitizenMobileCode", (SelectList)ViewBag.MobileNumbers, new { @class = "form-control phoneCodeDropDown" })<input id="txtCitizenshipResidencMobile" type="text" class="form-control mobileTextBox2 digitsOnly" placeholder="" maxlength="10" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Mobile2" />
+                                        @*<span id="prvCitizenshipResidencMobile">+@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PreCodeForMobile @Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Mobile2</span>*@
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                        @if (Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress) != null)
+                        {
+                            <fieldset id="prvCitizenshipWorkPlaceAddress">
+                                <legend>@Resources.CitizenshipWorkPlaceAddress</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.State</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenWorkState" type="text" class="form-control" placeholder="" maxlength="50" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).Province" />
+                                        @*<span id="prvCitizenshipWorkPlaceState">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).Province</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.City</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenWorkCity" type="text" class="form-control" placeholder="" maxlength="50" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).City" />
+                                        @*<span id="prvCitizenshipWorkPlaceCity">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).City</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.Street</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenWorkStreet" type="text" class="form-control" placeholder="" maxlength="200" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).Street" />
+                                        @*<span id="prvCitizenshipWorkPlaceStreet">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).Street</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.PlaceNumber</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenWorkPlaque" type="text" class="form-control" placeholder="" maxlength="20" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).Plaque" />
+                                        @*<span id="prvCitizenshipWorkPlacePlaceNumber">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).Plaque</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.PostalCode</div>
+                                    <div class="col-md-4">
+                                        <input id="txtCitizenWorkPostalCode" type="text" class="form-control digitsOnly" placeholder="" maxlength="20" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).PostalCode" />
+                                        @*<span id="prvCitizenshipWorkPlacePostalCode">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).PostalCode</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.PhoneNumber</div>
+                                    <div class="col-md-4 forcedLtr">
+                                        @Html.DropDownList("ddlCitizenWorkPhoneCode", (SelectList)ViewBag.PhoneCodes, new { @class = "form-control phoneCodeDropDown" })<input id="txtCitizenWorkPhone" type="text" class="form-control mobileTextBox2 digitsOnly" placeholder="" maxlength="20" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).PhoneNo" />
+                                        @*<span id="prvCitizenshipWorkPlacePhoneNumber">+@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).PreCodeForPhoneNo @Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipWorkPlaceAddress).PhoneNo</span>*@
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                        @if (Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress) != null)
+                        {
+                            <fieldset id="prvIranResidenceAddress">
+                                <legend>@Resources.IranResidenceAddress</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.State</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranHomeState" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Province " />
+                                        @*<span id="prvIranResidenceState">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Province</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.City</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranHomeCity" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).City" />
+                                        @*<span id="prvIranResidenceCity">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).City</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.Street</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranHomeStreet" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Street " />
+                                        @*<span id="prvIranResidenceStreet">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Street</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.PlaceNumber</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranHomePlaque" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Plaque" />
+                                        @*<span id="prvIranResidencePlaceNumber">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Plaque</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.PostalCode</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranHomePostalCode" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).PostalCode" />
+                                        @*<span id="prvIranResidencePostalCode">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).PostalCode</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.Email</div>
+                                    <div class="col-md-4 forcedLtr">
+                                        <input id="txtEmail22" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Email2 " />
+                                        @*<span id="prvIranResidenceEmail">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Email2</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.PhoneNumber</div>
+                                    <div class="col-md-4 forcedLtr">
+                                        <input id="txtIranHomePhone" type="text" class="form-control" data-IrPreCode="98" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).PhoneNo " />
+                                        @*<span id="prvIranResidencePhoneNumber">+@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).PreCodeForPhoneNo @Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).PhoneNo</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.Mobile</div>
+                                    <div class="col-md-4 forcedLtr">
+                                        <input id="txtMobileIran" type="text" class="form-control" data-IrPreCode="98" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Mobile2 " />
+                                        @*<span id="prvIranResidenceMobile">+@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).PreCodeForMobile @Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranResidenceAddress).Mobile2</span>*@
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                        @if (Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress) != null)
+                        {
+                            <fieldset id="prvIranWorkPlace">
+                                <legend>@Resources.IranWorkPlace</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.State</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranWorkState" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).Province" />
+                                        @*<span id="prvIranWorkPlaceState">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).Province</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.City</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranWorkCity" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).City" />
+                                        @*<span id="prvIranWorkPlaceCity">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).City</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.Street</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranWorkStreet" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).Street" />
+                                        @*<span id="prvIranWorkPlaceStreet">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).Street</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.PlaceNumber</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranWorkPlaque" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).Plaque" />
+                                        @*<span id="prvIranWorkPlacePlaceNumber">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).Plaque</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.PostalCode</div>
+                                    <div class="col-md-4">
+                                        <input id="txtIranWorkPostalCode" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).PostalCode" />
+                                        @*<span id="prvIranWorkPlacePostalCode">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).PostalCode</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.PhoneNumber</div>
+                                    <div class="col-md-4 forcedLtr">
+                                        <input id="txtIranWorkPhone" type="text" class="form-control" data-IrPreCode="98" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).PhoneNo" />
+                                        @*<span id="prvIranWorkPlacePhoneNumber">+@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).PreCodeForPhoneNo @Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).PhoneNo</span>*@
+                                    </div>
+                                </div>
+                                @*<div class="row">
+                                        <div class="col-md-2">@Resources.Mobile</div>
+                                        <div class="col-md-4">
+                                            <input id="txtIranWorkMobile" type="text" class="form-control" data-IrPreCode="98" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.IranWorkPlaceAddress).Mobile2" />
+                                        </div>
+                                    </div>*@
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+
+                <div class="row previewInfoRow2">
+                    <div class="col-md-1 left_div_middle_center">
+                        <span>@Resources.FamilyInfo</span>
+                    </div>
+                    <div class="col-md-11">
+
+                        @if (Model.Student.Person?.RelatedPersons?.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother) != null)
+                        {
+                            <fieldset id="prvMotherFieldset">
+                                <legend>@Resources.MothersInfo</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.Firstname</div>
+                                    <div class="col-md-4">
+                                        <input id="txtMothersFirstName" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.FirstName" />
+                                        @*<span id="prvMotherFirstName">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.FirstName</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.Lastname</div>
+                                    <div class="col-md-4">
+                                        <input id="txtMothersLastName" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.LastName" />
+                                        @*<span id="prvMotherLastName">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.LastName</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.FathersName</div>
+                                    <div class="col-md-4">
+                                        <input id="txtMothersFathersName" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.FathersName" />
+                                        @*<span id="prvMotherFathersName">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.FathersName</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.GrandFathersName</div>
+                                    <div class="col-md-4">
+                                        <input id="txtMothersGrandFathersName" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.GrandFathersName" />
+                                        @*<span id="prvMotherGrandFathersName">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.GrandFathersName</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.BirthDate</div>
+                                    <div class="col-md-4">
+                                        <input id="txtMothersBirthDate" type="text" class="form-control dPicker" maxlength="10" autocomplete="off" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.BirthDate" />
+                                        @*<span id="prvMotherBirthDate">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.BirthDate</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.BirthPlace</div>
+                                    <div class="col-md-4">
+                                        <input id="txtMothersBirthPlace" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.BirthPlace" />
+                                        @*<span id="prvMotherBirthPlace">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.BirthPlace</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.IdNumber</div>
+                                    <div class="col-md-4">
+                                        <input id="txtMothersIdNumber" type="text" class="form-control digitsOnly" maxlength="10" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.IdNo" />
+                                        @*<span id="prvMotherIdNumber">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.IdNo</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.IssuePlace</div>
+                                    <div class="col-md-4">
+                                        <input id="txtMothersIssuePlace" type="text" class="form-control" maxlength="30" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.IssuePlace" />
+                                        @*<span id="prvMotherIssuePlace">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.IssuePlace</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.NationalCode</div>
+                                    <div class="col-md-4">
+                                        <input id="txtMothersNationalCode" type="text" class="form-control digitsOnly" maxlength="10" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.NationalCode" />
+                                        @*<span id="prvMotherNationalCode">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.NationalCode</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.TypeOfMarriage</div>
+                                    <div class="col-md-4">
+                                        <select id="ddlMothersMarriageType" class="form-control">
+                                            <option value="-1" @(@Resources.Dropdown_Choose == ViewBag.MotherMarritalType ? "selected=selected" : "")>@Resources.Dropdown_Choose</option>
+                                            <option value="1" @(@Resources.Official == ViewBag.MotherMarritalType ? "selected=selected" : "")>@Resources.Official</option>
+                                            <option value="2" @(@Resources.Unofficial == ViewBag.MotherMarritalType ? "selected=selected" : "")>@Resources.Unofficial</option>
+                                        </select>
+                                        @*<span id="prvMotherMarriageType">@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Mother).Person.MarritalTypeTitle</span>*@
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+
+                        <fieldset id="prvRecommenderFieldset">
+                            <legend>@Resources.RecommenderInfo</legend>
+                            @if (!string.IsNullOrEmpty(ViewBag.RecommenderCode))
+                            {
+
+                                @*<div class="row">
+                                        <div class="col-md-2">@Resources.Firstname</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderFirstname" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Recommender).Person.FirstName" />
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.Lastname</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderLastname" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Recommender).Person.LastName" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-2">@Resources.FathersName</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderFathersName" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Recommender).Person.FathersName" />
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.Citizenship</div>
+                                        <div class="col-md-4">
+                                            @Html.DropDownList("ddl_RecommenderCitizenship", (SelectList)ViewBag.RecommenderCitizenship, new { @class = "form-control" })
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">@Resources.GrandFathersName</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderGrandFathersName" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Recommender).Person.GrandFathersName" />
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.BirthDate</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderBirthDate" type="text" class="form-control dPicker" maxlength="10" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Recommender).Person.BirthDate" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">@Resources.DocumentType</div>
+                                        <div class="col-md-4">
+                                            <select id="ddlRecommenderDocumentType" class="form-control">
+                                                <option value="0" @(Resources.Dropdown_Choose == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.Dropdown_Choose</option>
+                                                <option value="1" @(Resources.Passport == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.Passport</option>
+                                                <option value="2" @(Resources.RefugeeBooklet == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.RefugeeBooklet</option>
+                                                <option value="3" @(Resources.IdentityCardOfForeignCitizens == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.IdentityCardOfForeignCitizens</option>
+                                                <option value="4" @(Resources.LimitedTransitCard == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.LimitedTransitCard</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.DocumentNumberOrNationalCode</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderDocumentNumber" type="text" class="form-control digitsOnly" maxlength="30" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Recommender).Person.CitizenShips.FirstOrDefault().DocNo" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">@Resources.Job</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderJobTitle" type="text" class="form-control" maxlength="50" value="@Model.Student.Person.RelatedPersons.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Recommender).Person.Job" />
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.Mobile</div>
+                                        <div class="col-md-4 forcedLtr">
+                                            @Html.DropDownList("ddlRecommenderCitizenshipMobilePreCode", (SelectList)ViewBag.RecommenderCitizenshipMobilePreCode, new { @class = "form-control phoneCodeDropDown" })<input id="txtRecommenderMobile22" type="text" class="form-control digitsOnly mobileTextBox2" maxlength="10" value="@(Model.Student.Person?.RelatedPersons?.FirstOrDefault(w => w.MainPersonRelationType == (byte)RelationType.Recommender)?.Person?.Addresses?.FirstOrDefault()?.Mobile2 ?? "")" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">@Resources.Relationship</div>
+                                        <div class="col-md-4">
+                                            <select id="ddlRecommenderRelationship" class="form-control">
+                                                <option value="0" @(Resources.Dropdown_Choose == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Dropdown_Choose</option>
+                                                <option value="2" @(Resources.Father == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Father</option>
+                                                <option value="3" @(Resources.Mother == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Mother</option>
+                                                <option value="4" @(Resources.GrandFather == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.GrandFather</option>
+                                                <option value="5" @(Resources.Brother == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Brother</option>
+                                                <option value="6" @(Resources.Sister == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Sister</option>
+                                                <option value="7" @(Resources.Spouse == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Spouse</option>
+                                                <option value="8" @(Resources.Child == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Child</option>
+                                                <option value="11" @(Resources.Friend == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Friend</option>
+                                                <option value="12" @(Resources.Other == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Other</option>
+                                            </select>
+                                        </div>
+                                    </div>*@
+
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.RecommenderCode</div>
+                                    <div class="col-md-4">
+                                        <input id="txtRecommenderCode" type="text" class="form-control" value="@ViewBag.RecommenderCode" />
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @*<div class="row">
+                                        <div class="col-md-2">@Resources.Firstname</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderFirstname" type="text" class="form-control" maxlength="50" />
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.Lastname</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderLastname" type="text" class="form-control" maxlength="50" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-2">@Resources.FathersName</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderFathersName" type="text" class="form-control" maxlength="50" />
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.Citizenship</div>
+                                        <div class="col-md-4">
+                                            @Html.DropDownList("ddl_RecommenderCitizenship", (SelectList)ViewBag.RecommenderCitizenship, new { @class = "form-control" })
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">@Resources.GrandFathersName</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderGrandFathersName" type="text" class="form-control" maxlength="50" />
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.BirthDate</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderBirthDate" type="text" class="form-control dPicker" maxlength="10" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">@Resources.DocumentType</div>
+                                        <div class="col-md-4">
+                                            <select id="ddlRecommenderDocumentType" class="form-control">
+                                                <option value="0" @(Resources.Dropdown_Choose == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.Dropdown_Choose</option>
+                                                <option value="1" @(Resources.Passport == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.Passport</option>
+                                                <option value="2" @(Resources.RefugeeBooklet == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.RefugeeBooklet</option>
+                                                <option value="3" @(Resources.IdentityCardOfForeignCitizens == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.IdentityCardOfForeignCitizens</option>
+                                                <option value="4" @(Resources.LimitedTransitCard == ViewBag.RecommenderDocType ? "selected=selected" : "")>@Resources.LimitedTransitCard</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.DocumentNumberOrNationalCode</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderDocumentNumber" type="text" class="form-control digitsOnly" maxlength="30" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">@Resources.Job</div>
+                                        <div class="col-md-4">
+                                            <input id="txtRecommenderJobTitle" type="text" class="form-control" maxlength="50" />
+
+                                        </div>
+                                        <div class="col-md-2">@Resources.Mobile</div>
+                                        <div class="col-md-4 forcedLtr">
+
+                                            @Html.DropDownList("ddlRecommenderCitizenshipMobilePreCode", (SelectList)ViewBag.RecommenderCitizenshipMobilePreCode, new { @class = "form-control phoneCodeDropDown" })
+                                            <input id="txtRecommenderMobile22" type="text" class="form-control digitsOnly mobileTextBox2" maxlength="10" />
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">@Resources.Relationship</div>
+                                        <div class="col-md-4">
+                                            <select id="ddlRecommenderRelationship" class="form-control">
+                                                <option value="0" @(Resources.Dropdown_Choose == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Dropdown_Choose</option>
+                                                <option value="2" @(Resources.Father == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Father</option>
+                                                <option value="3" @(Resources.Mother == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Mother</option>
+                                                <option value="4" @(Resources.GrandFather == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.GrandFather</option>
+                                                <option value="5" @(Resources.Brother == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Brother</option>
+                                                <option value="6" @(Resources.Sister == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Sister</option>
+                                                <option value="7" @(Resources.Spouse == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Spouse</option>
+                                                <option value="8" @(Resources.Child == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Child</option>
+                                                <option value="11" @(Resources.Friend == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Friend</option>
+                                                <option value="12" @(Resources.Other == ViewBag.RecommenderRelationship ? "selected=selected" : "")>@Resources.Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-4">
+                                            <a href="/" class="btn btn-success text-white" data-lang="fa" data-ParentPersonId="@ViewBag.ParentPersonId" id="btnAddRecommenderPerson">@Resources.Add</a>
+                                        </div>
+                                    </div>*@
+
+
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.RecommenderCode</div>
+                                    <div class="col-md-4">
+                                        <input id="txtRecommenderCode" type="text" class="form-control" />
+                                    </div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4">
+                                        <a href="/" class="btn btn-success text-white" data-lang="fa" data-ParentPersonId="@ViewBag.ParentPersonId" id="btnAddRecommenderPerson">@Resources.Add</a>
+                                    </div>
+
+                                </div>
+
+                            }
+                        </fieldset>
+
+                        <fieldset id="prvFamilyFieldset">
+                            <input type="hidden" id="parentPersonId" value="@ViewBag.ParentPersonId" />
+                            <legend>@Resources.FamilyAndChildren</legend>
+                            <div class="row">
+                                <table class="col-md-12 table border familyPersons">
+                                    <thead>
+                                        <tr>
+                                            <th>@Resources.Relationship</th>
+                                            <th>@Resources.Firstname</th>
+                                            <th>@Resources.Lastname</th>
+                                            <th>@Resources.FathersName</th>
+                                            <th>@Resources.GrandFathersName</th>
+                                            <th>@Resources.BirthDate</th>
+                                            <th>@Resources.DocumentType</th>
+                                            <th>@Resources.DocumentNumberOrNationalCode</th>
+                                            <th>@Resources.Job</th>
+                                            <th>@Resources.Citizenship</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="form-group">
+                                            <td>
+                                                <select class="form-control" id="ddlAddRelatedPerson">
+                                                    <option value="0">@Resources.Dropdown_Choose</option>
+                                                    <option value="2">@Resources.Father</option>
+                                                    <option value="3">@Resources.Mother</option>
+                                                    <option value="4">@Resources.GrandFather</option>
+                                                    <option value="5">@Resources.Brother</option>
+                                                    <option value="6">@Resources.Sister</option>
+                                                    <option value="7">@Resources.Spouse</option>
+                                                    <option value="8">@Resources.Child</option>
+                                                    <option value="12">@Resources.Other</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control" maxlength="50" id="txtRelatedPerson_FirstName" /></td>
+                                            <td><input type="text" class="form-control" maxlength="50" id="txtRelatedPerson_LastName" /></td>
+                                            <td><input type="text" class="form-control" maxlength="50" id="txtRelatedPerson_FatherName" /></td>
+                                            <td><input type="text" class="form-control" maxlength="50" id="txtRelatedPerson_GrandPa" /></td>
+                                            <td><input type="text" class="form-control dPicker" maxlength="10" id="txtRelatedPersonBirthDate" /></td>
+                                            <td>
+                                                <select class="form-control" id="ddlChooseDocType">
+                                                    <option value="0">@Resources.Dropdown_Choose</option>
+                                                    <option value="2">@Resources.Passport</option>
+                                                    <option value="3">@Resources.RefugeeBooklet</option>
+                                                    <option value="4">@Resources.IdentityCardOfForeignCitizens</option>
+                                                    <option value="5">@Resources.LimitedTransitCard</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control" maxlength="30" id="txtRelatedPerson_DocNo" /></td>
+                                            <td><input type="text" class="form-control" maxlength="50" id="txtRelatedPerson_JobTitle" /></td>
+                                            <td>
+                                                @Html.DropDownList("ddl_ListOfCountries", (SelectList)ViewBag.CountryList, new { @class = "form-control" })
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <div class="col-md-12">
+                                    <a href="/" class="btn btn-success text-white" data-lang="fa" id="btnAddRelatedPerson">@Resources.Add</a>
+                                </div>
+                            </div>
+                            <br />
+                            @if (ViewBag.RelatedPersons != null && (ViewBag.RelatedPersons as List<RelatedPerson>).Count > 0)
+                            {
+                                <div class="row">
+                                    <table class="col-md-12 table border tblRelatedPersons">
+                                        <thead>
+                                            <tr class="theader">
+                                                <th>@Resources.Relationship</th>
+                                                <th>@Resources.Firstname</th>
+                                                <th>@Resources.Lastname</th>
+                                                <th>@Resources.FathersName</th>
+                                                <th>@Resources.GrandFathersName</th>
+                                                <th>@Resources.BirthDate</th>
+                                                <th>@Resources.DocumentType</th>
+                                                <th>@Resources.DocumentNumberOrNationalCode</th>
+                                                <th>@Resources.Job</th>
+                                                <th>@Resources.Citizenship</th>
+                                                <th>حذف</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @*@foreach (var item in Model.Student.Person.RelatedPersons.Where(w => w.MainPersonRelationType == (byte)RelationType.FamilyMember))*@
+                                            @foreach (var item in Model.Student.Person.RelatedPersons.Where(w => w.MainPersonRelationType == (byte)RelationType.FamilyMember))
+                                            {
+                                                var coloure = item.Id % 2 != 0 ? "tbodyy" : "";
+                                                <tr class=@coloure>
+                                                    <td>@item.RelatedPersonRelationTypeTitle</td>
+                                                    <td>@item.Person.FirstName</td>
+                                                    <td>@item.Person.LastName</td>
+                                                    <td>@item.Person.FathersName</td>
+                                                    <td>@item.Person.GrandFathersName</td>
+                                                    <td>@item.Person.BirthDate</td>
+                                                    <td>@(item.Person.CitizenShips?.FirstOrDefault()?.DocTypeTitle ?? "")</td>
+                                                    <td>@(item.Person.CitizenShips?.FirstOrDefault()?.DocNo ?? "")</td>
+                                                    <td>@item.Person.Job</td>
+                                                    <td>@(item.Person.CitizenShips.FirstOrDefault()?.Country?.DisplayName ?? "")</td>
+                                                    <td> <a href="/" class="btn btn-danger text-white" data-lang="fa" data-relatadPersonID="@item.Id" name="btnRemoveRelatedPerson">حذف</a></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="row previewInfoRow2">
+                    <div class="col-md-1 left_div_middle_center">
+                        <span>@Resources.EducationalInfo</span>
+                    </div>
+                    <div class="col-md-11">
+                        @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.Diploma).Count() > 0)
+                        {
+                            <fieldset id="prvDiplomaFieldset">
+                                <legend>@Resources.Diploma</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.WrittenAverage</div>
+                                    <div class="col-md-4">
+                                        @*<input type="text" id="txtDiplomaWrittenAverage" class="form-control digitsOnly averageGrade" maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).WrittenAverage" />*@
+                                        <input type="text" id="txtDiplomaWrittenAverage" class="form-control" maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).WrittenAverage" />
+                                        @*<span id="prvDiplomaWrittenAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).WrittenAverage</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.DegreePlace</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtDiplomaPlace" class="form-control" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).UniversityName" />
+                                        @*<span id="prvDiplomaDegreePlace">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).UniversityName</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.FieldOfStudy</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtDiplomaField" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).FieldTitle" />
+                                        @*<span id="prvDiplomaFieldOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).FieldTitle </span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.TotalAverage</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtDiplomaTotalAverage" class="form-control " maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).TotalAverage" />
+                                        @*<span id="prvDiplomaTotalAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).TotalAverage</span>*@
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                        @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.PreUniversity).Count() > 0)
+                        {
+                            <fieldset id="prvPreUniversityFieldset">
+                                <legend>@Resources.PreUniversity</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.Average</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtPreUniversityAverage" class="form-control " max="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.PreUniversity).TotalAverage" />
+                                        @*<span id="prvPreUniversityAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.PreUniversity).TotalAverage</span>*@
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                        @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.Bachelor).Count() > 0)
+                        {
+                            <fieldset id="prvBachelorFieldset">
+                                <legend>@Resources.Bachelor</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.FieldOfStudy</div>
+                                    <div class="col-md-4">
+                                        <input id="txtBachelorField" type="text" class="form-control" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).FieldTitle" />
+                                        @*<span id="prvBachelorFieldOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).FieldTitle </span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.UniversityName</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtBachelorUniversity" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).UniversityName" />
+                                        @*<span id="prvBachelorUniversityName">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).UniversityName</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.CountryOfStudy</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtBachelorCountry" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).CountryName" />
+                                        @*<span id="prvBachelorCountryOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).CountryName</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.Average</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtBachelorAverage" class="form-control " maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).TotalAverage" />
+                                        @*<span id="prvBachelorAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).TotalAverage</span>*@
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                        @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.Master).Count() > 0)
+                        {
+                            <fieldset id="prvMasterFieldset">
+                                <legend>@Resources.Master</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.FieldOfStudy</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtMasterField" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).FieldTitle" />
+                                        @*<span id="prvMasterFieldOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).FieldTitle </span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.UniversityName</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtMasterUniversity" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).UniversityName" />
+                                        @*<span id="prvMasterUniversityName">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master)UniversityName</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.CountryOfStudy</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtMasterCountry" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).CountryName" />
+                                        @*<span id="prvMasterCountryOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).CountryName</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.Average</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtMasterAverage" class="form-control " maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).TotalAverage" />
+                                        @*<span id="prvMasterAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).TotalAverage</span>*@
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                        @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.Phd).Count() > 0)
+                        {
+                            <fieldset id="prvPhdFieldset">
+                                <legend>@Resources.Phd</legend>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.FieldOfStudy</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtDoctorateField" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).FieldTitle" />
+                                        @*<span id="prvPhdFieldOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).FieldTitle </span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.UniversityName</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtDoctorateUniversity" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).UniversityName" />
+                                        @*<span id="prvPhdUniversityName">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).UniversityName</span>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">@Resources.CountryOfStudy</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtDoctorateCountry" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).CountryName" />
+                                        @*<span id="prvPhdCountryOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).CountryName</span>*@
+                                    </div>
+                                    <div class="col-md-2">@Resources.Average</div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="txtDoctorateAverage" class="form-control " maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).TotalAverage" />
+                                        @*<span id="prvPhdAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).TotalAverage</span>*@
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+                </div>
+
+                <div class="row previewInfoRow2">
+                    <div class="col-md-1 left_div_middle_center">
+                        <span>@Resources.ChooseField</span>
+                    </div>
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table id="prvChosenFields" class="table border">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>@Resources.RowNumber</th>
+                                                    <th>@Resources.Field_Id</th>
+                                                    <th>@Resources.College</th>
+                                                    <th>@Resources.Field</th>
+                                                    <th>@Resources.btnDeleteCandidateField </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Student.CandidateFields)
+                                                {
+                                                    <tr>
+                                                        <td>@(Model.Student.CandidateFields.IndexOf(item) + 1)</td>
+                                                        <td>@(item.FieldForForeign?.Id == null ? null : item.FieldForForeign?.Id)</td>
+                                                        <td>@(item.FieldForForeign?.College?.CollegeName ?? "")</td>
+                                                        <td>@(item.FieldForForeign?.Field_Name ?? "")</td>
+
+                                                        <td>
+                                                            <a href="/" name="btn_DeleteCandidateField" class="btn btn-danger  deleteCandidateField" data-requestId="@ViewBag.reqId" data-studentId="@ViewBag.StdId" data-fieldId="@item.FieldForForeign.Id">@Resources.btnDeleteCandidateField</a>
+                                                            <a href="/" name="btn_ConfirmCandidateField" class="btn btn-success @(item.Selected? "d-none": "") confirmCandidateField" data-requestId="@ViewBag.reqId" data-studentId="@ViewBag.StdId" data-fieldId="@item.FieldForForeign.Id">@Resources.btnConfirmCandidateField</a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <span>لیست رشته ها</span>
+                                    @Html.DropDownList("ddl_Fields_ExpertSide", (List<SelectListItem>)ViewBag.AllFields, Resources.Dropdown_Choose, new { @class = "form-control" })
+                                    <input type="hidden" id="hdn_RequestId" value="@ViewBag.reqId" />
+                                    <input type="hidden" id="hdn_StudentdId" value="@ViewBag.StdId" />
+                                    <br />
+                                    <br />
+                                    <a id="btnAddNewField4Student" href="" class="btn btn-success form-control">افزودن رشته جدید</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row previewInfoRow2">
+                    <div class="col-md-1 left_div_middle_center">
+                        <span>@Resources.DocsUploaded</span>
+                    </div>
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    @foreach (var item in Model.Documents)
+                                    {
+                                        <div class="col-md-4 requestDetailsDoc">
+                                            <div class="requestDetailsDocTitle">
+                                                <span>@item.CategoryTitle</span>
+                                            </div>
+                                            <div class="requestDetailsDocImage">
+                                                <a data-fancybox="gallery" href="@(item.Path + "/" + item.FileName +"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())">
+                                                    <img src="@(item.Path + "/" + item.FileName +"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())" />
+                                                </a>
+                                            </div>
+                                            <div class="requestDetailsDocStatus">
+                                                <h5><span>  @item.DocStatusTitle </span></h5>
+                                            </div>
+                                            @*@if (item.DocStatus == (byte)DocStatus.InProgress){*@
+
+                                            <div class="requestDetailsDocAction">
+                                                <a href="/" class="btn btn-success btnAcceptRequestDoc" data-docId="@item.Id"> تائید مدرک </a>
+                                                <a href="/" class="btn btn-danger btnRejectRequestDoc" data-docId="@item.Id">رد مدرک</a>
+                                                <a href="/" class="btn btn-info btnUpload_NewDocument" data-reqID="@Model.Id" data-docID="@item.Id" data-detector="k">Upload file</a>
+                                            </div>
+
+                                            @*}if (item.DocStatus == (byte)DocStatus.Rejected){
+                                                 <div class="row">
+                                                     <div class="col-md-12">
+                                                         <button type="button" name="btnFileLoader" class="btn btn-info" data-toggle="modal" data-target="#uploadModal" data-reqID="@Model.Id" data-docID="@item.Id" data-detector="k">Upload file</button>
+                                                     </div>
+                                                 </div>
+                                                } *@
+                                        </div>
+                                    }
+                                    <div id="dialog-confirm" title="علت رد : ">
+                                        @*<label for="txtRejectDesc">علت رد : </label>*@
+                                        <textarea id="txtRejectDesc" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-1 col-sm-12 offset-sm-0 offset-md-7 ">
+                                <input type="button" class="btn btn-success" id="btnUpdateRequest" value="@Resources.btn_update_request" />
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <a href="/fa/InternationalExpert/ReviewRequests" class="btn btn-warning ">@Resources.Return</a>
+                                <input type="button" class="btn btn-danger" id="btnRejectRequest" value="@Resources.RejectRequest" />
+                                <input type="button" class="btn btn-success" id="btnAcceptRequest" value="@Resources.AcceptRequest" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="uploadModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <li>@Resources.ModalFileFormat</li>
+                            <li>@Resources.ModalFileSize</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!-- Image Preview-->
+                    @using (Html.BeginForm("ReUploadDocument", "Documents", FormMethod.Post, new { id = "frmReUploadDocument" }))
+                    {
+                        <div class="row">
+                            <div class="img-wrapper">
+                                <img id="imgUploader" class="img-thumbnail" />
+                            </div>
+                        </div>
+                        <input type="hidden" name="hdn_redid" id="hdn_reqid" />
+                        <input type="hidden" name="hdn_doc_id" id="hdn_doc_id" />
+                        <input type="hidden" name="hdn_detector" id="hdn_detector" />
+                        <input type='file' name='fileUploader' id='fileUploader' accept="image/*" class="form-control" />
+                        @*<input type='file' name='fileUploader' id='fileUploader' accept="image/*" multiple size="20" class="form-control" />*@
+                        <button type="submit" id='btnFileUploadr' class="btn  btn-success form-control">@Resources.btnFileUploadr</button>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(".ex_req_details #prvRecommenderFieldset a[id='btnAddRecommenderPerson']").on("click", function (e) {
+            e.preventDefault();
+            var parentPersonId = $(this).data("parentpersonid");
+            var data = {
+                RequestId: $("#txtStudentRequestId").val()
+                , ParentPersonId: parentPersonId
+                //, RecommenderFirstName: $('#txtRecommenderFirstname').val() || ''
+                //, RecommenderLastName: $('#txtRecommenderLastname').val() || ''
+                //, RecommenderFathersName: $('#txtRecommenderFathersName').val() || ''
+                //, RecommenderCountryId: $('#ddl_RecommenderCitizenship').val() || '0'
+                //, RecommenderGrandFatherName: $('#txtRecommenderGrandFathersName').val() || ''
+                //, RecommenderBirthDate: $('#txtRecommenderBirthDate').val() || ''
+                //, RecommenderDocType: $('#ddlRecommenderDocumentType').val() || '0'
+                //, RecommenderDocNo: $('#txtRecommenderDocumentNumber').val() || ''
+                //, RecommenderJob: $('#txtRecommenderJobTitle').val() || ''
+                //, RecommenderMobile: $('#txtRecommenderMobile22').val() || ''
+                ////, RecommenderMobileCode: $('#ddlRecommenderMobileCode').val() || ''
+                //, RecommenderMobileCode: $('#ddlRecommenderCitizenshipMobilePreCode').val() || '0'
+                //, RecommenderRelationship: $('#ddlRecommenderRelationship').val() || '0'
+
+                , RecommenderCode: $('#txtRecommenderCode').val() || ''
+            }
+
+            //if (RecommenderFirstName && RecommenderLastName && RecommenderFathersName && RecommenderCountryId
+            //    && RecommenderGrandFatherName && RecommenderBirthDate && RecommenderDocType && RecommenderDocNo
+            //    && RecommenderJob && RecommenderMobile && RecommenderMobileCode && RecommenderRelationship
+            //    && RecommenderCountryId != "0" && ddlRecommenderDocumentType != "0"
+            //    && ddlRecommenderCitizenshipMobilePreCode != "0" && ddlRecommenderRelationship != "0") {
+
+            if (parentPersonId) {
+                $('.loadingWrapper').show();
+                $.ajax({
+                    url: "/fa/InternationalExpert/AddRecommenderPerson",
+                    type: 'POST',
+                    data: { 'data': JSON.stringify(data) },
+                    success: function (respons) {
+                        if (respons.Result) {
+                            $('.loadingWrapper').hide();
+                            window.location = window.location;
+                        } else {
+                            alert(respons.Message, "Error Message");
+                        }
+                    },
+                    error: function (jqXHR, exception) {;
+                        alert("WOW Error Occured !!!!", "Error Message");
+                    }
+                });
+            }
+        });
+        $(".ex_req_details #prvFamilyFieldset a[name='btnRemoveRelatedPerson']").on("click", function (e) {
+            e.preventDefault();
+
+            var relatadPersonId = $(this).data("relatadpersonid");
+            ///fa/Management/RequestDetails/33
+            var requestId = $("#txtStudentRequestId").val().trim();
+
+            if (relatadPersonId) {
+                $('.loadingWrapper').show();
+                var data = { "relatadPersonId": relatadPersonId, "requestId": requestId };
+                $.ajax({
+                    url: "/fa/InternationalExpert/RemoveRelatedPerson",
+                    type: 'POST',
+                    data: { 'data': JSON.stringify(data) },
+                    success: function (respons) {
+                        $('.loadingWrapper').hide();
+                        window.location = window.location;
+                    },
+                    error: function (jqXHR, exception) {
+                        alert("WOW Error Occured !!!!", "Error Message")
+                    }
+                });
+            }
+
+        });
+        $(".ex_req_details a#btnAddRelatedPerson").on("click", function (e) {
+            e.preventDefault();
+            debugger;
+            var requestId = $("#txtStudentRequestId").val() || '';
+            var parentPersonId = $("#parentPersonId").val() || '';
+            var relationType = $("#ddlAddRelatedPerson").val() || '0';
+            var relatedPersonFirstName = $("#txtRelatedPerson_FirstName").val().trim() || '';
+            var relatedPersonLastName = $("#txtRelatedPerson_LastName").val().trim() || '';
+            var relatedPersonFatherName = $("#txtRelatedPerson_FatherName").val().trim() || '';
+            var relatedPersonGrandPa = $("#txtRelatedPerson_GrandPa").val().trim() || '';
+            var relatedPersonBirthDate = $("#txtRelatedPersonBirthDate").val();//dPicker
+            var relatedPersonDocType = $("#ddlChooseDocType").val() || '0';
+            var relatedPersonDocNo = $("#txtRelatedPerson_DocNo").val().trim() || '';
+            var relatedPersonJobTitle = $("#txtRelatedPerson_JobTitle").val().trim() || '';
+            var relatedPersonCitizenShip = $("#ddl_ListOfCountries").val() || '0';
+
+            if (requestId && parentPersonId && relationType
+                && relatedPersonFirstName && relatedPersonLastName
+                && relatedPersonFatherName && relatedPersonGrandPa
+                && relatedPersonBirthDate && relatedPersonDocType
+                && relatedPersonDocNo && relatedPersonJobTitle
+                && relatedPersonCitizenShip && relationType != "0"
+                && relatedPersonDocType != "0" && relatedPersonCitizenShip != "0") {
+
+                var data = {
+                    "requestId": requestId
+                    , "parentPersonId": parentPersonId
+                    , "relationType": relationType
+                    , "relatedPersonFirstName": relatedPersonFirstName
+                    , "relatedPersonLastName": relatedPersonLastName
+                    , "relatedPersonFatherName": relatedPersonFatherName
+                    , "relatedPersonGrandPa": relatedPersonGrandPa
+                    , "relatedPersonBirthDate": relatedPersonBirthDate
+                    , "relatedPersonDocType": relatedPersonDocType
+                    , "relatedPersonDocNo": relatedPersonDocNo
+                    , "relatedPersonJobTitle": relatedPersonJobTitle
+                    , "relatedPersonCitizenShip": relatedPersonCitizenShip
+                };
+                $('.loadingWrapper').show();
+                $.ajax({
+                    url: "/fa/InternationalExpert/AddRelatedPerson",
+                    type: 'POST',
+                    data: { 'data': JSON.stringify(data) },
+                    success: function (respons) {
+                        $('.loadingWrapper').hide();
+                        window.location = window.location;
+                    },
+                    error: function (jqXHR, exception) {
+                        alert("WOW Error Occured !!!!", "Error Message")
+                    }
+                });
+            } else {
+                alert("پر کردن تمامی فیلدها اجباری می باشد ");
+                return false;
+            }
+        });
+        $(".ex_req_details a#btnAddNewField4Student").on("click", function (e) {
+            e.preventDefault();
+            debugger;
+            var studentId = $("#hdn_StudentdId").val();
+            var fieldId = $("#ddl_Fields_ExpertSide").val();
+            var requestId = $("#hdn_RequestId").val();
+
+            if (fieldId != null && fieldId != "") {
+                $('.loadingWrapper').show();
+                var data = { "studentId": studentId, "fieldId": fieldId, "requestId": requestId };
+                $.ajax({
+                    url: "/fa/InternationalExpert/AddCandidateField",
+                    type: 'POST',
+                    data: data,
+                    success: function (result) {
+                        $('.loadingWrapper').hide();
+                        window.location = window.location;
+
+                    },
+                    error: function (jqXHR, exception) {
+                        alert("WOW Error Occured !!!!", "Error Message")
+                    }
+                });
+            }
+        });
+        $(".ex_req_details #prvChosenFields .deleteCandidateField").on("click", function (e) {
+            e.preventDefault();
+            var studentId = $(this).attr("data-studentId");
+            var fieldId = $(this).attr("data-fieldId");
+            var requestId = $(this).attr("data-requestId");
+
+            if (fieldId != null && fieldId != "") {
+                if (confirm("آیا از حذف رشته انتخابی اطمینان دارید؟")) {
+                    $('.loadingWrapper').show();
+                    var data = { "studentId": studentId, "fieldId": fieldId, "requestId": requestId };
+                    $.ajax({
+                        url: "/fa/InternationalExpert/DeleteField",
+                        type: 'POST',
+                        data: data,
+                        success: function (result) {
+                            $('.loadingWrapper').hide();
+                            window.location = window.location;
+                        },
+                        error: function (jqXHR, exception) {
+                            alert("WOW Error Occured !!!!", "Error Message")
+                        }
+                    });
+                }
+            }
+        });
+        $(".ex_req_details #prvChosenFields .confirmCandidateField").on("click", function (e) {
+            e.preventDefault();
+            var studentId = $(this).attr("data-studentId");
+            var fieldId = $(this).attr("data-fieldId");
+            var requestId = $(this).attr("data-requestId");
+
+            if (fieldId != null && fieldId != "") {
+                if (confirm("آیا از تایید رشته انتخابی اطمینان دارید؟")) {
+                    var data = { "studentId": studentId, "fieldId": fieldId, "requestId": requestId };
+                    $('.loadingWrapper').show();
+                    $.ajax({
+                        url: "/fa/InternationalExpert/ConfirmField",
+                        type: 'POST',
+                        data: data,
+                        success: function (result) {
+                            $('.loadingWrapper').hide();
+                            window.location = window.location;
+                        },
+                        error: function (jqXHR, exception) {
+                            alert("WOW Error Occured !!!!", "Error Message")
+                        }
+                    });
+                }
+            }
+        });
+        $('.ex_req_details .btnRejectRequestDoc').on('click', function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var requestId = $("#txtStudentRequestId").val();
+            var confDialog = $("#dialog-confirm");
+            confDialog.dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: [
+                    {
+                        text: "رد ",
+                        "class": 'btn btn-danger',
+                        click: function () {
+                            //alert($(this).find('#txtRejectDesc').val());
+                            $('.loadingWrapper').show();
+                            $.ajax({
+                                url: '/fa/InternationalExpert/ChangeStudentDocStatus',
+                                type: 'POST',
+                                data: { 'docId': btn.data('docid'), 'statusName': 'Rejected', 'requestId': requestId, 'description': $(this).find('#txtRejectDesc').val() },
+                                success: function (result) {
+                                    $('.loadingWrapper').hide();
+                                    location.reload();
+                                }
+                            });
+                        }
+                    },
+                    {
+                        text: "انصراف",
+                        "class": 'btn btn-warning',
+                        click: function () {
+                            $(this).find('#txtRejectDesc').val('');
+                            $(this).dialog("close");
+                        }
+                    }
+                ]
+            });
+        });
+        $('.ex_req_details .btnAcceptRequestDoc').on('click', function (e) {
+            e.preventDefault();
+            if (confirm("آیا از تاید مدرک انتخابی اطمینان دارید؟")) {
+                var requestId = $('#txtStudentRequestId').val();
+                $('.loadingWrapper').show();
+                $.ajax({
+                    url: '/fa/InternationalExpert/ChangeStudentDocStatus',
+                    type: 'POST',
+                    data: { 'docId': $(this).data('docid'), 'requestId': requestId, 'statusName': 'Accepted' },
+                    success: function (result) {
+                        $('.loadingWrapper').hide();
+                        location.reload();
+                    }
+                });
+            }
+
+        });
+        $('.ex_req_details #btnRejectRequest').on('click', function (e) {
+            e.preventDefault();
+            var confDialog = $("#dialog-confirm");//.css({ "direction": "rtl", "text-align": "right" });
+            confDialog.dialog({
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: [
+                    {
+                        text: "رد",
+                        "class": 'btn btn-danger',
+                        click: function () {
+                            //alert($(this).find('#txtRejectDesc').val());
+                            $('.loadingWrapper').show();
+                            $.ajax({
+                                url: '/fa/InternationalExpert/RejectRequest',
+                                type: 'POST',
+                                data: { 'requestId': $('#requestDetailsReqId').text(), 'description': $(this).find('#txtRejectDesc').val() },
+                                success: function (res) {
+                                    //window.location = window.location;
+                                    $('.loadingWrapper').hide();
+                                    window.location = '/fa/InternationalExpert/ReviewRequests'
+                                }
+                            });
+                        }
+                    },
+                    {
+                        text: "انصراف",
+                        "class": 'btn btn-warning',
+                        click: function () {
+                            $(this).find('#txtRejectDesc').val('');
+                            $(this).dialog("close");
+                        }
+                    }
+                ]
+            });
+        });
+        $('.ex_req_details #btnAcceptRequest').on('click', function (e) {
+            e.preventDefault();
+            var requestId = $('#txtStudentRequestId').val();
+            $.ajax({
+                url: '/fa/InternationalExpert/CheckAllDocsAccepted',
+                type: 'POST',
+                data: { 'requestId': requestId },
+                success: function (result) {
+                    if (result.HasUnacceptedDocumnets) {
+                        if (confirm('برای این درخواست مدارک تائید نشده وجود دارد، آیا از تائید درخواست و تمامی مدارک مرتبط به آن اطمینان دارید؟')) {
+
+                            $('.loadingWrapper').show();
+                            $.ajax({
+                                url: '/fa/InternationalExpert/AcceptRequest',
+                                type: 'POST',
+                                data: { 'requestId': requestId },
+                                success: function (result) {
+                                    $('.loadingWrapper').hide();
+                                    window.location = window.location;
+                                }
+                            });
+                        }
+
+                    }
+                    else {
+                        if (confirm('آیا از تائید این درخواست اطمینان دارید؟')) {
+                            $('.loadingWrapper').show();
+                            $.ajax({
+                                url: '/fa/InternationalExpert/AcceptRequest',
+                                type: 'POST',
+                                data: { 'requestId': requestId },
+                                success: function (result) {
+                                    $('.loadingWrapper').hide();
+                                    window.location = '/fa/InternationalExpert/ReviewRequests'
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        });
+        $('.ex_req_details #btnUpdateRequest').on('click', function (e) {
+            //debugger;
+            var data = {
+                /*---------------pers info---------------------*/
+                requestId: $('#txtStudentRequestId').val() || ''
+                , FirstName: $('#txtFirstName').val() || ''
+                , MiddleName: $('#txtMiddleName').val() || ''
+                , LastName: $('#txtLastName').val() || ''
+                , FatherName: $('#txtFatherName').val() || ''
+                , MotherName: $('#txtMotherName').val() || ''
+                , GrandFatherName: $('#txtGrandFatherName').val() || ''
+                , BirthDate: $('#txtBirthDate').val()
+                , BirthPlace: $('#txtBirthPlace').val() || ''
+                , Gender: $('#ddlGender').val() || '0'
+                , MarritalType: $('#ddlMarriage').val() || '0'
+                , ChildrenCount: $('#txtChildren').val() || '0'
+                , HealthStatus: $('#ddlPhysicalStatus').val() || '0'
+                , Religion: $('#ddlRelegion').val() || '0'
+
+                /*-----------------tabeiyat -------------------*/
+                , FirstCountryId: $('#ddlCitizen').val() || '0'
+                , SecondCountryId: $('#ddlSecondCitizen').val() || '0'
+                , DocNo: $('#txtPassNo').val() || '0'
+                /*--------------mahal sokoonat dar kesvar asli--*/
+
+                , CitizenshipHomeState: $('#txtCitizenHomeState').val() || ''
+                , CitizenshipHomeCity: $('#txtCitizenHomeCity').val() || ''
+                , CitizenshipHomeStreet: $('#txtCitizenHomeStreet').val() || ''
+                , CitizenshipHomeNumber: $('#txtCitizenHomePlaque').val() || ''
+                , CitizenshipHomePostalCode: $('#txtCitizenHomePostalCode').val() || ''
+                , CitizenshipHomeEmail: $('#txtCitizenEmail22').val() || ''
+                , CitizenshipHomePhone: $('#txtCitizenshipResidencPhoneNumber').val() || ''
+                , CitizenshipHomeMobile: $('#txtCitizenshipResidencMobile').val() || ''
+                , CitizenshipHomePhoneCode: $('#ddlCitizenHomePhoneCode').val() || '0'
+                , CitizenshipHomeMobileCode: $('#ddl_CitizenMobileCode').val() || '0'
+                /*--------------mahal kar dar kesvar asli--*/
+
+                , CitizenshipWorkState: $('#txtCitizenWorkState').val() || ''
+                , CitizenshipWorkCity: $('#txtCitizenWorkCity').val() || ''
+                , CitizenshipWorkStreet: $('#txtCitizenWorkStreet').val() || ''
+                , CitizenshipWorkNumber: $('#txtCitizenWorkPlaque').val() || ''
+                , CitizenshipWorkPostalCode: $('#txtCitizenWorkPostalCode').val() || ''
+                , CitizenshipWorkPhone: $('#txtCitizenWorkPhone').val() || ''
+                , CitizenshipWorkPhoneCode: $('#ddlCitizenWorkPhoneCode').val() || '0'
+
+                /*--------------mahal sokoonat dar iran--*/
+                , IranHomeState: $('#txtIranHomeState').val() || ''
+                , IranHomeCity: $('#txtIranHomeCity').val() || ''
+                , IranHomeStreet: $('#txtIranHomeStreet').val() || ''
+                , IranHomeNumber: $('#txtIranHomePlaque').val() || ''
+                , IranHomePostalCode: $('#txtIranHomePostalCode').val() || ''
+                , IranHomeEmail: $('#txtEmail22').val() || ''
+                , IranHomePhone: $('#txtIranHomePhone').val() || ''
+                , IranHomePhoneCode: '98'
+                , IranHomeMobileCode: '98'
+                , IranHomeMobile: $('#txtMobileIran').val() || ''
+
+                /*--------------mahal kar dar iran--*/
+                , IranWorkState: $('#txtIranWorkState').val() || ''
+                , IranWorkCity: $('#txtIranWorkCity').val() || ''
+                , IranWorkStreet: $('#txtIranWorkStreet').val() || ''
+                , IranWorkNumber: $('#txtIranWorkPlaque').val() || ''
+                , IranWorkPostalCode: $('#txtIranWorkPostalCode').val() || ''
+                , IranWorkPhone: $('#txtIranWorkPhone').val() || ''
+
+
+                /*------------- mother info if she is irannian--*/
+                , MothersFirstName: $('#txtMothersFirstName').val() || ''
+                , MothersLastName: $('#txtMothersLastName').val() || ''
+                , MothersFatherName: $('#txtMothersFathersName').val() || ''
+                , MothersGrandFatherName: $('#txtMothersGrandFathersName').val() || ''
+                , MothersBirthPlace: $('#txtMothersBirthPlace').val() || ''
+                , MothersIdNo: $('#txtMothersIdNumber').val() || ''
+                , MothersIssuePlace: $('#txtMothersIssuePlace').val() || ''
+                , MothersBirthDate: $('#txtMothersBirthDate').val() || ''
+                , MothersNationalCode: $('#txtMothersNationalCode').val() || ''
+                , MothersMarritalType: $('#ddlMothersMarriageType').val() || '0'
+
+                /*--------------moshakhasat moaref--*/
+                //, RecommenderFirstName: $('#txtRecommenderFirstname').val() || ''
+                //, RecommenderLastName: $('#txtRecommenderLastname').val() || ''
+                //, RecommenderFatherName: $('#txtRecommenderFathersName').val() || ''
+                //, RecommenderCountryId: $('#ddl_RecommenderCitizenship').val() || '0'
+                //, RecommenderGrandFatherName: $('#txtRecommenderGrandFathersName').val() || ''
+                //, RecommenderBirthDate: $('#txtRecommenderBirthDate').val() || ''
+                //, RecommenderDocType: $('#ddlRecommenderDocumentType').val() || '0'
+                //, RecommenderDocNo: $('#txtRecommenderDocumentNumber').val() || ''
+                //, RecommenderJob: $('#txtRecommenderJobTitle').val() || ''
+                //, RecommenderMobile: $('#txtRecommenderMobile22').val() || ''
+                ////, RecommenderMobileCode: $('#ddlRecommenderMobileCode').val()
+                //, RecommenderMobileCode: $('#ddlRecommenderCitizenshipMobilePreCode').val() || '0'
+                //, RecommenderRelationship: $('#ddlRecommenderRelationship').val() || '0'
+                , RecommenderCode: $('#txtRecommenderCode').val() || ''
+
+                /*-------------etlaat tahsili-------------------*/
+                , DiplomaWrittenAverage: $('#txtDiplomaWrittenAverage').val() || ''
+                , DiplomaEducationDegreePlace: $('#txtDiplomaPlace').val() || ''
+                , DiplomaFieldTitle: $('#txtDiplomaField').val() || ''
+                , DiplomaTotalAverage: $('#txtDiplomaTotalAverage').val() || ''
+
+                , PreuniversityTotalAverage: $('#txtPreUniversityAverage').val() || ''
+                //, PreuniversityFieldTitle: $('#txtPreuniversityField').val()
+
+                , BachelorFieldTitle: $('#txtBachelorField').val() || ''
+                , BachelorUniversityName: $('#txtBachelorUniversity').val() || ''
+                , BachelorCountryName: $('#txtBachelorCountry').val() || ''
+                , BachelorTotalAverage: $('#txtBachelorAverage').val() || ''
+
+                , MAFieldTitle: $('#txtMasterField').val() || ''
+                , MAUniversityName: $('#txtMasterUniversity').val() || ''
+                , MACountryName: $('#txtMasterCountry').val() || ''
+                , MATotalAverage: $('#txtMasterAverage').val() || ''
+
+                , DoctorateFieldTitle: $('#txtDoctorateField').val() || ''
+                , DoctorateUniversityName: $('#txtDoctorateUniversity').val() || ''
+                , DoctorateCountryName: $('#txtDoctorateCountry').val() || ''
+                , DoctorateTotalAverage: $('#txtDoctorateAverage').val() || ''
+                //, CondidateFields: condidateFields
+                //, RelatedPersons: relatedPersons
+            };
+
+            //return false;
+            $('.loadingWrapper').show();
+            $.ajax({
+                url: "/fa/InternationalExpert/DoUpdateRequest",
+                type: 'POST',
+                data: { 'data': JSON.stringify(data) },
+                success: function (result) {
+                    $('.loadingWrapper').hide();
+                    window.location = window.location;
+                },
+                error: function (jqXHR, exception) {
+                    alert("خطلا در ثبت اطلاعات")
+                }
+            });
+        });
+
+        $(".ex_req_details .btnUpload_NewDocument").on("click", function (e) {
+            e.preventDefault();
+
+            var reqId = $(this).data("reqid");
+            var docId = $(this).data("docid");
+            var detector = $(this).data("detector");
+
+            $("#hdn_reqid").val(reqId);
+            $("#hdn_doc_id").val(docId);
+            $("#hdn_detector").val(detector);
+            $("#uploadModal").modal('show');
+        });
+    </script>
+}

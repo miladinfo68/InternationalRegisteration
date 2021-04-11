@@ -1,0 +1,176 @@
+﻿@using ISR.Resources
+@model List<ISR.web.Models.RequestInfoViewModel>
+@{
+    ViewBag.Title = "ReviewRequests";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<style>
+    .reqTopBox {
+        border-bottom: 1px solid #ccc;
+        border-right: 2px solid #ccc;
+        padding: 5px 15px;
+        margin: 10px 0 50px 0;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .cntr {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #tblAllRequests > thead {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .bg-ddd > thead > tr {
+        background: #424242;
+        color: #fff;
+    }
+
+    #tblAllRequests > tbody {
+        text-align: right;
+    }
+
+        #tblAllRequests > tbody > tr > td {
+            text-align: center;
+        }
+
+    .lbl-f-w {
+        font-weight: bold;
+    }
+
+    #rejModal .modal-title {
+        text-align: center;
+    }
+
+    #rejModal .close {
+        margin: 10px;
+    }
+
+    #rejModal .m-ftr, #rejModal .m-bdy {
+        margin: auto;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+        #rejModal .m-bdy > label {
+            font-weight: bold;
+        }
+
+    .expert_allreq input[type=text].txt {
+        margin-top: 0px;
+    }
+    .text_align_center{
+        text-align:center;
+    }
+
+    .btn_width_100{
+        width:100%;
+    }
+</style>
+
+<div class="expert_allreq w-100">
+    <div id="contentHeight" class="col-md-12 contentBox">
+        <div class="row fullHeight">
+            <div class="col-md-12">
+                <div class="col-md-12 reqTopBox">
+                    <span>@Resources.InternationalOfficeExpertPanel</span>
+                </div>
+                <div class="row text_align_center">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        @*<div class="form-group form-inline">*@
+                            <label class="lbl-f-w">@Resources.RequestStatus :</label>
+                            @Html.DropDownList("ddlStatus", (SelectList)ViewBag.StatusList, new { @class = "form-control" })
+
+                        @*</div>*@
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
+                        @*<div class="form-group form-inline">*@
+                            <label class="lbl-f-w">@Resources.TermsLable :</label>
+                            @Html.DropDownList("ddlTerms", (SelectList)ViewBag.Terms, new { @class = "form-control" })
+                        @*</div>*@
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        @*<div class="form-group form-inline">*@
+                            <label class="lbl-f-w">جستجو : </label>
+                            <input type="text" id="txtSearchFilter" placeholder="جستجو بر اساس فیلد های موجود" class="form-control txt" />
+                        @*</div>*@
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
+                        @*<div class="form-group form-inline">*@
+                            <label class="lbl-f-w">.</label>
+                            <input type="button" name="btnShowRequests" id="btnShowRequests" value="@Resources.btnShow" class="btn btn-info btn_width_100" />
+                        @*</div>*@
+                    </div>
+                </div>
+                <div class="int-expert-req-table">
+                    @Html.Partial("_RequestDetailsTable", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="rejModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div>
+                    <h5 class="modal-title alert alert-danger" id="exampleModalLabel">@Resources.RejectTitle</h5>
+                </div>
+                <div class="row m-bdy">
+                    <label>@Resources.RequestNo : <span id="rej_req_no"></span></label>
+                </div>
+                <div class="m-ftr">
+                    <button type="button" id="btnConfirmRejectRequest" class="btn btn-success">@Resources.btnSave</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(function () {
+            $(".expert_allreq #btnShowRequests").click();
+        });
+
+        $(".expert_allreq #btnShowRequests").on("click", function (e) {
+            debugger;
+            var s = $(".expert_allreq #ddlStatus").val();
+            var t = $(".expert_allreq #ddlTerms").val();
+            var search = $(".expert_allreq #txtSearchFilter").val();
+            $('.loadingWrapper').show();
+            $.ajax({
+                url: '/fa/InternationalExpert/ShowRequests',
+                type: 'POST',
+                data: { "ReqStatus": s, "Term": t, "Filter": search },               
+                success: function (res) {
+                    //debugger;
+                    $('.loadingWrapper').hide();
+
+                    var $reqsTable = $(".expert_allreq .int-expert-req-table");
+                    $reqsTable.html('');
+                    $reqsTable.html(res);
+                },
+                error: function (jqXHR, exception) {
+                    alert("WOW Error Occured !!!!", "Error Message")
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+

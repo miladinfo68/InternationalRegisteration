@@ -1,0 +1,392 @@
+﻿@using ISR.Resources
+@model List<ISR.web.Models.RequestInfoViewModel>
+@{
+    ViewBag.Title = "ReviewRequests";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<style>
+    .reqTopBox {
+        border-bottom: 1px solid #ccc;
+        border-right: 2px solid #ccc;
+        padding: 5px 15px;
+        margin: 10px 0 50px 0;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .cntr {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #tblAllRequests > thead {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #tblAllRequests > tbody {
+        text-align: right;
+    }
+
+    .bg-ddd > thead > tr {
+        background: #424242;
+        color: #fff;
+    }
+
+    #tblAllRequests > tbody > tr > td {
+        text-align: center;
+    }
+
+    .lbl-f-w {
+        font-weight: bold;
+    }
+
+
+
+    #showDetailsRequestModal .close {
+        margin: 10px 10px;
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    #showDetailsRequestModal .div-reqstatus {
+        font-size: 18px;
+        font-weight: bold;
+        margin: auto;
+        margin-top: 10px;
+        padding: 5px;
+        background: #efefef73;
+        color: #000;
+        border-radius: 5px;
+        text-align: center;
+        height: 50px;
+        line-height: 36px;
+    }
+
+    #showDetailsRequestModal .spnReqStstus {
+        color: #941515;
+    }
+
+    #showDetailsRequestModal h1 {
+        text-align: center;
+    }
+
+    #showDetailsRequestModal .modal-dialog {
+        max-width: 70%;
+    }
+
+    #showDetailsRequestModal .modal-header {
+        border-bottom: none;
+    }
+
+    #showDetailsRequestModal .modal-footer {
+        border-top: none;
+    }
+
+    #showDetailsRequestModal .modal-title {
+        text-align: center;
+    }
+
+    #showDetailsRequestModal .modal-content {
+        /*max-height: calc(100% - 400px);
+        overflow-y: scroll;*/
+        margin: 10px;
+    }
+
+
+    .btn-wrapper {
+        float: right;
+    }
+
+    /***** css for modal ****/
+    .m-data .title-center {
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        background: #403f3f;
+        color: #fff;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 7px -1px #403a3a;
+    }
+
+    .m-data .lbl {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .m-data #prvChosenFields table {
+        text-align: center;
+    }
+
+    .m-data #prvChosenFields thead > tr > th {
+        background-color: #828282;
+        color: #000;
+    }
+
+    .manager_allreq input[type=text].txt {
+        margin-top: 0px;
+    }
+
+    .manager_allreq #tblAllRequests > thead > tr > td:nth-child(1),
+    .manager_allreq #tblAllRequests > thead > tr > td:nth-child(2),
+    .manager_allreq #tblAllRequests > thead > tr > td:nth-child(3) {
+        min-width: 120px;
+    }
+
+    .manager_allreq #tblAllRequests > tbody > tr > td:nth-child(1),
+    .manager_allreq #tblAllRequests > tbody > tr > td:nth-child(2),
+    .manager_allreq #tblAllRequests > tbody > tr > td:nth-child(3) {
+        min-width: 120px;
+    }
+
+    .text_align_center {
+        text-align: center;
+    }
+
+    .btn_width_100 {
+        width: 100%;
+    }
+
+    .alert_danger_text_align_center {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        visibility: hidden;
+    }
+
+    .alert_danger_show {
+        visibility: visible;
+    }
+
+    .ui-dialog {
+        direction: rtl;
+        text-align: right;
+        z-index: 1060;
+    }
+</style>
+
+<div class="manager_allreq w-100">
+    <div id="contentHeight" class="col-md-12 contentBox">
+        <div class="row fullHeight">
+            <div class="col-md-12">
+                <div class="col-md-12 reqTopBox">
+                    <span>@Resources.InternationalOfficeManagerPanel</span>
+                </div>
+                <div class="row text_align_center">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        @*<div class="form-group form-inline">*@
+                        <label class="lbl-f-w">@Resources.RequestStatus :</label>
+                        @Html.DropDownList("ddlStatus" , (SelectList)ViewBag.StatusList, new { @class = "form-control" })
+
+                        @*</div>*@
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
+                        @*<div class="form-group form-inline">*@
+                        <label class="lbl-f-w">@Resources.TermsLable :</label>
+                        @*@Html.DropDownList("ddlTerms", (SelectList)ViewBag.Terms, new { @class = "form-control" })*@
+                        @Html.DropDownList("ddlTerms", (IEnumerable<SelectListItem>)ViewBag.Terms, new { @class = "form-control" })
+                        @*</div>*@
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        @*<div class="form-group form-inline">*@
+                        <label class="lbl-f-w">جستجو : </label>
+                        <input type="text" id="txtSearchFilter" placeholder="جستجو بر اساس فیلد های موجود" class="form-control txt" />
+                        @*</div>*@
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-12">
+                        @*<div class="form-group form-inline">*@
+                        <label class="lbl-f-w">.</label>
+                        <input type="button" name="btnShowRequests" id="btnShowRequests" value="@Resources.btnShow" class="btn btn-info btn_width_100" />
+                        @*</div>*@
+                    </div>
+                </div>
+                <div class="int-manager-req-table">
+                    @Html.Partial("_RequestDetailsTable", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dialog-confirm" title="علت رد : ">
+    <textarea id="txtRejectDesc" class="form-control"></textarea>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="showDetailsRequestModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row justify-content-between">
+                <div class="col-12">
+                    <div class="col-5">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="col-5 div-reqstatus">
+                        <span>@Resources.RequestStatus : <span class="spnReqStstus"></span></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row modal-body">
+                <div class="col-12">
+                    @* return partial view and show pop up in below div *@
+                    <div class="m-data"></div>
+                </div>
+            </div>
+            <div class="row modal-footer">
+                <div class="col-12">
+                    <div class="btn-wrapper">
+                        <button type="button" class="btn btn-success acc_or_rej" data-acc_or_rej="1">@Resources.btnAcceptRequest</button>
+                        <button type="button" class="btn btn-danger acc_or_rej" data-acc_or_rej="2">@Resources.btnRejectRequest</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        //$(function () {
+        //    $(".manager_allreq #btnShowRequests").click();
+        //});
+
+        $(".manager_allreq #btnShowRequests").on("click", function (e) {
+            debugger;
+
+            var s = $(".manager_allreq #ddlStatus").val();
+            var t = $(".manager_allreq #ddlTerms").val();
+            var search = $(".manager_allreq #txtSearchFilter").val();
+            $('.loadingWrapper').show();
+            $.ajax({
+                url: '/fa/InternationalManager/ShowRequests',
+                type: 'POST',
+                data: { "ReqStatus": s, "Term": t, "Filter": search },                
+                success: function (res) {
+                    debugger;
+                    $('.loadingWrapper').hide();
+                    var $reqsTable = $(".manager_allreq .int-manager-req-table");
+                    $reqsTable.html('');
+                    $reqsTable.html(res);
+                },
+                error: function (jqXHR, exception) {
+                    alert("WOW Error Occured !!!!", "Error Message")
+                }
+            });
+        });
+        $('.manager_allreq').on("click", ".b_show", function (e) {
+            e.preventDefault();
+            var reqId = $(this).attr("requestid");
+            var term = $(this).attr("term");
+            $('.loadingWrapper').show();
+            $.ajax({
+                url: '/fa/InternationalManager/GetRequestInfo/',
+                type: 'post',
+                data: { 'id': reqId, 'term': term },
+                success: function (res) {
+                    var popup = $("#showDetailsRequestModal");
+                    var modalData = $("#showDetailsRequestModal .m-data");
+                    var modalFooter = $("#showDetailsRequestModal .modal-footer");
+
+                    $('.loadingWrapper').hide();
+
+                    modalData.html('');
+
+                    popup.modal('show');
+                    debugger;
+                    var reqStatus = $(".manager_allreq #ddlStatus").val();
+                    var reqStatusTitle = $(".manager_allreq #ddlStatus option:selected").text();
+                    $("#showDetailsRequestModal span.spnReqStstus").text('');
+                    $("#showDetailsRequestModal span.spnReqStstus").text(reqStatusTitle);
+                    if (reqStatus == "4") {//inprogress request
+                        modalFooter.show();
+                    } else {
+                        modalFooter.hide();
+                    }
+                    modalData.html(res);
+                },
+                error: function (jqXHR, exception) {
+                    alert("WOW Error Occured !!!!", "Error Message")
+                }
+            });
+        });
+        $(document).on("click", "#showDetailsRequestModal .acc_or_rej", function (e) {
+            var acctiontype = $(this).attr("data-acc_or_rej");
+            var reqId = $("#prvRequestId").text();
+            var term = $(".manager_allreq #ddlTerms").val();
+            if (acctiontype == 2)//رد درخواست
+            {
+                var confDialog = $("#dialog-confirm");
+                confDialog.dialog({
+                    resizable: false,
+                    height: "auto",
+                    width: 400,
+                    modal: true,
+                    buttons: [
+                        {
+                            text: "رد",
+                            "class": 'btn btn-danger',
+                            click: function () {
+                                $('.loadingWrapper').show();
+                                $.ajax({
+                                    url: '/fa/InternationalManager/ChangeRequestStatus/',
+                                    type: 'POST',
+                                    data: { 'id': reqId, 'acctiontype': acctiontype, 'description': $(this).find('#txtRejectDesc').val(), 'term': term },
+                                    success: function (res) {
+                                        $("#dialog-confirm").find('#txtRejectDesc').val('');
+                                        $("#dialog-confirm").dialog("close");
+                                        $(".container #showDetailsRequestModal").modal('hide');
+
+                                        $('.loadingWrapper').hide();
+
+                                        $(".manager_allreq #btnShowRequests").click();
+                                    }
+                                });
+                            }
+                        },
+                        {
+                            text: "انصراف",
+                            "class": 'btn btn-warning',
+                            click: function () {
+                                $(this).find('#txtRejectDesc').val('');
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                });
+            } else {//==1 تایید درخواست
+                //debugger;
+                if (confirm("آیا از تایید یا رد ردخواست مورد نظر اطمینان دارید؟")) {
+                    $('.loadingWrapper').show();
+                    $.ajax({
+                        url: '/fa/InternationalManager/ChangeRequestStatus/',
+                        type: 'post',
+                        data: { 'id': reqId, 'acctiontype': acctiontype, 'description': '', 'term': term },
+                        success: function (res) {
+                            debugger;
+                            $(".container #showDetailsRequestModal").modal('hide');
+
+                            $('.loadingWrapper').hide();
+                            //fire btnShowRequests
+                            $(".manager_allreq #btnShowRequests").click();
+                        },
+                        error: function (jqXHR, exception) {
+                            //alert("WOW Error Occured !!!!", "Error Message")
+                            $(".container #showDetailsRequestModal").modal('hide');
+                            $(".manager_allreq #btnShowRequests").click();
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+}
+
+
+
+
+
+
+

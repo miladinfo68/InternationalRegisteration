@@ -1,0 +1,34 @@
+﻿@using ISR.Resources
+@using System.Web.Configuration;
+
+<div class="col-md-12 headerBox">
+    <div class="row">
+        <div class="col-md-3 headerRight">
+            <div class="logoBox">
+                <img src="~/Content/images/iauec-logo-tr.png" alt="@Resources.OrganizationTitle" />
+            </div>
+        </div>
+        <div class="col-md-6 headerCenter">
+            <div class="siteTitle">
+                <span>@Resources.OrganizationTitle</span>
+            </div>
+            <div class="siteSubTitle">@Resources.ApplicationTitle</div>
+        </div>
+        <div class="col-md-3 headerLeft">
+            @if (Session["UserInfo"] != null)
+            {
+                <div>
+                    <a href="/" class="btnSignout" data-lang="@Session["lang"].ToString()">
+                        <i class="fa fa-sign-out"></i> <span>خروج</span>
+                    </a>
+                </div>
+            }
+            <input type="hidden" id="hdnCulture" value="@(Session["Culture"] == null ? WebConfigurationManager.AppSettings["DefaultCulture"] : Session["Culture"].ToString())" />
+            <select id="ddlSelectLang">
+                <option value="fa-IR">فارسی</option>
+                <option value="ar-IQ">العربیه</option>
+                <option value="en-GB">English</option>
+            </select>
+        </div>
+    </div>
+</div>

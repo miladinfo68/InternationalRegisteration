@@ -1,0 +1,323 @@
+﻿@using ISR.Resources
+@model List<ISR.web.Models.NewStudentViewModel>
+@{
+    ViewBag.Title = "InternationalManagerFinalConfirm";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+
+
+<style>
+    .reqTopBox {
+        border-bottom: 1px solid #ccc;
+        border-right: 2px solid #ccc;
+        padding: 5px 15px;
+        margin: 10px 0 50px 0;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    /*.tblWrapperNewStudents table {
+        display: table !important;
+        width:100%;
+    }*/
+    /*.table-responsive {
+         display: table !important;
+    }*/
+    #tblNewStudent > thead {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #tblNewStudent > tbody {
+        text-align: right;
+    }
+
+    .bg-ddd > thead > tr {
+        background: #424242;
+        color: #fff;
+    }
+
+    #tblNewStudent > tbody > tr > td {
+        text-align: center;
+    }
+
+    .lbl-f-w {
+        font-weight: bold;
+    }
+
+    #newStudentsModal .lbl {
+        color: #EEEEDF;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    #newStudentsModal .modal-title {
+        text-align: center;
+    }
+
+    #newStudentsModal .modal-dialog {
+        max-width: 50%;
+    }
+
+    #newStudentsModal .modal-content {
+        background-color: #212121;
+        color: #fff;
+        opacity: 0.95;
+    }
+
+    #newStudentsModal .close {
+        margin: 10px;
+        color: #fff;
+    }
+
+    #newStudentsModal .m-bdy .myrow {
+        min-height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #newStudentsModal .modal-title {
+        text-align: center;
+        background: #478078;
+        height: 54px;
+        line-height: 52px;
+    }
+
+    #newStudentsModal .m-ftr, #newStudentsModal .m-bdy {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    #newStudentsModal .m-bdy {
+        padding: 15px;
+    }
+
+    #newStudentsModal .m-ftr {
+        margin-right: 15px;
+    }
+
+    #newStudentsModal .m-bdy .myrow div:not(.lbl) {
+        text-align: right;
+        color: #ECEEF7;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    #newStudentsModal .m-bdy > label {
+        font-weight: bold;
+    }
+
+
+    .sanad_paziresh_allreq input[type=text].txt {
+        margin-top: 0px;
+    }
+
+    .sanad_paziresh_allreq #tblNewStudent > thead > tr > td:nth-child(4),
+    .sanad_paziresh_allreq #tblNewStudent > thead > tr > td:nth-child(5),
+    .sanad_paziresh_allreq #tblNewStudent > thead > tr > td:nth-child(6) {
+        min-width: 100px;
+    }
+
+    .sanad_paziresh_allreq #tblNewStudent > thead > tr > td:nth-child(8) {
+        min-width: 105px;
+    }
+
+    .sanad_paziresh_allreq #tblNewStudent > tbody > tr > td:nth-child(4),
+    .sanad_paziresh_allreq #tblNewStudent > tbody > tr > td:nth-child(5),
+    .sanad_paziresh_allreq #tblNewStudent > tbody > tr > td:nth-child(6) {
+        min-width: 100px;
+    }
+
+    .sanad_paziresh_allreq #tblNewStudent > tbody > tr > td:nth-child(8) {
+        min-width: 105px;
+    }
+
+    .text_align_center {
+        text-align: center;
+    }
+
+    .btn_width_100 {
+        width: 100%;
+    }
+
+    /*.w-100 {
+            text-align: right;
+            padding-right: 40px;
+        }*/
+
+    .alert_display_none {
+        display: none;
+    }
+
+    #alert_register_reqNo .inner {
+        margin-right: 25px;
+        width: 100%;
+        text-align: center;
+        color: brown;
+        font-weight: bold;
+    }
+</style>
+
+<div class="sanad_paziresh_allreq w-100">
+    <div id="contentHeight" class="col-md-12 contentBox">
+        <div class="row fullHeight">
+            <div class="col-md-12">
+                <div class="col-md-12 reqTopBox">
+                    <span>@Resources.InternationalOfficeManagerPanel</span>
+                </div>
+                <div class="row text_align_center">
+                    <div class="col-lg-3 col-md-3">
+                        @*<div class="form-group form-inline">
+                        *@
+                        <label class="lbl-f-w">@Resources.TermsLable :</label>
+                        @Html.DropDownList("ddlTerms", (SelectList)ViewBag.Terms, new { @class = "form-control" })
+                        @*
+                            </div>*@
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        @*<div class="form-group form-inline">
+                        *@
+                        <label class="lbl-f-w">جستجو : </label>
+                        <input type="text" id="txtSearchFilter" placeholder="جستجو بر اساس فیلد های موجود" class="form-control txt" />
+                        @*
+                            </div>*@
+                    </div>
+                    <div class="col-lg-2 col-md-2">
+                        @*<div class="form-group form-inline">
+                        *@
+                        <label class="lbl-f-w">.</label>
+                        <input type="button" name="btnShowNewStudentInfo" id="btnShowNewStudentInfo" value="@Resources.btnShow" class="btn btn-info btn_width_100" />
+                        @*
+                            </div>*@
+                    </div>
+                </div>
+                <div class="row tblWrapperNewStudents">
+                    @Html.Partial("_NewStudentList", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="newStudentsModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div>
+                    <h5 class="modal-title" id="exampleModalLabel">اطلاعات دانشجو</h5>
+                </div>
+                <div class="row w-100 m-bdy"></div>
+                <div class="m-ftr">
+                    <button type="button" id="btnRegisterRequestId" class="btn btn-success float-right">@Resources.btnAcceptRequest</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(".sanad_paziresh_allreq #btnShowNewStudentInfo").on("click", function (e) {
+            //debugger;
+            var term = $(".sanad_paziresh_allreq #ddlTerms").val();
+            var search = $(".sanad_paziresh_allreq #txtSearchFilter").val();
+            $.ajax({
+                url: '/fa/InternationalManager/GetNewStudetByParams',
+                type: 'post',
+                data: { 'term': term, 'filter': search },
+                success: function (res) {
+                    var tblWrapper = $('.sanad_paziresh_allreq .tblWrapperNewStudents');
+                    tblWrapper.html('');
+                    tblWrapper.html(res);
+                },
+                error: function (jqXHR, exception) {
+                    alert("WOW Error Occured !!!!", "Error Message")
+                }
+            });
+        });
+        //========================
+
+        $(document).on("click", ".tblWrapperNewStudents .b_show", function (e) {
+            e.preventDefault();
+            debugger;
+            var term = $(".sanad_paziresh_allreq #ddlTerms").val();
+            var search = $(".sanad_paziresh_allreq #txtSearchFilter").val();
+            var studentCode = $(this).attr("studentcode");
+            $.ajax({
+                url: '/fa/InternationalManager/GetNewStudetByParams',
+                type: 'post',
+                data: { 'term': term, 'studentCode': studentCode, 'filter': search },
+                success: function (res) {
+                    var newStudentsModal = $('#newStudentsModal');
+                    newStudentsModal.modal('show');
+                    var newStudentsModalBody = $('#newStudentsModal .m-bdy');
+                    newStudentsModalBody.html('');
+                    newStudentsModalBody.html(res);
+                },
+                error: function (jqXHR, exception) {
+                    alert("WOW Error Occured !!!!", "Error Message")
+                }
+            });
+        });
+        //========================
+
+        $(document).on("click", "#newStudentsModal #btnRegisterRequestId", function (e) {
+            var $ReqId = $("#spRequestId");
+
+            if (!$ReqId.val() || ($ReqId.val() && isNaN($ReqId.val()))) {
+                $ReqId.css({ "border": "2px solid red" });
+                return false;
+            } else {
+                $ReqId.css({ "border": "1px solid #ccc" });
+
+                var id = parseInt($ReqId.val().trim());
+                var term = $(".sanad_paziresh_allreq #ddlTerms").val();
+                var studentCode = $("#newStudentsModal #spStudentCode").text();
+
+                $.ajax({
+                    url: '/fa/InternationalManager/IsValidRequestId',
+                    type: 'post',
+                    data: { 'id': id },
+                    success: function (res) {
+                        if (res.Result) {
+                            $.ajax({
+                                url: '/fa/InternationalManager/ChangeRequestStatus',
+                                type: 'post',
+                                data: { 'id': id, 'acctiontype': 3, 'term': term, 'studentCode': studentCode },
+                                success: function (res) {
+                                    $('#newStudentsModal').modal('hide');
+                                    $(".sanad_paziresh_allreq #btnShowNewStudentInfo").click();
+                                },
+                                error: function (jqXHR, exception) {
+                                    alert("WOW Error Occured !!!!", "Error Message")
+                                }
+                            });
+                        } else {
+                            $("#alert_register_reqNo").html('');
+                            $("#alert_register_reqNo").append('<div class="alert alert-danger inner">درخواستی با شماره وارد شده وجود ندارد؟</div>');
+                            return false;
+                        }
+                    },
+                    error: function (jqXHR, exception) {
+                        alert("WOW Error Occured !!!!", "Error Message")
+                    }
+                });
+            }
+        });
+
+    </script>
+}
+
+
+
+
+
+
+

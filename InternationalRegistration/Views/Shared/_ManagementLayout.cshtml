@@ -1,0 +1,48 @@
+﻿@using ISR.Resources
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @Resources.ApplicationTitle</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/jquery-ui.theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/fontawesome-pro-5.5.0-web/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/fancybox/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/cmslogin.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/fancybox/jquery.fancybox.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body class="rtl_dir">
+    <div class="container">
+        <div class="loadingWrapper">
+            <div class="loadingInner">
+                <img src="~/Content/images/loading.gif" />
+                <div>لطفا منتظر بمانید ...</div>
+            </div>
+        </div>
+        <div class="row">
+            @Html.Partial("_ManagementHeader")
+        </div>
+        <div class="row ">
+            @RenderBody()
+            <script type="text/javascript" src="~/Scripts/script.js"></script>
+            <script src="~/Scripts/script_docs.js"></script>
+            @RenderSection("scripts", false)
+        </div>
+        <div class="row">
+            @Html.Partial("_Footer")
+        </div>
+    </div>
+
+</body>
+</html>

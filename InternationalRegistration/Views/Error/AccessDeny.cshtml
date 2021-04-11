@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<style type="text/css">
+    .a-box {
+        width: 100vw;
+        height: 75vh;
+        background: #ccc;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .wrap {
+        text-align: center;
+        margin-top: 25vh;
+    }
+
+        .wrap h2 {
+            color: #4b1622;
+            font-weight: bold;
+        }
+</style>
+<div class="access-deny a-box">
+    <div class="wrap">
+        <h2>کاربر گرامی شما به اطلاعات این قسمت دسترسی ندارین</h2>
+        <a href="/fa/Account/LoginCMS" class="btn btn-info btnNullSession">خروج از سامانه </a>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(".access-deny .btnNullSession").on("click", function (e) {           
+            $.ajax({
+                url: '/fa/Error/Logout',
+                type: 'POST',               
+                success: function (res) {
+                    window.location='/fa/Account/LoginCMS'
+                },
+                error: function (jqXHR, exception) {
+                    alert("WOW Error Occured !!!!", "Error Message")
+                }
+            });
+        });
+       
+    </script>
+}
+
+
+

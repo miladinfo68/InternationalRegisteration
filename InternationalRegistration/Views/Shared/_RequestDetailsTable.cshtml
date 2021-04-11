@@ -1,0 +1,41 @@
+﻿@using ISR.Resources
+@model List<ISR.web.Models.RequestInfoViewModel>
+<table id="tblAllRequests" class="table table-bordered bg-ddd">
+    <thead>
+        <tr>
+            <td>@Resources.RequestId</td>
+            <td>@Resources.Firstname</td>
+            <td>@Resources.Lastname</td>
+            <td>@Resources.FathersName</td>
+            <td>@Resources.StudentNationality</td>
+            <td>ترم سند پذیرش</td>
+            <td>@Resources.Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null && Model.Count() > 0)
+            {
+                var bgcolor = "class=table-success";
+                var i = 0;
+                foreach (var item in Model)
+                {
+                    bgcolor = (i % 2) == 0 ? "class=table-success" : "class=table-danger";
+                    <tr @bgcolor>
+                        <td>@item.RequestID</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.FatherName</td>
+                        <td>@item.CountryTitle</td>
+                        <td>@item.TermInNewStudent</td>
+                        <td>
+                            @Html.ActionLink(@Resources.RequestDetails, "RequestDetails", item.ContollerName, new { lang = "fa", id = item.RequestID, term = item.Term }, new { @class = "btn btn-info b_show", @requestid = item.RequestID, @term = item.Term })
+                        </td>
+                    </tr>
+                    i += 1;
+                }
+            }
+        }
+    </tbody>
+</table>
+

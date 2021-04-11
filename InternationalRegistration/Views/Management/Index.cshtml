@@ -1,0 +1,94 @@
+﻿@using ISR.web.Models
+@using ISR.Resources
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+
+<div id="contentHeight" class="col-md-12 contentBox">
+    <div class="row fullHeight justify-content-center align-items-center ">
+        <div class="row justify-content-center w-100">
+            @if (Session["UserCmsInfo"] != null)
+            {
+                if (!string.IsNullOrEmpty((Session["UserCmsInfo"] as UserLoginCmsViewModel).UserRoles))
+                {
+                    var strUserRoles = (Session["UserCmsInfo"] as UserLoginCmsViewModel).UserRoles;
+
+                    if (strUserRoles.Contains(ISR.Commons.enums.RoleIds.Admin))
+                    {
+                        <a href="/@Session["lang"].ToString()/InternationalExpert/ReviewRequests" class="col-md-5 bg-warning text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>بررسی درخواست ها توسط کارشناس بین الملل</span>
+                        </a>
+                        <a href="/@Session["lang"].ToString()/InternationalManager/ReviewRequests" class="col-md-5 bg-danger text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>بررسی درخواست ها توسط مدیر بین الملل</span>
+                        </a>
+                        <div class="w-100"></div>
+                        <a href="/@Session["lang"].ToString()/InternationalManager/InternationalManagerFinalConfirm" class="col-md-5 bg-success text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>تایید نهایی درخواست ها توسط مدیر بین الملل</span>
+                        </a>
+                        <a href="/@Session["lang"].ToString()/UserRoleManagement/Index" class="col-md-5 bg-info text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>مدیریت کاربران و نقش ها</span>
+                        </a>
+                        <a href="/@Session["lang"].ToString()/EnrollmentManager/ReviewRequests" class="col-md-5 bg-primary text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>بررسی درخواست ها توسط مدیر اداره ثبت نام </span>
+                        </a>
+                        <a href="/@Session["lang"].ToString()/EnrollmentManager/NewStudents" class="col-md-5 bg-secondary text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>بارگذاری دانشجویان جدید</span>
+                        </a>
+                    }                
+                    else if (strUserRoles.Contains(ISR.Commons.enums.RoleIds.ISR_Manager))
+                    {
+                        <a href="/@Session["lang"].ToString()/InternationalExpert/ReviewRequests" class="col-md-5 bg-warning text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>بررسی درخواست ها توسط کارشناس بین الملل</span>
+                        </a>
+                        <a href="/@Session["lang"].ToString()/InternationalManager/ReviewRequests" class="col-md-5 bg-danger text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>بررسی درخواست ها توسط مدیر بین الملل</span>
+                        </a>
+                        <div class="w-100"></div>
+                        <a href="/@Session["lang"].ToString()/InternationalManager/InternationalManagerFinalConfirm" class="col-md-5 bg-success text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>تایید نهایی درخواست ها توسط مدیر بین الملل</span>
+                        </a>
+                        <a href="" class="col-md-5 bg-info text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>رزرو</span>
+                        </a>
+                    }
+                    else if (strUserRoles.Contains(ISR.Commons.enums.RoleIds.ISR_Expert))
+                    {
+
+                        <a href="/@Session["lang"].ToString()/InternationalExpert/ReviewRequests" class="col-md-5 bg-warning text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>بررسی درخواست ها توسط کارشناس بین الملل</span>
+                        </a>
+                        <a href="" class="col-md-5 bg-info text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>رزرو</span>
+                        </a>
+
+                    }
+                    else if (strUserRoles.Contains(ISR.Commons.enums.RoleIds.Enrollment_Manager))
+                    {
+
+                        <a href="/@Session["lang"].ToString()/EnrollmentManager/ReviewRequests" class="col-md-5 bg-secondary text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>بررسی درخواست ها توسط مدیر اداره ثبت نام </span>
+                        </a>
+                        <a href="/@Session["lang"].ToString()/EnrollmentManager/NewStudents" class="col-md-5 bg-success text-white p-5 mb-3 ml-3 text-center managementButton">
+                            <i class="fal fa-file-check"></i>
+                            <span>بارگذاری دانشجویان جدید</span>
+                        </a>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

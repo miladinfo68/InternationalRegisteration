@@ -1,0 +1,230 @@
+﻿@using ISR.Resources
+@using ISR.DAL.Amozesh_Initial
+<style>
+    .alert-box {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .form-width {
+        width: 100%;
+    }
+
+    .doc-wapper {
+        background: #ddd;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    table {
+        background: #ddd;
+    }
+
+    button[id^='ddl_Candidate_Fields'] {
+        min-height: 38px;
+    }
+
+    input[type=search] {
+        width: 87%;
+    }
+
+    .ast-span {
+        font-size: 30px;
+        color: red;
+    }
+
+    .div-display-flex {
+        display: flex;
+    }
+
+        .div-display-flex > span {
+            font-size: 30px;
+            font-weight: bolder;
+            color: red;
+        }
+</style>
+<div class="alert alert-danger alert-box">
+    <p> * @Resources.RequiredField_Astericks</p>
+</div>
+@using (Html.BeginForm("UploadDocuments", "Documents", FormMethod.Post, new { id = "frmUploadDocuments", enctype = "multipart/form-data", @class = "form-width" }))
+{
+
+    if (!string.IsNullOrEmpty(TempData["ErrMessages"] as string))
+    {
+        <div class="alert alert-danger">
+            @{
+                var errMsgs = (TempData["ErrMessages"] as string).Split('#');
+                for (int k = 0; k < errMsgs.Length; k++)
+                {
+                    <p> * @errMsgs[k]</p>
+                }
+            }
+        </div>
+    }
+    <div class="doc-wapper">
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="lastEducationDegree"> @Resources.Last_Education_Degree</label>
+                <input type="hidden" name="txt_LastEducationDegree" id="txt_LastEducationDegree" />
+                <div class="div-display-flex">
+                    <span>*</span>
+                    <select class="form-control" id="ddl_LastEducationDegree">
+                        @{
+                            string selected_0_lastLevel = ""
+                                , selected_1_lastLevel = ""
+                                , selected_2_lastLevel = ""
+                                , selected_3_lastLevel = ""
+                                , selected_4_lastLevel = ""
+                                , selected_5_lastLevel = "";
+                            if (ViewBag.St_LastLevel != null)
+                            {
+                                switch ((ViewBag.St_LastLevel as EducationDegree).Level.ToString())
+                                {
+                                    case "0": selected_0_lastLevel = "selected"; break;
+                                    case "1": selected_1_lastLevel = "selected"; break;
+                                    case "2": selected_2_lastLevel = "selected"; break;
+                                    case "3": selected_3_lastLevel = "selected"; break;
+                                    case "4": selected_4_lastLevel = "selected"; break;
+                                    case "5": selected_5_lastLevel = "selected"; break;                                   
+                                }
+                            }
+                        }
+                        <option @selected_0_lastLevel value="0">@Resources.Dropdown_Choose</option>
+                        <option @selected_1_lastLevel value="1">@Resources.Diploma</option>
+                        <option @selected_2_lastLevel value="2">@Resources.Collage</option>
+                        <option @selected_3_lastLevel value="3">@Resources.Bachelor</option>
+                        <option @selected_4_lastLevel value="4">@Resources.Master</option>
+                        <option @selected_5_lastLevel value="5">@Resources.Phd</option>                        
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group col-md-2"></div>
+
+            <div class="form-group col-md-5">
+                <label for="currentLevel">@Resources.Current_Level</label>
+                <input type="hidden" name="txt_CurentLevel" id="txt_CurentLevel" />
+                <div class="div-display-flex">
+                    <span>*</span>
+                    @{
+                        string selected_0_currentLevel = ""
+                            , selected_1_currentLevel = ""
+                            , selected_2_currentLevel = ""
+                            , selected_3_currentLevel = ""
+                            , selected_4_currentLevel = ""
+                            , selected_5_currentLevel = "";
+                        if (ViewBag.St_Request != null)
+                        {
+                            switch ((ViewBag.St_Request as Request).CurrentLevel.ToString())
+                            {
+                                case "0": selected_0_currentLevel = "selected"; break;
+                                case "1": selected_1_currentLevel = "selected"; break;
+                                case "2": selected_2_currentLevel = "selected"; break;
+                                case "3": selected_3_currentLevel = "selected"; break;
+                                case "4": selected_4_currentLevel = "selected"; break;
+                                case "5": selected_5_currentLevel = "selected"; break;                               
+                            }
+                        }
+                        <select class="form-control" id="ddl_CurrentLevel">
+                            <option @selected_0_currentLevel value="0">@Resources.Dropdown_Choose</option>
+                            <option @selected_1_currentLevel value="1">@Resources.Diploma</option>
+                            <option @selected_2_currentLevel value="2">@Resources.Collage</option>
+                            <option @selected_3_currentLevel value="3">@Resources.Bachelor</option>
+                            <option @selected_4_currentLevel value="4">@Resources.Master</option>
+                            <option @selected_5_currentLevel value="6">@Resources.Phd</option>
+                        </select>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table uploadDocuments">
+            <thead>
+                <tr>
+                    <th scope="col">@Resources.Doc_Name</th>
+                    <th scope="col">*</th>
+                    <th scope="col">@Resources.Doc_Upload</th>
+                    <th scope="col">@Resources.Doc_Preview</th>
+                    @*<th scope="col">@Resources.Doc_Status</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Resources.PersonalPicture</td>
+                    <td><span class="ast-span pass">*</span></td>
+                    <td><input id="PersonalPicture" type="file" name="PersonalPicture_f"></td>
+                    <td>
+                        <img src="@ViewBag.vbPersonalPicture" id="imgPersonalPicture">
+                    </td>
+                    @*<td>@Resources.Status_Alaki_Text</td>*@
+                </tr>
+                <tr>
+                    <td>@Resources.Passport</td>
+                    <td><span class="ast-span pass">*</span></td>
+                    <td><input id="Passport" type="file" name="Passport_f"></td>
+                    <td>
+                        <img src="@ViewBag.vbPassport" id="imgPassport">
+                    </td>
+                    @*<td>@Resources.Status_Alaki_Text</td>*@
+                </tr>
+
+                <tr>
+                    <td>@Resources.Diploma</td>
+                    <td><span class="ast-span">*</span></td>
+                    <td><input id="Diploma" type="file" name="Diploma_f"></td>
+                    <td>
+                        <img src="@ViewBag.vbDiploma" id="imgDiploma">
+                    </td>
+                    @*<td>@Resources.Status_Alaki_Text</td>*@
+                </tr>
+
+                <tr>
+                    <td>@Resources.Collage</td>
+                    <td><span class="ast-span">*</span></td>
+                    <td><input id="Collage" type="file" name="Collage_f"></td>
+                    <td>
+                        <img src="@ViewBag.vbCollage" id="imgCollage">
+                    </td>
+                    @*<td>@Resources.Status_Alaki_Text</td>*@
+                </tr>
+
+                <tr>
+                    <td>@Resources.Bachelor</td>
+                    <td><span class="ast-span">*</span></td>
+                    <td><input id="Bachelor" type="file" name="Bachelor_f"></td>
+                    <td>
+                        <img src="@ViewBag.vbBachelor" id="imgBachelor">
+                    </td>
+                    @*<td>@Resources.Status_Alaki_Text</td>*@
+                </tr>
+
+                <tr>
+                    <td>@Resources.Master</td>
+                    <td><span class="ast-span">*</span></td>
+                    <td><input id="Master" type="file" name="Master_f"></td>
+                    <td>
+                        <img src="@ViewBag.vbMaster" id="imgMaster">
+                    </td>
+                    @*<td>@Resources.Status_Alaki_Text</td>*@
+                </tr>
+
+                <tr>
+                    <td>@Resources.Phd</td>
+                    <td><span class="ast-span">*</span></td>
+                    <td><input id="Phd" type="file" name="Phd_f"></td>
+                    <td>
+                        <img src="@ViewBag.vbPhd" id="imgPhd">
+                    </td>
+                    @*<td>@Resources.Status_Alaki_Text</td>*@
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <input type="submit" id="btnSubmitDocs" name="btnSubmitDocs" value="@Resources.Doc_Upload_Btn" class="btn btn-success">
+    <br />
+    <br />
+}

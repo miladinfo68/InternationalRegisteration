@@ -1,0 +1,37 @@
+﻿
+@model List<ISR.web.Models.UserRoleViewModel>
+@if (Model?.Count() > 0)
+{
+    <div class="usersWrapper">
+        <h2>لیست کاربران و نقش های انها</h2>
+        <div class="users">
+            @foreach (var user in Model)
+            {
+                <div class="user_item">
+                    <a data-userId="@user.User.Id">
+                        <div class="row">
+                            <div class="col-md-11 user_item_title">@user.User.DisplayName</div>
+                            <div class="col-md-1 user_item_sign"><i class="fa fa-plus"></i></div>
+                        </div>
+                    </a>
+
+                    <div class="row trigger user_roles_display_none">
+                        <div class="row">
+                            @foreach (var role in user.Roles)
+                            {
+                                <div class="col-md-6 col-sm-6">
+                                    <label>@role.DisplayName</label>
+                                    <input type="checkbox" data-roleId="@role.RoleId" @role.IsCkecked />
+                                </div>
+                            }
+                        </div>
+                        <input type="button" value="ثبت تغییرات" data-userId="@user.User.Id" />
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+}
+
+

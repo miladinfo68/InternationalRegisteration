@@ -1,0 +1,119 @@
+﻿@using ISR.Resources
+@model ISR.web.Models.RequestViewModel
+
+@{
+    ViewBag.Title = "ShowDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="contentHeight" class="col-md-12 contentBox">
+    @if (Model.Status == (byte)ISR.Commons.enums.RequestStatus.Ex_Rejected)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger text-center">@Model.Discription</div>
+            </div>
+        </div>
+    }
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="requestDetailsInfo pl-4 pr-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <span>@Resources.RequestId: </span><span>@Model.Id</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>@Resources.RequestStatus: </span><span>@Model.StatusName</span>
+                    </div>
+                    <div class="col-md-4">
+                        <span>@Resources.RequestDate: </span><span class="inlineBlock forcedLtr">@Model.CreateDate.ToString("yyyy/MM/dd hh:mm:ss")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row requestDetailsDocs">
+        @foreach (var item in Model.Documents)
+        {
+            <div class="col-md-4">
+                <div class="requestDetailsDoc">
+                    <div class="requestDetailsDocTitle">
+                        <span>@item.CategoryTitle</span>
+                    </div>
+                    <div class="requestDetailsDocImage">
+                        <a data-fancybox="gallery" href="@(item.Path + "/" + item.FileName +"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())">
+                            <img src="@(item.Path + "/" + item.FileName+"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())" />
+                        </a>
+                    </div>
+                    <div class="requestDetailsDocStatus">
+                        <span>@item.DocStatusTitle</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>@Resources.DescriptionAboutDocument </label>
+                            <textarea disabled="disabled" class="reject_0">@item.Description</textarea>
+                        </div>
+                    </div>
+                    @if (item.DocStatus == 3)
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" name="btnFileLoader" class="btn btn-info" data-toggle="modal" data-target="#uploadModal" data-reqID="@Model.Id" data-docID="@item.Id" data-detector="s">Upload file</button>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/@Session["lang"].ToString()/Request" class="btn btn-info">@Resources.Return</a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+
+<div id="uploadModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="alert alert-danger">
+                    <ul>
+                        <li>@Resources.ModalFileFormat</li>
+                        <li>@Resources.ModalFileSize</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!-- Image Preview-->
+                @using (Html.BeginForm("ReUploadDocument", "Documents", FormMethod.Post, new { id = "frmReUploadDocument", enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        <div class="img-wrapper">
+                            <img id="imgUploader" class="img-thumbnail" />
+                        </div>
+                    </div>
+                    <input type="hidden" name="hdn_redid" id="hdn_reqid" />
+                    <input type="hidden" name="hdn_doc_id" id="hdn_doc_id" />
+                    <input type="hidden" name="hdn_detector" id="hdn_detector" />
+
+                    <input type='file' name='fileUploader' id='fileUploader' accept="image/*" class="form-control" />
+                    @*<input type='file' name='fileUploader' id='fileUploader' accept="image/*" multiple size="20" class="form-control" />*@
+                    <button type="submit" id='btnFileUploadr' class="btn  btn-success form-control">@Resources.btnFileUploadr</button>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

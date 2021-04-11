@@ -1,0 +1,15 @@
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\Resources\Resources.resx
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\Resources\Resources.Designer.cs
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\Models.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\Models.pdb
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\Commons.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\Resources.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\Commons.pdb
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\Resources.pdb
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\ar-IQ\Resources.resources.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\bin\Debug\en-GB\Resources.resources.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\obj\Debug\ISR.Models.csprojAssemblyReference.cache
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\obj\Debug\ISR.Models.csproj.CoreCompileInputs.cache
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\obj\Debug\ISR.Models.csproj.CopyComplete
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\obj\Debug\Models.dll
+D:\aaa_UniversityProjects\ProjDanesh_192.168.4.21\InternationalRegistration\Models\obj\Debug\Models.pdb

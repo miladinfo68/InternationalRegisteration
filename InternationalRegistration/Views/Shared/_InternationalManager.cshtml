@@ -1,0 +1,389 @@
+﻿@using ISR.Resources
+@using ISR.Commons.enums
+@model  ISR.web.Models.RequestViewModel
+<div class="w-100">
+    @if (Model != null && Model.Id > 0)
+    {
+        <div id="contentHeight" class="col-md-12 contentBox">
+            <div class="row fullHeight">
+                <div class="col-md-12 p-4">
+                    
+                    <div class="row">
+                        <div class="col-md-12 alert alert-danger alert_danger_text_align_center @Model.AlertMessage">
+                            <span>@Model.Discription</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 title-center">
+                            <span>@Resources.PersonalInfo</span>
+                        </div>
+                        <div class="col-md-12">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-2 lbl">@Resources.RequestId</div>
+                                <div class="col-md-2">
+                                    <span id="prvRequestId">@Model.Id.ToString()</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.RecommenderCode</div>
+                                <div class="col-md-2">
+                                    <span id="prvRecommenderCode">@Model.Student.Person.RecommenderCode</span>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-2 lbl">@Resources.Firstname</div>
+                                <div class="col-md-2">
+                                    @*<input id="txtFirstName" type="text" class="form-control" value="@Model.Student.Person.FirstName " />*@
+                                    <span id="prFirstName">@Model.Student.Person.FirstName</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.Middlename</div>
+                                <div class="col-md-2">
+                                    @*<input id="txtMiddleName" type="text" class="form-control" value="@Model.Student.Person.MiddleName " />*@
+                                    <span id="prvMiddlename">@Model.Student.Person.MiddleName</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.Lastname</div>
+                                <div class="col-md-2">
+                                    @*<input id="txtLastName" type="text" class="form-control" value="@Model.Student.Person.LastName " />*@
+                                    <span id="prvLastname">@Model.Student.Person.LastName</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 lbl">@Resources.FathersName</div>
+                                <div class="col-md-2">
+                                    @*<input id="txtFatherName" type="text" class="form-control" value="@Model.Student.Person.FathersName " />*@
+                                    <span id="prvFathersName">@Model.Student.Person.FathersName</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.MothersName</div>
+                                <div class="col-md-2">
+                                    @*<input id="txtMotherName" type="text" class="form-control" value="@Model.Student.Person.MothersName " />*@
+                                    <span id="prvMothersName">@Model.Student.Person.MothersName</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.MaritalStatus</div>
+                                <div class="col-md-2">
+                                    <span id="prvMaritalStatus">@Model.Student.Person.MarritalTypeTitle</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 lbl">@Resources.BirthDate</div>
+                                <div class="col-md-2">
+                                    @*<input id="txtBirthDate" type="text" class="form-control dPicker" value="@Model.Student.Person.BirthDate " />*@
+                                    <span id="prvBirthDate">@Model.Student.Person.BirthDate</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.BirthPlace</div>
+                                <div class="col-md-2">
+                                    @*<input id="txtBirthPlace" type="text" class="form-control" value="@Model.Student.Person.BirthPlace " />*@
+                                    <span id="txtBirthPlace">@Model.Student.Person.BirthPlace</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.Gender</div>
+                                <div class="col-md-2">
+                                    <span id="prvGender">@Model.Student.Person.GenderTitle</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 lbl">@Resources.PhysicalStatus</div>
+                                <div class="col-md-2">
+                                    <span id="prvPhysicalStatus">@Model.Student.HealthStatusTitle</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.Relegion</div>
+                                <div class="col-md-2">
+                                    <span id="prvRelegion">@Model.Student.ReligienTitle</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 lbl">@Resources.Citizenship</div>
+                                <div class="drpCitizenShips22 col-md-2">
+                                    <span id="prvCitizenship">@(Model.Student.Person.CitizenShips.Count() > 0 ? Model.Student.Person.CitizenShips.FirstOrDefault()?.Country?.DisplayName : "---")</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.SecondCitizenship</div>
+                                <div class="col-md-2">
+                                    @*@Html.DropDownList("ddlSecondCitizen", (SelectList)ViewBag.secondCitizenshipDrp, new { @class = "form-control" })
+                                        <input type="text" class="form-control" id="txtSecondCitizen" value="@(Model.Student.Person.CitizenShips.Count() > 1 ? Model.Student.Person.CitizenShips.ElementAt(1).Country.DisplayName : "---")" />*@
+                                    <span id="prvSecondCitizenship">@(Model.Student.Person.CitizenShips.Count() > 1 ? Model.Student.Person.CitizenShips.ElementAt(1).Country.DisplayName : "---")</span>
+                                </div>
+                                <div class="col-md-2 lbl">@Resources.DocNumber</div>
+                                <div class="col-md-2">
+                                    @*<input id="txtPassNo" type="text" class="form-control" value="@(Model.Student.Person.CitizenShips.Count() > 0 ? Model.Student.Person.CitizenShips.FirstOrDefault().DocNo : "---")" />*@
+                                    <span id="prvDocNumber">@(Model.Student.Person.CitizenShips.Count() > 0 ? Model.Student.Person.CitizenShips.FirstOrDefault().DocNo : "---")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @if (Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress) != null)
+                        {
+                            <div class="col-md-12 title-center">
+                                <span>@Resources.CitizenshipResidenceAddress</span>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.State</div>
+                                    <div class="col-md-2">
+                                        @*<input id="txtCitizenHomeState" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Province" />*@
+                                        <span id="prvCitizenshipResidencState">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Province</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.City</div>
+                                    <div class="col-md-2">
+                                        @* <input id="txtCitizenHomeCity" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).City" />*@
+                                        <span id="prvCitizenshipResidencCity">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).City</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.Street</div>
+                                    <div class="col-md-2">
+                                        @*<input id="txtCitizenHomeStreet" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Street" />*@
+                                        <span id="prvCitizenshipResidencStreet">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Street</span>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.PlaceNumber</div>
+                                    <div class="col-md-2">
+                                        @*<input id="txtCitizenHomePlaque" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Plaque" />*@
+                                        <span id="prvCitizenshipResidencPlakceNumber">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Plaque</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.PostalCode</div>
+                                    <div class="col-md-2">
+                                        @*<input id="txtCitizenHomePostalCode" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PostalCode" />*@
+                                        <span id="prvCitizenshipResidencPostalCode">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PostalCode</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.Email</div>
+                                    <div class="col-md-2 forcedLtr">
+                                        @*<input id="txtCitizenEmail22" type="text" class="form-control" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Email2" />*@
+                                        <span id="prvCitizenshipResidencEmail">@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Email2</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.PhoneNumber</div>
+                                    <div class="col-md-2 forcedLtr">
+                                        @*@Html.DropDownList("ddlCitizenHomePhoneCode", (SelectList)ViewBag.PhoneCodes, new { @class = "form-control phoneCodeDropDown" })<input id="txtCitizenshipResidencPhoneNumber" type="text" class="form-control mobileTextBox2 digitsOnly" placeholder="" maxlength="20" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PhoneNo" />*@
+                                        <span id="prvCitizenshipResidencPhoneNumber">+@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PreCodeForPhoneNo @Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PhoneNo</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.Mobile</div>
+                                    <div class="col-md-2 forcedLtr">
+                                        @*@Html.DropDownList("ddl_CitizenMobileCode", (SelectList)ViewBag.MobileNumbers, new { @class = "form-control phoneCodeDropDown" })<input id="txtCitizenshipResidencMobile" type="text" class="form-control mobileTextBox2 digitsOnly" placeholder="" maxlength="10" value="@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Mobile2" />*@
+                                        <span id="prvCitizenshipResidencMobile">+@Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).PreCodeForMobile @Model.Student.Person.Addresses.FirstOrDefault(w => w.AddressType == (byte)AddressType.CitizenshipResidenceAddress).Mobile2</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 title-center">
+                            <span>@Resources.EducationalInfo</span>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2 lbl">@Resources.Level</div>
+                                <div class="col-md-2">
+                                    <span id="prvDiplomaWrittenAverage">@Model.TargetLevel</span>
+                                </div>
+                            </div>
+                            @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.Diploma).Count() > 0)
+                            {
+                                <div class="row">                                
+                                    <div class="col-md-2 lbl">@Resources.WrittenAverage</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtDiplomaWrittenAverage" class="form-control digitsOnly averageGrade" maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).WrittenAverage" />*@
+                                        @*<input type="text" id="txtDiplomaWrittenAverage" class="form-control" maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).WrittenAverage" />*@
+                                        <span id="prvDiplomaWrittenAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).WrittenAverage</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.DegreePlace</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtDiplomaPlace" class="form-control" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).UniversityName" />*@
+                                        <span id="prvDiplomaDegreePlace">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).UniversityName</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.FieldOfStudy</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtDiplomaField" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).FieldTitle" />*@
+                                        <span id="prvDiplomaFieldOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).FieldTitle </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.TotalAverage</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtDiplomaTotalAverage" class="form-control " maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).TotalAverage" />*@
+                                        <span id="prvDiplomaTotalAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Diploma).TotalAverage</span>
+                                    </div>
+                                </div>
+
+                            }
+                            @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.PreUniversity).Count() > 0)
+                            {
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.Average</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtPreUniversityAverage" class="form-control " max="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.PreUniversity).TotalAverage" />*@
+                                        <span id="prvPreUniversityAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.PreUniversity).TotalAverage</span>
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.Bachelor).Count() > 0)
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.FieldOfStudy</div>
+                                    <div class="col-md-2">
+                                        @*<input id="txtBachelorField" type="text" class="form-control" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).FieldTitle" />*@
+                                        <span id="prvBachelorFieldOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).FieldTitle </span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.UniversityName</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtBachelorUniversity" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).UniversityName" />*@
+                                        <span id="prvBachelorUniversityName">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).UniversityName</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.CountryOfStudy</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtBachelorCountry" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).CountryName" />*@
+                                        <span id="prvBachelorCountryOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).CountryName</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.Average</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtBachelorAverage" class="form-control " maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).TotalAverage" />*@
+                                        <span id="prvBachelorAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Bachelor).TotalAverage</span>
+                                    </div>
+                                </div>
+
+                            }
+                            @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.Master).Count() > 0)
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.FieldOfStudy</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtMasterField" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).FieldTitle" />*@
+                                        <span id="prvMasterFieldOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).FieldTitle </span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.UniversityName</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtMasterUniversity" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).UniversityName" />*@
+                                        <span id="prvMasterUniversityName">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).UniversityName</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.CountryOfStudy</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtMasterCountry" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).CountryName" />*@
+                                        <span id="prvMasterCountryOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).CountryName</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.Average</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtMasterAverage" class="form-control " maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).TotalAverage" />*@
+                                        <span id="prvMasterAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Master).TotalAverage</span>
+                                    </div>
+                                </div>
+
+                            }
+                            @if (Model.Student.EducationDegrees.Where(w => w.Level == (byte)Levels.Phd).Count() > 0)
+                            {
+
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.FieldOfStudy</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtDoctorateField" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).FieldTitle" />*@
+                                        <span id="prvPhdFieldOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).FieldTitle </span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.UniversityName</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtDoctorateUniversity" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).UniversityName" />*@
+                                        <span id="prvPhdUniversityName">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).UniversityName</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 lbl">@Resources.CountryOfStudy</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtDoctorateCountry" class="form-control" maxlength="100" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).CountryName" />*@
+                                        <span id="prvPhdCountryOfStudy">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).CountryName</span>
+                                    </div>
+                                    <div class="col-md-2 lbl">@Resources.Average</div>
+                                    <div class="col-md-2">
+                                        @*<input type="text" id="txtDoctorateAverage" class="form-control " maxlength="5" value="@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).TotalAverage" />*@
+                                        <span id="prvPhdAverage">@Model.Student.EducationDegrees.FirstOrDefault(w => w.Level == (byte)Levels.Phd).TotalAverage</span>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 title-center">
+                            <span>@Resources.CandidateFields</span>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table id="prvChosenFields" class="table border">
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>@Resources.RowNumber</th>
+                                                        <th>@Resources.Field_Id</th>
+                                                        <th>@Resources.College</th>
+                                                        <th>@Resources.Field</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.Student.CandidateFields.Where(w => w.Selected == true))
+                                                    {
+                                                        <tr>
+                                                            <td>@(Model.Student.CandidateFields.IndexOf(item) + 1)</td>
+                                                            <td>@(item.FieldForForeign?.Id == null ? null : item.FieldForForeign?.Id)</td>
+                                                            <td>@(item.FieldForForeign?.College?.CollegeName ?? "")</td>
+                                                            <td>@(item.FieldForForeign?.Field_Name ?? "")</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12 title-center">
+                            <span>@Resources.DocsUploaded</span>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        @foreach (var item in Model.Documents)
+                                        {
+                                            <div class="col-md-4 requestDetailsDoc">
+                                                <div class="requestDetailsDocTitle">
+                                                    <span>@item.CategoryTitle</span>
+                                                </div>
+                                                <div class="requestDetailsDocImage">
+                                                    <a data-fancybox="gallery" href="@(item.Path + "/" + item.FileName +"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())">
+                                                        <img src="@(item.Path + "/" + item.FileName +"?ts="+DateTimeOffset.Now.ToUnixTimeMilliseconds())" />
+                                                    </a>
+                                                </div>
+                                                <div class="requestDetailsDocStatus">
+                                                    <h5><span>  @item.DocStatusTitle </span></h5>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="title-center"><span>در خواست نامعتبر می باشد!!!</span></div>
+            </div>
+        </div>
+    }
+</div>
+

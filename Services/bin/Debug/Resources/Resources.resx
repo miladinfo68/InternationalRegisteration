@@ -1,0 +1,958 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ListOfLevels" xml:space="preserve">
+    <value>{
+    "0": "-- انتخاب کنید --",
+    "1": "دیپلم",
+    "2": "پیش دانشگاهی",
+    "3": "کارشناسی",
+    "4": "کارشناسی ارشد",
+    "5": "دکتری"
+}</value>
+  </data>
+  <data name="Accepted" xml:space="preserve">
+    <value>تائید شده</value>
+  </data>
+  <data name="AcceptRequest" xml:space="preserve">
+    <value>تائید درخواست</value>
+  </data>
+  <data name="AccountActivated" xml:space="preserve">
+    <value>با تشکر، حساب کاربری شما با موفقیت فعال گردید. لطفاً جهت ثبت درخواست وارد حساب کاربری خود شوید.</value>
+  </data>
+  <data name="Account_Deactive" xml:space="preserve">
+    <value>حساب کاربری شما فعال نیست.</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>عملیات</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>افزودن</value>
+  </data>
+  <data name="All_Fields_Required" xml:space="preserve">
+    <value>تکمیل تمامی گزینه ها الزامی است</value>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>سامانه ثبت نام دانشجویان بین الملل</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>عربی</value>
+  </data>
+  <data name="Average" xml:space="preserve">
+    <value>معدل</value>
+  </data>
+  <data name="Bachelor" xml:space="preserve">
+    <value>کارشناسی</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>تاریخ تولد</value>
+  </data>
+  <data name="BirthPlace" xml:space="preserve">
+    <value>محل تولد</value>
+  </data>
+  <data name="Blind" xml:space="preserve">
+    <value>نابینا</value>
+  </data>
+  <data name="Brother" xml:space="preserve">
+    <value>برادر</value>
+  </data>
+  <data name="btnDeleteCandidateField" xml:space="preserve">
+    <value>حذف رشته</value>
+  </data>
+  <data name="btnFileUploadr" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="btn_update_request" xml:space="preserve">
+    <value>ثبت تغییرات</value>
+  </data>
+  <data name="CandidateFields" xml:space="preserve">
+    <value>رشته های منتخب</value>
+  </data>
+  <data name="Candidate_Fields_List" xml:space="preserve">
+    <value>انتخاب رشته های مورددرخواست</value>
+  </data>
+  <data name="Child" xml:space="preserve">
+    <value>فرزند</value>
+  </data>
+  <data name="Choosable_Fields" xml:space="preserve">
+    <value>رشته های قابل انتخاب</value>
+  </data>
+  <data name="ChooseField" xml:space="preserve">
+    <value>انتخاب رشته</value>
+  </data>
+  <data name="ChosenFields" xml:space="preserve">
+    <value>رشته های انتخاب شده</value>
+  </data>
+  <data name="Christian" xml:space="preserve">
+    <value>مسیحی</value>
+  </data>
+  <data name="Citizenship" xml:space="preserve">
+    <value>تابعیت</value>
+  </data>
+  <data name="CitizenshipResidenceAddress" xml:space="preserve">
+    <value>محل سکونت در کشور متبوع</value>
+  </data>
+  <data name="CitizenshipWorkPlaceAddress" xml:space="preserve">
+    <value>محل کار در کشور متبوع</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>شهر</value>
+  </data>
+  <data name="Collage" xml:space="preserve">
+    <value>پیش دانشگاهی</value>
+  </data>
+  <data name="College" xml:space="preserve">
+    <value>دانشکده</value>
+  </data>
+  <data name="CompleteHealth" xml:space="preserve">
+    <value>سلامت کامل</value>
+  </data>
+  <data name="ConfirmAndContinue" xml:space="preserve">
+    <value>تایید و ادامه</value>
+  </data>
+  <data name="ContactInfo" xml:space="preserve">
+    <value>اطلاعات تماس</value>
+  </data>
+  <data name="ContactInfoForm_Help" xml:space="preserve">
+    <value>تکمیل اطلاعات یکی از بخش های "محل سکونت در ایران" و یا "محل سکونت در کشور متبوع" الزامی می باشد</value>
+  </data>
+  <data name="CopyRight" xml:space="preserve">
+    <value>تمامی حقوق این سایت محفوظ و متعلق به واحد الکترونیکی دانشگاه آزاد اسلامی است.</value>
+  </data>
+  <data name="CountOfChildren" xml:space="preserve">
+    <value>تعداد فرزندان</value>
+  </data>
+  <data name="CountryOfStudy" xml:space="preserve">
+    <value>کشور محل تحصیل</value>
+  </data>
+  <data name="CountryTitle" xml:space="preserve">
+    <value>کشور</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>ایجاد حساب کاربری</value>
+  </data>
+  <data name="Create_Your_Account" xml:space="preserve">
+    <value>حساب کاربری خود را ایجاد کنید</value>
+  </data>
+  <data name="Critical_Error" xml:space="preserve">
+    <value>خطا در انجام عملیات</value>
+  </data>
+  <data name="Current_Level" xml:space="preserve">
+    <value>مقطع مورد درخواست</value>
+  </data>
+  <data name="Deaf" xml:space="preserve">
+    <value>ناشنوا</value>
+  </data>
+  <data name="DegreePlace" xml:space="preserve">
+    <value>محل اخذ</value>
+  </data>
+  <data name="DescriptionAboutDocument" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value> جزئیات مدارک</value>
+  </data>
+  <data name="Diploma" xml:space="preserve">
+    <value>دیپلم</value>
+  </data>
+  <data name="DisabilityOfHearing" xml:space="preserve">
+    <value>معلول شنوایی</value>
+  </data>
+  <data name="DisabilityOfMovement" xml:space="preserve">
+    <value>معلول حرکتی</value>
+  </data>
+  <data name="DisabilityOfSpeech" xml:space="preserve">
+    <value>معلول گویایی</value>
+  </data>
+  <data name="DisabilityOfVision" xml:space="preserve">
+    <value>معلول بینایی</value>
+  </data>
+  <data name="DocNumber" xml:space="preserve">
+    <value>شماره گذرنامه / شماره کارت اقامت / شماره ملی</value>
+  </data>
+  <data name="DocsUploaded" xml:space="preserve">
+    <value>مدارک بارگذاری شده</value>
+  </data>
+  <data name="Doctorate" xml:space="preserve">
+    <value>دکترا</value>
+  </data>
+  <data name="DocumentNumber" xml:space="preserve">
+    <value>شماره مدرک</value>
+  </data>
+  <data name="DocumentNumberOrNationalCode" xml:space="preserve">
+    <value>شماره مدرک یا کد ملی</value>
+  </data>
+  <data name="DocumentType" xml:space="preserve">
+    <value>نوع مدرک</value>
+  </data>
+  <data name="Doc_Name" xml:space="preserve">
+    <value>نام مدرک </value>
+  </data>
+  <data name="Doc_Preview" xml:space="preserve">
+    <value>پیش نمایش</value>
+  </data>
+  <data name="Doc_Status" xml:space="preserve">
+    <value>وضعیت</value>
+  </data>
+  <data name="Doc_Upload" xml:space="preserve">
+    <value>بارگذاری مدرک</value>
+  </data>
+  <data name="Doc_Upload_Btn" xml:space="preserve">
+    <value>ثبت و ادامه</value>
+  </data>
+  <data name="Dropdown_Choose" xml:space="preserve">
+    <value>-- انتخاب کنید --</value>
+  </data>
+  <data name="Dropdown_Citizenship" xml:space="preserve">
+    <value>-- تابعیت --</value>
+  </data>
+  <data name="Duplicate_Email" xml:space="preserve">
+    <value>حساب کاربری با این آدرس ایمیل قبلاً ایجاد شده است. اگر رمز عبور خود را فراموش کرده اید از قسمت &lt;a href="{0}"&gt;بازیابی رمز عبور&lt;/a&gt; وارد حساب کاربری خود شوید.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="EducationalInfo" xml:space="preserve">
+    <value>اطلاعات تحصیلی</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="Email_Verification_Body" xml:space="preserve">
+    <value>&lt;div style="direction: {1}"&gt;ضمن خوش آمد گویی به شما دانشجوی محترم، حساب کاربری شما در سامانه ثبت نام دانشجویان بین الملل واحد الکترونیکی دانشگاه آزاد اسلامی با موفقیت ایجاد گردید. لطفاً جهت فعالسازی حساب کاربری خود، بر روی لینک زیر کلیک نمایید: &lt;br /&gt; {0} &lt;br /&gt; با تشکر &lt;br /&gt; واحد الکترونیکی دانشگاه آزاد اسلامی&lt;/div&gt;</value>
+  </data>
+  <data name="Email_Verification_Subject" xml:space="preserve">
+    <value>فعال سازی حساب کاربری</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>انگلیسی</value>
+  </data>
+  <data name="ErrorInDurationOfOperation" xml:space="preserve">
+    <value>خطلا در انجام عملیات</value>
+  </data>
+  <data name="FamilyAndChildren" xml:space="preserve">
+    <value>مشخصات اعضای خانواده یا افراد تحت تکفل</value>
+  </data>
+  <data name="FamilyInfo" xml:space="preserve">
+    <value>مشخصات اعضای خانواده و معرف</value>
+  </data>
+  <data name="FamilyMember" xml:space="preserve">
+    <value>اعضای خانواده</value>
+  </data>
+  <data name="Father" xml:space="preserve">
+    <value>پدر</value>
+  </data>
+  <data name="FathersName" xml:space="preserve">
+    <value>نام پدر</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>مونث</value>
+  </data>
+  <data name="Field" xml:space="preserve">
+    <value>رشته</value>
+  </data>
+  <data name="FieldOfStudy" xml:space="preserve">
+    <value>رشته تحصیلی</value>
+  </data>
+  <data name="Field_Id" xml:space="preserve">
+    <value>شناسه رشته</value>
+  </data>
+  <data name="Field_Title" xml:space="preserve">
+    <value>عنوان رشته</value>
+  </data>
+  <data name="FileFormatIsInvalid_ErrorBody" xml:space="preserve">
+    <value>باشد jpeg یا jpg  فرمت فایل انتخابی تنها می تواند</value>
+  </data>
+  <data name="FileFormatIsInvalid_ErrorTitle" xml:space="preserve">
+    <value>فرمت فایل نامعتبر</value>
+  </data>
+  <data name="FillEmail" xml:space="preserve">
+    <value>آدرس ایمیل را وارد نمایید</value>
+  </data>
+  <data name="Fill_Username_And_Password" xml:space="preserve">
+    <value>نام کاربری و کلمه عبور را وارد نمایید.</value>
+  </data>
+  <data name="Firstname" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="ForgetPassword" xml:space="preserve">
+    <value>رمز عبور خود را فراموش کرده اید؟</value>
+  </data>
+  <data name="FormValidation_ErrorBody" xml:space="preserve">
+    <value>پر کردن موارد ستاره دار اجباری می باشد</value>
+  </data>
+  <data name="FormValidation_ErrorTitle" xml:space="preserve">
+    <value>خطای اعتبار سنجی فرم</value>
+  </data>
+  <data name="Friend" xml:space="preserve">
+    <value>دوست</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>جنسیت</value>
+  </data>
+  <data name="GrandFather" xml:space="preserve">
+    <value>پدربزرگ</value>
+  </data>
+  <data name="GrandFathersName" xml:space="preserve">
+    <value>نام جد</value>
+  </data>
+  <data name="IdentityCardOfForeignCitizens" xml:space="preserve">
+    <value>کارت هویت ویژه اتباع خارجی</value>
+  </data>
+  <data name="IdNumber" xml:space="preserve">
+    <value>شماره شناسنامه</value>
+  </data>
+  <data name="InfoAdded" xml:space="preserve">
+    <value>ثبت اطلاعات اولیه</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>درحال بررسی</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>آدرس ایمیل معتبر نیست</value>
+  </data>
+  <data name="InvalidRequestType" xml:space="preserve">
+    <value>درخواست نامعتبر می باشد</value>
+  </data>
+  <data name="Invalid_Login" xml:space="preserve">
+    <value>نام کاربری و یا کلمه عبور صحیح نیست.</value>
+  </data>
+  <data name="IranianMotherAlert" xml:space="preserve">
+    <value>توجه: در صورتی که مادر شما ایرانی باشد، این قسمت را تکمیل نمایید.</value>
+  </data>
+  <data name="IranResidenceAddress" xml:space="preserve">
+    <value>محل سکونت در ایران</value>
+  </data>
+  <data name="IranWorkPlace" xml:space="preserve">
+    <value>محل کار در ایران</value>
+  </data>
+  <data name="Islam" xml:space="preserve">
+    <value>اسلام</value>
+  </data>
+  <data name="IssuePlace" xml:space="preserve">
+    <value>محل صدور</value>
+  </data>
+  <data name="Jewish" xml:space="preserve">
+    <value>کلیمی</value>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>شغل</value>
+  </data>
+  <data name="Kurdish" xml:space="preserve">
+    <value>کردی</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>زبان</value>
+  </data>
+  <data name="LANGUAGE_DIRECTION" xml:space="preserve">
+    <value>rtl</value>
+  </data>
+  <data name="Lastname" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="Last_Education_Average" xml:space="preserve">
+    <value>معدل کل در آخرین مقطع تحصیلی</value>
+  </data>
+  <data name="Last_Education_Country" xml:space="preserve">
+    <value>کشور اخذ آخرین مقطع تحصیلی</value>
+  </data>
+  <data name="Last_Education_Date" xml:space="preserve">
+    <value>تاریخ اخذ آخرین مقطع تحصیلی</value>
+  </data>
+  <data name="Last_Education_Degree" xml:space="preserve">
+    <value>اخرین مدرک تحصیلی </value>
+  </data>
+  <data name="Last_Education_Field" xml:space="preserve">
+    <value>رشته تحصیلی آخرین مقطع تحصیلی</value>
+  </data>
+  <data name="Last_Level" xml:space="preserve">
+    <value>آخرین مقطع تحصیلی</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>مقطع</value>
+  </data>
+  <data name="LimitedTransitCard" xml:space="preserve">
+    <value>برگ تردد خروجی مدت دار</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>ورود به حساب کاربری</value>
+  </data>
+  <data name="LoginOrRegister" xml:space="preserve">
+    <value>ورود یا ثبت نام</value>
+  </data>
+  <data name="Login_To_Your_Account" xml:space="preserve">
+    <value>وارد حساب کاربری خود شوید</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>مذکر</value>
+  </data>
+  <data name="MaritalStatus" xml:space="preserve">
+    <value>وضعیت تاهل</value>
+  </data>
+  <data name="Married" xml:space="preserve">
+    <value>متاهل با همسر</value>
+  </data>
+  <data name="Married_Away" xml:space="preserve">
+    <value>متاهل دور از همسر</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>کارشناسی ارشد</value>
+  </data>
+  <data name="Middlename" xml:space="preserve">
+    <value>نام دوم</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>شماره تلفن همراه</value>
+  </data>
+  <data name="ModalFileFormat" xml:space="preserve">
+    <value>فرمت فایل انتخابی حتما jpeg یا jpg باشد</value>
+  </data>
+  <data name="ModalFileSize" xml:space="preserve">
+    <value>سایز فایل انتخابی کمتر از دو مگابایت باشد</value>
+  </data>
+  <data name="Mother" xml:space="preserve">
+    <value>مادر</value>
+  </data>
+  <data name="MothersInfo" xml:space="preserve">
+    <value>مشخصات مادر</value>
+  </data>
+  <data name="MothersName" xml:space="preserve">
+    <value>نام مادر</value>
+  </data>
+  <data name="NationalCode" xml:space="preserve">
+    <value>کد ملی</value>
+  </data>
+  <data name="No_Fields_Found" xml:space="preserve">
+    <value>رشته ای یافت نشد</value>
+  </data>
+  <data name="Official" xml:space="preserve">
+    <value>رسمی</value>
+  </data>
+  <data name="OR" xml:space="preserve">
+    <value>یا</value>
+  </data>
+  <data name="OrganizationTitle" xml:space="preserve">
+    <value>واحد الکترونیکی دانشگاه آزاد اسلامی</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>سایر</value>
+  </data>
+  <data name="OtherDisabilities" xml:space="preserve">
+    <value>سایر نقص عضوها</value>
+  </data>
+  <data name="Passport" xml:space="preserve">
+    <value>گذرنامه /کارت هویت / کارت امایش</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>کلمه عبور</value>
+  </data>
+  <data name="PasswordRecovery" xml:space="preserve">
+    <value>بازیابی رمز عبور</value>
+  </data>
+  <data name="PasswordRecovery_EmailBody" xml:space="preserve">
+    <value>&lt;div style="direction: {1}"&gt;لطفاً از طریق لینک زیر وارد حساب کاربری خود شده و رمز عبور خود را بازیابی نمایید: &lt;br /&gt; {0} &lt;br /&gt; با تشکر &lt;br /&gt; واحد الکترونیکی دانشگاه آزاد اسلامی&lt;/div&gt;</value>
+  </data>
+  <data name="PasswordRecovery_NotFound" xml:space="preserve">
+    <value>آدرس ایمیل ثبت نشده است</value>
+  </data>
+  <data name="PasswordRecovery_Sent" xml:space="preserve">
+    <value>لینک بازیابی به آدرس ایمیل شما ارسال شد، لطفاً از طریق لینک ارسال شده وارد حساب خود شده و رمز عبور را بازیابی کنید.</value>
+  </data>
+  <data name="PasswordReset_ChangePassword" xml:space="preserve">
+    <value>تغییر رمز عبور</value>
+  </data>
+  <data name="PasswordReset_NewPassword" xml:space="preserve">
+    <value>رمز عبور جدید</value>
+  </data>
+  <data name="PasswordReset_NewPasswordRepeat" xml:space="preserve">
+    <value>تکرار رمز عبور جدید</value>
+  </data>
+  <data name="PasswordReset_NotMatch" xml:space="preserve">
+    <value>رمز عبور جدید و تکرار آن یکسان نیست</value>
+  </data>
+  <data name="PasswordReset_Success" xml:space="preserve">
+    <value>تغییر رمز عبور با موفقیت انجام شد</value>
+  </data>
+  <data name="Persian" xml:space="preserve">
+    <value>فارسی</value>
+  </data>
+  <data name="PersonalInfo" xml:space="preserve">
+    <value>اطلاعات فردی و هویتی</value>
+  </data>
+  <data name="PersonalPicture" xml:space="preserve">
+    <value>عکس پرسنلی</value>
+  </data>
+  <data name="PersonHimself" xml:space="preserve">
+    <value>خود فرد</value>
+  </data>
+  <data name="Phd" xml:space="preserve">
+    <value>دکتری</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>تلفن ثابت</value>
+  </data>
+  <data name="PhysicalStatus" xml:space="preserve">
+    <value>وضعیت جسمانی</value>
+  </data>
+  <data name="PlaceNumber" xml:space="preserve">
+    <value>پلاک</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>کد پستی</value>
+  </data>
+  <data name="PreUniversity" xml:space="preserve">
+    <value>پیش دانشگاهی</value>
+  </data>
+  <data name="PreviewAndConfirm" xml:space="preserve">
+    <value>تائید اطلاعات</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>چاپ اطلاعات</value>
+  </data>
+  <data name="PrintDetails" xml:space="preserve">
+    <value>پرینت اطلاعات</value>
+  </data>
+  <data name="ReapeatPassword_Not_Match" xml:space="preserve">
+    <value>رمز عبور و تکرار آن یکسان نیست</value>
+  </data>
+  <data name="Recommender" xml:space="preserve">
+    <value>معرف</value>
+  </data>
+  <data name="RecommenderCode" xml:space="preserve">
+    <value>کد معرف</value>
+  </data>
+  <data name="RecommenderInfo" xml:space="preserve">
+    <value>مشخصات معرف</value>
+  </data>
+  <data name="RefugeeBooklet" xml:space="preserve">
+    <value>دفترچه پناهندگی</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>رد شده</value>
+  </data>
+  <data name="RejectRequest" xml:space="preserve">
+    <value>رد درخواست</value>
+  </data>
+  <data name="RelatedPersonAdded" xml:space="preserve">
+    <value>عملیات با موفقیت انجام گرددید</value>
+  </data>
+  <data name="Relationship" xml:space="preserve">
+    <value>نسبت</value>
+  </data>
+  <data name="Relegion" xml:space="preserve">
+    <value>دین</value>
+  </data>
+  <data name="RepeatPassword" xml:space="preserve">
+    <value>تکرار کلمه عبور</value>
+  </data>
+  <data name="RequestDate" xml:space="preserve">
+    <value>تاریخ درخواست</value>
+  </data>
+  <data name="RequestDetails" xml:space="preserve">
+    <value>جزئیات درخواست</value>
+  </data>
+  <data name="RequestId" xml:space="preserve">
+    <value>شناسه درخواست</value>
+  </data>
+  <data name="RequestsHistory" xml:space="preserve">
+    <value>تاریخچه درخواست ها</value>
+  </data>
+  <data name="RequestStatus" xml:space="preserve">
+    <value>وضعیت درخواست</value>
+  </data>
+  <data name="RequestUpdated" xml:space="preserve">
+    <value>عملیات ویرایش با موفقیت انجام گرددید</value>
+  </data>
+  <data name="RequiredField_Astericks" xml:space="preserve">
+    <value>کاربر گرامی انتخاب موارد ستاره دار اجباری می باشد</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>بازگشت</value>
+  </data>
+  <data name="RowNumber" xml:space="preserve">
+    <value>ردیف</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>جستجو</value>
+  </data>
+  <data name="SearchForField" xml:space="preserve">
+    <value>جستجوی رشته</value>
+  </data>
+  <data name="SecondCitizenship" xml:space="preserve">
+    <value>تابعیت دوم</value>
+  </data>
+  <data name="Separated" xml:space="preserve">
+    <value>جدا شده</value>
+  </data>
+  <data name="Signup_Successfull" xml:space="preserve">
+    <value>ضمن خوش آمد گویی به شما دانشجوی محترم، حساب کاربری شما با موفقیت ایجاد گردید. لطفاً با مراجعه به ایمیل خود و کلیک بر روی لینک فعالسازی، وارد حساب کاربری خود شوید.</value>
+  </data>
+  <data name="Single" xml:space="preserve">
+    <value>مجرد</value>
+  </data>
+  <data name="Sister" xml:space="preserve">
+    <value>خواهر</value>
+  </data>
+  <data name="SizeOfFileIsInvalid_ErrorBody" xml:space="preserve">
+    <value>سایز فایل انتخابی باید کمتر از یک مگابایت باشد</value>
+  </data>
+  <data name="SizeOfFileIsInvalid_ErrorTitle" xml:space="preserve">
+    <value>سایز فایل نا معتبر</value>
+  </data>
+  <data name="Spouse" xml:space="preserve">
+    <value>همسر</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>استان</value>
+  </data>
+  <data name="Status_Alaki_Text" xml:space="preserve">
+    <value>در حال بررسی</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>خیابان و کوچه</value>
+  </data>
+  <data name="StudentName" xml:space="preserve">
+    <value>نام دانشجو</value>
+  </data>
+  <data name="SuccessOperation" xml:space="preserve">
+    <value>عملیات با موفقیت انجام شد</value>
+  </data>
+  <data name="TextAddrressInEmail" xml:space="preserve">
+    <value>ایران، تهران</value>
+  </data>
+  <data name="TextBesideImageInEmail" xml:space="preserve">
+    <value>&lt;span&gt;پوهنتون آزاد اسلامی &lt;br /&gt;&lt;span style="font-size:30px"&gt; واحد الکترونیکی&lt;/span&gt; &lt;/span&gt;</value>
+  </data>
+  <data name="TextCantactUsInEmail" xml:space="preserve">
+    <value>با ما در ارتباط باشید.</value>
+  </data>
+  <data name="TextConfirmationEmail" xml:space="preserve">
+    <value>لطفا ایمیل خود را از طریق لینک زیر تایید کنید</value>
+  </data>
+  <data name="TextHelloInEmail" xml:space="preserve">
+    <value>با سلام جناب آقای /سرکار خانوم</value>
+  </data>
+  <data name="TextHepleLinksInEmail" xml:space="preserve">
+    <value>برای کسب معلومات بیشتر در مورد نحوه تقاضا برای مقطع لیسانس و ماستری ، لطفا از لینک های زیر استفاده نمایید.</value>
+  </data>
+  <data name="TextInternationOfficeInEmail" xml:space="preserve">
+    <value>اداره بین الملل</value>
+  </data>
+  <data name="TextIRegLink" xml:space="preserve">
+    <value>International@iauec.ac.ir</value>
+  </data>
+  <data name="TextIregUrlInEmail" xml:space="preserve">
+    <value>آدرس وب سایت دانشگاه</value>
+  </data>
+  <data name="TextNoteInEmail" xml:space="preserve">
+    <value>این ایمیل از پوهنتون آزاد اسلامی  واحد الکترونیکی جهت اطلاع  شما ارسال شده است. لطفا به این آدرس ایمیل پاسخ ندهید.</value>
+  </data>
+  <data name="TextPhoneInEmail" xml:space="preserve">
+    <value>تلفن</value>
+  </data>
+  <data name="TextPohentenInEmail" xml:space="preserve">
+    <value>پوهنتون آزاد اسلامی واحد الکترونیکی</value>
+  </data>
+  <data name="TextRecoveryPasswordInEmail" xml:space="preserve">
+    <value>اگر رمز عبور خود را فراموش کردید می توانید آن را&lt;strong&gt;&lt;a href="#"&gt; بازیابی&lt;/a&gt;&lt;/strong&gt; نمایید.  </value>
+  </data>
+  <data name="TextThanksInEmail" xml:space="preserve">
+    <value>تشکر برای اقدام شما برای ثبت نام در پوهنتون آزاد اسلامی واحد الکترونیکی</value>
+  </data>
+  <data name="TextUserNameIEmail" xml:space="preserve">
+    <value>نام کاربری شما</value>
+  </data>
+  <data name="TextUsernameIsNecessaryInEmail" xml:space="preserve">
+    <value>لطفا نام کاربری خود را جهت ورود به سامانه انلاین و ادامه ثبت نام بخاطر بسپارید</value>
+  </data>
+  <data name="TextZipCodeInEmail" xml:space="preserve">
+    <value>صندوق پستی</value>
+  </data>
+  <data name="TotalAverage" xml:space="preserve">
+    <value>معدل کل</value>
+  </data>
+  <data name="Turkish" xml:space="preserve">
+    <value>ترکی</value>
+  </data>
+  <data name="TypeOfMarriage" xml:space="preserve">
+    <value>نوع ازدواج</value>
+  </data>
+  <data name="UniversityName" xml:space="preserve">
+    <value>نام دانشگاه</value>
+  </data>
+  <data name="Unofficial" xml:space="preserve">
+    <value>غیررسمی</value>
+  </data>
+  <data name="ValidationMessage_BachelorDocIsRequired" xml:space="preserve">
+    <value>بارگذاری مدرک کارشناسی برای مقطع انتخابی الزامی می باشد</value>
+  </data>
+  <data name="ValidationMessage_CurrentLevel" xml:space="preserve">
+    <value>مقطع جاری انتخاب نشده است</value>
+  </data>
+  <data name="ValidationMessage_DiplomaDocIsRequired" xml:space="preserve">
+    <value>بارگذاری مدرک دیپلم برای مقطع انتخابی الزامی می باشد</value>
+  </data>
+  <data name="ValidationMessage_LastEducationDegree" xml:space="preserve">
+    <value>آخرین مدرک تحصیلی انتخاب نشده است</value>
+  </data>
+  <data name="ValidationMessage_MasterDocIsRequired" xml:space="preserve">
+    <value>بارگذاری مدرک کارشناسی ارشد برای مقطع انتخابی الزامی می باشد</value>
+  </data>
+  <data name="ValidationMessage_PassportDocIsRequired" xml:space="preserve">
+    <value>بارگذاری مدرک گذرنامه الزامی می باشد</value>
+  </data>
+  <data name="ValidationMessage_PersonalPictureDocIsRequired" xml:space="preserve">
+    <value>بارگذاری مدرک عکس پرسنلی الزامی می باشد</value>
+  </data>
+  <data name="Veteran" xml:space="preserve">
+    <value>جانباز</value>
+  </data>
+  <data name="Widow" xml:space="preserve">
+    <value>بیوه</value>
+  </data>
+  <data name="WrittenAverage" xml:space="preserve">
+    <value>معدل کتبی</value>
+  </data>
+  <data name="WrongHash" xml:space="preserve">
+    <value>کد فعالسازی صحیح نیست.</value>
+  </data>
+  <data name="Zoroastrian" xml:space="preserve">
+    <value>زرتشتی</value>
+  </data>
+  <data name="UnKnown" xml:space="preserve">
+    <value>نامشخص</value>
+  </data>
+  <data name="btnShow" xml:space="preserve">
+    <value>نمایش</value>
+  </data>
+  <data name="AcceptRequestByExpert" xml:space="preserve">
+    <value>درخواست های تایید شده توسط کارشناس بین الملل</value>
+  </data>
+  <data name="FinalAcceptRequestByManager" xml:space="preserve">
+    <value> درخواست های تائید نهایی شده توسط مدیر بین الملل</value>
+  </data>
+  <data name="FirstAcceptRequestByManager" xml:space="preserve">
+    <value>درخواست های تائید اولیه شده توسط مدیر بین الملل</value>
+  </data>
+  <data name="InProgressRequests" xml:space="preserve">
+    <value>درخواست های در حال بررسی</value>
+  </data>
+  <data name="RejectRequestByExpert" xml:space="preserve">
+    <value>درخواست های رد شده توسط کارشناس بین الملل</value>
+  </data>
+  <data name="RejectRequestByManager" xml:space="preserve">
+    <value>درخواست های رد شده توسط مدیر بین الملل </value>
+  </data>
+  <data name="RequestStatusLabel" xml:space="preserve">
+    <value>وضعیت درخواست ها</value>
+  </data>
+  <data name="TermsLable" xml:space="preserve">
+    <value>ترم</value>
+  </data>
+  <data name="btnAcceptRequest" xml:space="preserve">
+    <value>تائیـــــــد</value>
+  </data>
+  <data name="btnRejectRequest" xml:space="preserve">
+    <value>رد</value>
+  </data>
+  <data name="AcceptTitle" xml:space="preserve">
+    <value>آیا از تایید درخواست انتخابی اطمینان دارید ؟</value>
+  </data>
+  <data name="btnSave" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="RejectTitle" xml:space="preserve">
+    <value>آیا از رد درخواست انتخابی اطمینان دارید ؟</value>
+  </data>
+  <data name="RequestNo" xml:space="preserve">
+    <value>شماره درخواست</value>
+  </data>
+  <data name="CountryID" xml:space="preserve">
+    <value>شناسه کشور </value>
+  </data>
+  <data name="InternationalOfficeExpertPanel" xml:space="preserve">
+    <value>پنل کارشناس اداره بین الملل</value>
+  </data>
+  <data name="InternationalOfficeManagerPanel" xml:space="preserve">
+    <value>پنل مدیر اداره بین الملل</value>
+  </data>
+  <data name="StudentNationality" xml:space="preserve">
+    <value>ملیت</value>
+  </data>
+  <data name="btnConfirmCandidateField" xml:space="preserve">
+    <value>تائیـــــــد</value>
+  </data>
+  <data name="Ex_Accepted" xml:space="preserve">
+    <value> درخواست های تائید شده توسط کارشناس بین الملل</value>
+  </data>
+  <data name="Ex_Rejected" xml:space="preserve">
+    <value> درخواست های رد شده توسط کارشناس بین الملل</value>
+  </data>
+  <data name="M_Enrollment_Accepted" xml:space="preserve">
+    <value> درخواست های تائید شده توسط مدیر اداره ثبت نام</value>
+  </data>
+  <data name="M_Enrollment_Rejected" xml:space="preserve">
+    <value> درخواست های رد شده توسط مدیر اداره ثبت نام</value>
+  </data>
+  <data name="M_Final_Accepted" xml:space="preserve">
+    <value> درخواست های تائید نهایی شده توسط مدیر بین الملل</value>
+  </data>
+  <data name="M_First_Accepted" xml:space="preserve">
+    <value> درخواست های تائید اولیه شده توسط مدیر بین الملل</value>
+  </data>
+  <data name="M_Rejected" xml:space="preserve">
+    <value> درخواست های رد شده توسط مدیر بین الملل</value>
+  </data>
+  <data name="EnrollmentOfficeManagerPanel" xml:space="preserve">
+    <value>پنل مدیر اداره ثبت نام</value>
+  </data>
+  <data name="Kardani" xml:space="preserve">
+    <value>کاردانی</value>
+  </data>
+  <data name="BirthDay" xml:space="preserve">
+    <value>سال تولد</value>
+  </data>
+  <data name="StudentCode" xml:space="preserve">
+    <value>کد دانشجویی</value>
+  </data>
+  <data name="KarshenasiArshadNaPeivasteh" xml:space="preserve">
+    <value>کارشناسی ارشد ناپیوسته</value>
+  </data>
+  <data name="KarshenasiArshadPeivasteh" xml:space="preserve">
+    <value>کارشناسی ارشد پیوسته</value>
+  </data>
+  <data name="KarshenasiNaPeivasteh" xml:space="preserve">
+    <value>کارشناسی ناپیوسته</value>
+  </data>
+  <data name="KarshenasiPeivasteh" xml:space="preserve">
+    <value>کارشناسی پیوسته</value>
+  </data>
+  <data name="Nationatity_Iran" xml:space="preserve">
+    <value>ایرانی</value>
+  </data>
+  <data name="Nationatity_NoIran" xml:space="preserve">
+    <value>غیر ایرانی</value>
+  </data>
+  <data name="PerfessionalDoctorate" xml:space="preserve">
+    <value>دکتری حرفه ای</value>
+  </data>
+  <data name="SpecialDoctorate" xml:space="preserve">
+    <value>دکتری تخصص</value>
+  </data>
+</root>

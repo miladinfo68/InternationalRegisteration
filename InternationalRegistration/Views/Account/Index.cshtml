@@ -1,0 +1,113 @@
+﻿@using ISR.Resources
+@{Layout = "~/Views/Shared/_Layout.cshtml";}
+@model ISR.web.Models.UserViewModel
+@{ViewBag.Title = Resources.LoginOrRegister;}
+@*@{
+    if (Session["Culture"] != null)
+    {
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(Session["Culture"].ToString());
+        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Session["Culture"].ToString());
+    }
+}*@
+
+<div id="contentHeight" class="col-md-12 contentBox">
+    <div class="row fullHeight">
+        <div class="col-md-5 contentRight">
+            <div class="loginBox">
+                @if (ViewBag.AccountActivated != null && ViewBag.AccountActivated)
+                {
+                    <div class="row">
+                        <div class="col-md-12 alert alert-success">@Resources.AccountActivated</div>
+                    </div>
+                }
+                @if (ViewBag.WrongHash != null && ViewBag.WrongHash)
+                {
+                    <div class="row">
+                        <div class="col-md-12 alert alert-danger">@Resources.WrongHash</div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-12 loginTitle">@Resources.Login_To_Your_Account</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 loginInfo">
+                        <div class="form-group">
+                            <input id="txtLoginUsername" type="text" class="form-control" placeholder="@Resources.Email" />
+                        </div>
+                        <div class="form-group">
+                            <input id="txtLoginPassword" type="password" class="form-control" placeholder="@Resources.Password" />
+                        </div>
+                        <input type="button" id="btnLogin" value="@Resources.Login" class="btn btn-info form-control" data-lang="@Session["lang"].ToString()" />
+                        <a href="/" id="btnForgetPassword" class="btn btn-link" data-lang="@Session["lang"].ToString()">@Resources.ForgetPassword</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 alert alert-danger loginError">
+
+                    </div>
+                </div>
+                <div class="Loading" id="loginLoading">
+                    <div><img class="loader-login" src="~/Content/images/loading.gif" alt="درحال بارگذاری"/></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 contentCenter">
+            <div class="centerOr">@Resources.OR</div>
+            <div class="centerLine"></div>
+        </div>
+        <div class="col-md-6 contentLeft">
+            <div class="signupBox">
+                <div class="row">
+                    <div class="col-md-12 signupTitle">@Resources.Create_Your_Account</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 alert alert-danger signupError"></div>
+                    <div class="col-md-12 alert alert-success signupSuccess"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 signupInfo">
+                        <div class="form-group">
+                            <input id="txtSignupFirstName" type="text" class="form-control" placeholder="@Resources.Firstname" />
+                        </div>
+                        <div class="form-group">
+                            <input id="txtSignupLastName" type="text" class="form-control" placeholder="@Resources.Lastname" />
+                        </div>
+                        <div class="form-group">
+                            @*<input id="txtSignupNationality" type="text" class="form-control" placeholder="@Resources.Citizenship" />*@
+                            @Html.DropDownList("CountryList", (SelectList)ViewBag.CountryList, Resources.Dropdown_Citizenship, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <select id="ddlLanguage" class="form-control">
+                                <option value="-1">-- @Resources.Language --</option>
+                                <option value="1">@Resources.Persian</option>
+                                <option value="2">@Resources.English</option>
+                                <option value="3">@Resources.Arabic</option>
+                                <option value="4">@Resources.Turkish</option>
+                                <option value="5">@Resources.Kurdish</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input id="txtSignupMobile" type="text" class="form-control digitsOnly" placeholder="@Resources.Mobile" maxlength="20" />
+                        </div>
+                        <div class="form-group">
+                            <input id="txtSignupEmail" type="text" class="form-control emailFormat" placeholder="@Resources.Email" maxlength="100" />
+                        </div>
+                        <div class="form-group">
+                            <input id="txtSignupPassword" type="password" class="form-control" placeholder="@Resources.Password" />
+                        </div>
+                        <div class="form-group">
+                            <input id="txtSignupPasswordRepeat" type="password" class="form-control" placeholder="@Resources.RepeatPassword" />
+                        </div>
+                        <input type="button" id="btnSignup" value="@Resources.CreateAccount" class="btn btn-success" data-lang="@Session["lang"].ToString()" />
+                    </div>
+                </div>
+
+                <div class="Loading" id="signupLoading">
+                    <div><img class="loader-signup" src="~/Content/images/loading.gif" alt="درحال بارگذاری" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

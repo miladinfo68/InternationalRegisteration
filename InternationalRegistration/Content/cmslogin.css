@@ -1,0 +1,152 @@
+﻿.rtl_dir{
+    direction:rtl;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.hide_alert{
+    display:none;
+}
+
+
+#frmLoginCms {
+    border: 3px solid #f1f1f1;
+    border-radius: 15px;
+    background: #dedede;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 50%;
+    height: 390px;
+}
+.cmslgn {
+    direction: ltr;
+}
+
+#frmLoginCms input[type=text], input[type=password] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+#btnLoginCms:focus {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.imgcontainer {
+    text-align: center;
+    padding-top: 1rem;
+}
+
+img.avatar {
+    /*width: 250px;
+    height: 200px;*/
+    width: 33%;
+    border-radius: 50%;
+}
+
+.login-wrapper {
+    direction: rtl;
+    text-align: right;
+    width: 100%;
+    box-shadow: 0 4px 2px -2px #bbb;
+    position: relative;
+    min-height: 668px;
+}
+
+    .login-wrapper button[type=submit] {
+        border-radius: 3px;
+    }
+
+/*.InprogressReq {
+    background-color: #c1c191bd !important;
+}
+
+.RejectedReq {
+    background-color: #e4c8c8 !important;
+}
+
+
+.AcceptedReq {
+    background-color: #b7ecbb !important;
+}*/
+
+
+/*===============================*/
+.left_div_middle_center {
+    display: flex !important;
+    align-items: center !important;
+    background: #acb3b4 !important;
+    justify-content:center;
+}
+.previewInfoRow2 {
+    border: 1px solid #b0b3b6;
+    background: #efefef;
+    margin-bottom: 10px !important;
+    box-shadow: 1px 2px 5px #4b2d2d;
+}
+
+.mobileTextBox2 {
+    width: 60%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    display: inline-block;
+    border-left: none;
+    direction: ltr;
+    text-align: left;
+}
+    .phoneCodeDropDown {
+    margin-top: 8px;
+    width:39% !important;
+}
+
+fieldset {
+    border: 0;
+    margin-top: 20px;
+}
+
+fieldset legend {
+   
+    display: inline-flex;
+    justify-content: center; 
+    background: #6b6770; 
+    border-radius: 5px;
+    box-shadow: 3px 4px 5px #582e2e;
+    color: #fff;
+}
+
+#prvFamilyFieldset select{
+    margin-top:8px;
+}
+
+#prvFamilyFieldset .tblRelatedPersons .theader {
+    background-color: #cccfce;
+}
+
+#prvFamilyFieldset .tblRelatedPersons .tbodyy {
+    background-color: #eadddc;
+}
+
+@media(max-width:768px) {
+    .imgcontainer {
+        text-align: center;
+        padding-top: 1rem;
+    }
+
+    img.avatar {
+        width: 50%;
+        /*height: 70%;*/
+        border-radius: 50%;
+    }
+}
+
+

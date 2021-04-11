@@ -1,0 +1,640 @@
+﻿@model List<ISR.web.Models.UserViewModel>
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+
+}
+<style>
+    .text_align_center {
+        text-align: center;
+    }
+
+    .a_resetpass_user {
+        margin-top: 5px;
+    }
+
+    .user_role_tble_margin {
+        margin: 0;
+        /*margin-bottom:20px;*/
+    }
+
+    .lbl {
+        font-size: 17px;
+        font-weight: bold;
+        text-align: right;
+        color: #474857;
+    }
+
+    .btn-wrapper1 {
+        width: 100%;
+        display: flex;
+        margin-bottom: 20px;
+        /*margin-right: 20px;*/
+    }
+
+    .btn-wrapper2 {
+        float: right;
+        margin-top: 20px;
+    }
+
+    .row-wapper {
+        margin-bottom: 20px;
+    }
+
+    .cls_warning_user {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .cls_warning_role {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+
+    .hide_alert {
+        visibility: hidden;
+    }
+
+    .show_alert {
+        visibility: visible;
+    }
+
+    table#tblAllUsers tr td:nth-child(4) {
+        text-align: right;
+    }
+
+    .tbl_Wrapper {
+        height: 500px;
+        overflow-y: auto;
+    }
+
+        .tbl_Wrapper thead th {
+            position: sticky;
+            top: 0;
+        }
+
+    .user_role_wraper {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    /*.role_box {
+        width: 97.33%;
+        margin-right: 15px;
+        margin-bottom: 1px;
+        line-height: 35px;
+    }
+
+    .role_box_inner {
+        background-color: #949fa9;
+        color: #fff;
+        border-radius: 2px;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+        .role_box_inner .fa {
+            margin-right: 20px;
+        }
+
+    .contentBox {
+        margin-top: 10px;
+    }
+
+    .inner_box {
+        margin-top: 20px;
+    }
+
+    .role_boxes {
+        display: none;
+    }
+
+    .role_headers {
+        background-color: #949fa9;
+        color: #45434e;
+        width: 97.33%;
+        margin-right: 15px;
+        margin-bottom: 1px;
+        line-height: 35px;
+    }
+
+        .role_headers h2 {
+            margin: auto;
+        }
+
+        .display_flex{
+            display:flex;
+        }*/
+    /*  -----------   _UserRoles css  -----------   */
+    .usersWrapper h2 {
+        text-align: center;
+        color: #8c8c8c;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .users {
+        width: 100%;
+        margin: auto;
+        /*margin-top: 100px;*/
+        padding: 10px;
+        border: 5px solid #ccc;
+    }
+
+    .user_item {
+        border-bottom: 1px solid #fff;
+        border-radius: 2px;
+        /*box-shadow: 1px 1px 1px 1px #aeafb3;*/
+    }
+
+        .user_item a {
+            display: block;
+            width: 100%;
+            background: #505365;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+        }
+
+    .user_item_title, .user_item_sign {
+        color: #fff;
+    }
+
+    .user_item a:hover {
+        cursor: pointer;
+    }
+
+    .user_roles_display_none {
+        display: none;
+    }
+
+    .display_show {
+        display: flex !important;
+    }
+
+    .trigger {
+        background-color: #76757b;
+        color: #fff;
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+    }
+
+        .trigger input[type=checkbox] {
+            margin-left: 10px;
+            transform: scale(1.2);
+        }
+
+        .trigger input[type=button] {
+            color: #021423;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+    .hight {
+        margin: 10px 0;
+    }
+</style>
+
+<div class="col-md-12 contentBox">
+    <div class="row inner_box">
+        <div class="user_role_wraper">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @Html.Partial("_UserRoles", (List<ISR.web.Models.UserRoleViewModel>)ViewBag.UserRoles)
+            </div>
+        </div>
+        <div class="row user_role_tble_margin">
+            <div class="col-lg-6 col-md-11 col-sm-12 col-xs-12">
+                <div class="btn-wrapper1">
+                    <a href="" id="a_add_user" class="btn btn-success" data-actiontype="1">افزودن کاربر جدید</a>
+                </div>
+                <div class="tbl_Wrapper">
+                    @Html.Partial("_Users", Model)
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-11 col-sm-12 col-xs-12">
+                <div class="btn-wrapper1">
+                    <a href="" id="a_add_role" class="btn btn-success" data-actiontype="5">افزودن نقش جدید</a>
+                </div>
+                <div class="tbl_Wrapper">
+                    @Html.Partial("_Roles", (List<ISR.web.Models.RoleViewModel>)ViewBag.Roles)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- User Modal -->
+<div class="modal fade" id="modal_crud_user" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row justify-content-between">
+                <div class="col-12">
+                    <div class="col-5">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row modal-body">
+                <div class="col-12">
+                    <input type="hidden" id="hdn_UserId" />
+                    <input type="hidden" id="hdn_ActionType_User" />
+                    <div class="row-wapper alert alert-danger hide_alert cls_warning_user"></div>
+                    <div class="row-wapper">
+                        <div class="col-sm-4 lbl">نام کاربری</div>
+                        <div class="col-sm-12">
+                            <input type="text" name="txtUsrNm" id="txtUsrNm" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row-wapper">
+                        <div class="col-sm-4 lbl">نام نمایشی</div>
+                        <div class="col-sm-12">
+                            <input type="text" name="txtUserDisplayName" id="txtUserDisplayName" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row-wapper">
+                        <div class="col-sm-4 lbl">گذرواژه </div>
+                        <div class="col-sm-12">
+                            <input type="text" name="txtPwd" id="txtPwd" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="btn-wrapper2">                          
+                            <button id="btnCrud_User_Save" class="btn btn-success">تاییـــد</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Role Modal -->
+<div class="modal fade" id="modal_crud_role" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row justify-content-between">
+                <div class="col-12">
+                    <div class="col-5">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="row modal-body">
+                <div class="col-12">
+                    <input type="hidden" id="hdn_RoleId" />
+                    <input type="hidden" id="hdn_ActionType_Role" />
+                    <div class="row-wapper alert alert-danger hide_alert cls_warning_role"></div>
+                    <div class="row-wapper">
+                        <div class="col-sm-4 lbl">نام نقش</div>
+                        <div class="col-sm-12">
+                            <input type="text" name="txtRoleName" id="txtRoleName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row-wapper">
+                        <div class="col-sm-4 lbl">نام نمایشی</div>
+                        <div class="col-sm-12">
+                            <input type="text" name="txtRoleDisplayName" id="txtRoleDisplayName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row-wapper">
+                        <div class="col-sm-12 lbl">
+                            <label for="chkRoleActive">فعال/غیرفعال</label>
+                            <input type="checkbox" name="chkRoleActive" id="chkRoleActive" />
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="btn-wrapper2">
+                            <button id="btnCrud_Role_Save" class="btn btn-success">تاییـــد</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+        var actionType_add_user = "1"
+            , actionType_edit_user = "2"
+            , actionType_remove_user = "3"
+            , actionType_resetPass_user = "4"
+            //------------------------------
+            , actionType_add_role = "5"
+            , actionType_edit_role = "6"
+            , actionType_remove_role = "7";
+
+        function bindUserModalData(userId = '', userName = '', displayName = '', pass = '', actionType = '') {
+            $("#hdn_UserId").val(userId);
+            $("#txtUsrNm").val(userName);
+            $("#txtUserDisplayName").val(displayName);
+            $("#txtPwd").val(pass);
+            $("#hdn_ActionType_User").val(actionType);
+        }
+
+        function bindRoleModalData(roleId = '', roleName = '', displayName = '', isActive = false, actionType = '') {
+            $("#hdn_RoleId").val(roleId);
+            $("#txtRoleName").val(roleName);
+            $("#txtRoleDisplayName").val(displayName);
+            $("#chkRoleActive").prop("checked", isActive);
+            $("#hdn_ActionType_Role").val(actionType);
+        }
+
+        $(function () {
+            bindUserModalData();
+            bindRoleModalData();
+
+
+            $(".user_item a").on("click", function (e) {
+                e.preventDefault();
+                var $a = $(this);
+
+                if ($a.find("i").hasClass("fa-plus")) {
+                    $a.find("i").removeClass("fa-plus").addClass("fa-minus");
+                } else {
+                    $a.find("i").removeClass("fa-minus").addClass("fa-plus");
+                }
+
+                $a.siblings(".trigger").slideToggle();
+            });
+
+            $("input[type='button']").on("click", function (e) {
+                var checkedRoles = [];
+                $.each($(this).siblings().find(":checked"), (index, val) => {
+                    checkedRoles.push($(val).attr("data-roleid"));
+                });
+                var uId = $(this).attr("data-userId");
+                //console.log("userId=" + uId + " roles =====> " + checkedRoles.join(","));
+
+                $.ajax({
+                    url: '/fa/UserRoleManagement/AddOrUpdateRoles',
+                    type: 'post',
+                    data: { 'userId': uId, 'rolesList': checkedRoles.join(",") },
+                    success: function (data) {
+                        debugger;
+                        if (data) {
+                            window.location = window.location;
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error");
+                    }
+                });
+            });
+
+
+        });
+
+        //###########################
+
+        $("#a_add_user").on("click", function (e) {
+            e.preventDefault();
+
+            if ($(this).attr("data-actiontype") == actionType_add_user) {//افزودن کاربر
+                bindUserModalData('', '', '', '', actionType_add_user);
+                $(".cls_warning_user").removeClass("hide_alert").addClass("show_alert").html("<span>افزودن کاربر جدید</span>");
+                $("#modal_crud_user").modal('show');
+            }
+        });
+
+        //###########################
+
+        $(".a_edit_user").on("click", function (e) {
+            e.preventDefault();
+            var btn_type = $(this).attr("data-actiontype");
+            if (btn_type == actionType_edit_user) {//ویرایش کاربر
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: '/fa/UserRoleManagement/GetUserInfo',
+                    type: 'post',
+                    data: { 'id': id },
+                    success: function (data) {
+                        debugger;
+                        if (data) {
+                            bindUserModalData();
+                            //$(".cls_warning_user").removeClass("hide_alert").addClass("show_alert");
+                            $(".cls_warning_user").removeClass("hide_alert").addClass("show_alert").html("<span>آیا از ویرایش کاربر انتخابی اطمینان دارید؟</span>");
+                            bindUserModalData(id, data.Result.Username, data.Result.DisplayName, data.Result.Password, actionType_edit_user);
+
+                            $("#txtUsrNm").prop("disabled", false);
+                            $("#txtUserDisplayName").prop("disabled", false);
+                            $("#txtPwd").prop("disabled", false);
+                            $("#modal_crud_user").modal('show');
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+        //###########################
+
+        $(".a_delete_user").on("click", function (e) {
+            e.preventDefault();
+            var btn_type = $(this).attr("data-actiontype");
+            if (btn_type == actionType_remove_user) {//حذف کاربر
+                debugger;
+                var id = $(this).attr("data-id");
+
+                $.ajax({
+                    url: '/fa/UserRoleManagement/GetUserInfo',
+                    type: 'post',
+                    data: { 'id': id },
+                    success: function (data) {
+                        debugger;
+                        if (data) {
+                            bindUserModalData();
+                            $(".cls_warning_user").removeClass("hide_alert").addClass("show_alert").html("<span>آیا از حذف کاربر انتخابی اطمینان دارید؟</span>");
+                            bindUserModalData(id, data.Result.Username, data.Result.DisplayName, data.Result.Password, actionType_remove_user);
+
+                            $("#txtUsrNm").prop("disabled", true);
+                            $("#txtUserDisplayName").prop("disabled", true);
+                            $("#txtPwd").prop("disabled", true);
+                            $("#modal_crud_user").modal('show');
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+        //###########################
+
+        $(".a_resetpass_user").on("click", function (e) {
+            e.preventDefault();
+            var btn_type = $(this).attr("data-actiontype");
+            if (btn_type == actionType_resetPass_user) {//resetPassword
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: '/fa/UserRoleManagement/GetUserInfo',
+                    type: 'post',
+                    data: { 'id': id },
+                    success: function (data) {
+                        debugger;
+                        if (data) {
+                            bindUserModalData();
+
+                            $(".cls_warning_user").removeClass("hide_alert").addClass("show_alert").html("<span>آیا از پاک کردن رمز عبور کاربر انتخابی اظمینان دارید؟</span>");
+                            bindUserModalData(id, data.Result.Username, data.Result.DisplayName, data.Result.Password, actionType_resetPass_user);
+
+                            $("#txtUsrNm").prop("disabled", true);
+                            $("#txtUserDisplayName").prop("disabled", true);
+                            $("#txtPwd").prop("disabled", true);
+                            $("#modal_crud_user").modal('show');
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+        //###########################
+
+        $("#btnCrud_User_Save").on("click", function (e) {
+
+            var userId = $("#hdn_UserId").val();
+            var username = $("#txtUsrNm").val();
+            var userDisplayName = $("#txtUserDisplayName").val();
+            var pwd = $("#txtPwd").val();
+            var actionType = $("#hdn_ActionType_User").val();
+
+            $.ajax({
+                url: '/fa/UserRoleManagement/CRUD_User',
+                type: 'post',
+                data: { 'id': userId, 'username': username, 'displayname': userDisplayName, 'password': pwd, 'actionType': actionType },
+                success: function (data) {
+                    bindUserModalData();
+                     window.location = window.location;
+                    //$("#modal_crud_user").modal('hide');
+                    ////================================
+                    //$(".tbl_users").html('');
+                    //$(".tbl_users").html(data);
+
+                },
+                error: function (error) {
+                    alert("Error");
+                }
+            });
+        });
+        //###########################
+        //###########################
+        //###########################
+        //###########################
+
+        $("#a_add_role").on("click", function (e) {
+            e.preventDefault();
+
+            if ($(this).attr("data-actiontype") == actionType_add_role) {//افزودن نقش
+                $("#hdn_ActionType_Role").val(actionType_add_role);
+                $(".cls_warning_role").removeClass("hide_alert").addClass("show_alert").html("<span>افزودن نقش جدید</span>");
+                $("#modal_crud_role").modal('show');
+            }
+        });
+        //###########################
+
+        $(".a_edit_role").on("click", function (e) {
+            e.preventDefault();
+            var btn_type = $(this).attr("data-actiontype");
+            if (btn_type == actionType_edit_role) {//ویرایش نقش
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: '/fa/UserRoleManagement/GetRoleInfo',
+                    type: 'post',
+                    data: { 'id': id },
+                    success: function (data) {
+                        debugger;
+                        if (data) {
+                            bindRoleModalData();
+                            $(".cls_warning_role").removeClass("hide_alert").addClass("show_alert").html("<span>آیا از ویرایش نقش انتخابی اطمینان دارید؟</span>");
+                            bindRoleModalData(data.Result.RoleId, data.Result.RoleName, data.Result.DisplayName, data.Result.Active, actionType_edit_role);
+
+                            $("#txtRoleName").prop("disabled", false);
+                            $("#txtRoleDisplayName").prop("disabled", false);
+                            $("#chkRoleActive").prop("disabled", false);
+                            $("#modal_crud_role").modal('show');
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+        //###########################
+
+        $(".a_delete_role").on("click", function (e) {
+            debugger;
+            e.preventDefault();
+            var btn_type = $(this).attr("data-actiontype");
+            if (btn_type == actionType_remove_role) {//حذف نقش
+                var id = $(this).attr("data-id");
+                $.ajax({
+                    url: '/fa/UserRoleManagement/GetRoleInfo',
+                    type: 'post',
+                    data: { 'id': id },
+                    success: function (data) {
+                        debugger;
+                        if (data) {
+                            bindRoleModalData();
+                            $(".cls_warning_role").removeClass("hide_alert").addClass("show_alert").html("<span>آیا از حذف نقش انتخابی اطمینان دارید؟</span>");
+                            bindRoleModalData(data.Result.RoleId, data.Result.RoleName, data.Result.DisplayName, data.Result.Active, actionType_remove_role);
+
+                            $("#txtRoleName").prop("disabled", true);
+                            $("#txtRoleDisplayName").prop("disabled", true);
+                            $("#chkRoleActive").prop("disabled", true);
+                            $("#modal_crud_role").modal('show');
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+        //###########################
+
+        $("#btnCrud_Role_Save").on("click", function (e) {
+            var roleId = $("#hdn_RoleId").val();
+            var roleName = $("#txtRoleName").val();
+            var displayName = $("#txtRoleDisplayName").val();
+            var isActive = $('#chkRoleActive').is(":checked");
+            var actionType_role = $("#hdn_ActionType_Role").val();
+
+            $.ajax({
+                url: '/fa/UserRoleManagement/CRUD_Role',
+                type: 'post',
+                data: { 'id': roleId, 'rolename': roleName, 'displayname': displayName, 'active': isActive, 'actionType': actionType_role },
+                success: function (data) {
+                    bindRoleModalData();
+                    window.location = window.location;
+                    //$("#modal_crud_role").modal('hide');
+                    ////================================
+                    //$(".tbl_roles").html('');
+                    //$(".tbl_roles").html(data);
+
+                },
+                error: function (error) {
+                    alert("Error");
+                }
+            });
+        });
+                                                            //###########################
+
+    </script>
+}
+

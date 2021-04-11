@@ -1,0 +1,49 @@
+﻿@using ISR.Resources
+@model List<ISR.web.Models.NewStudentViewModel>
+<table id="tblNewStudent" class="table table-responsive table-bordered bg-ddd">
+    <thead>
+        <tr>
+            <td>ردیف</td>
+            <td>شماره دانشجویی</td>
+            <td>شماره درخواست</td>
+            <td>نام </td>
+            <td>نام خانوادگی</td>
+            <td>نام پدر</td>
+            <td>کد رشته</td>
+            <td>عنوان رشته</td>
+            <td>مقطع</td>
+            @*<td>سال تولد</td>*@
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null && Model.Count() > 0)
+            {
+                var bgcolor = "class=table-success";
+                var i = 0;
+                foreach (var item in Model)
+                {
+                    bgcolor = (i % 2) == 0 ? "class=table-success" : "class=table-danger";
+                <tr @bgcolor>
+                    <td>@(i + 1)</td>
+                    <td>@item.StudentCode</td>
+                    <td>@item.RequestId</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.FatherName</td>
+                    <td>@item.FeildIdSazman</td>
+                    <td>@item.FeildTitle</td>
+                    <td>@item.GraduateLevelTitle</td>
+                    @*<td>@item.BirthDate</td>*@
+                    <td>
+                        @Html.ActionLink(@Resources.RequestDetails, "RequestDetails", "InternationalManager", new { id = item.StudentCode }, new { @class = "btn btn-info b_show" ,@studentCode=item.StudentCode})
+                    </td>
+                </tr>
+                    i += 1;
+                }
+            }
+        }
+    </tbody>
+</table>
+
